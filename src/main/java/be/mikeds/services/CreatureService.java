@@ -15,4 +15,6 @@ public interface CreatureService {
     List<Creature> getCreatures();
     List<Creature> calculateInitiative();
     void resetCreatures();
+
+    void shiftCreaturesLeft();
 }

@@ -65,5 +65,11 @@ public class CreatureResource {
     public List<Creature> calculateInitiative() {
         return creatureService.calculateInitiative();
     }
+
+    @POST
+    @Path("/next")
+    public void nextTurn() {
+        creatureService.shiftCreaturesLeft();
+    }
 }
 

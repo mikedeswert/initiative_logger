@@ -1,7 +1,8 @@
 angular.module('initiativeRollerModule')
-    .controller('AdminController', ['$scope', 'restService', 'messageService', 'creatureFactory', function($scope, restService, messageService, creatureFactory) {
+    .controller('AdminController', ['$scope', 'restService', 'messageService', 'pageService', 'creatureFactory', function($scope, restService, messageService, pageService, creatureFactory) {
         $scope.creatures = [];
         $scope.messageService = messageService;
+        $scope.pageService = pageService;
         $scope.newCreature = {};
         $scope.isAdminControlsOpen = true;
 
@@ -66,9 +67,10 @@ angular.module('initiativeRollerModule')
         };
 
         $scope.resetCreatures = function() {
-            restService.get('/rest/creature/reset')
+            restService.post('/rest/creature/reset', null)
                         .then(
                             function() {
+                                getCreatures();
                             },
                             function() {
                                 messageService.addErrorMessage('Something went wrong while resetting the creatures. Please refresh the page to try again. \n' +

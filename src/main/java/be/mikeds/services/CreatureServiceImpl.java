@@ -48,7 +48,7 @@ public class CreatureServiceImpl implements CreatureService {
     @Override
     public List<Creature> calculateInitiative() {
         for (Creature creature : creatures) {
-            if(creature.getCalculatedInitiative() == 0) {
+            if (creature.getCalculatedInitiative() == 0) {
                 creature.setCalculatedInitiative(diceRollerService.roll(1, TWENTY_SIDED) + creature.getInitiative());
             }
         }
@@ -66,6 +66,14 @@ public class CreatureServiceImpl implements CreatureService {
     @Override
     public void resetCreatures() {
         creatures = new ArrayList<>();
+    }
+
+    @Override
+    public void shiftCreaturesLeft() {
+        if (creatures.size() > 1) {
+            creatures.add(creatures.get(0));
+            creatures.remove(0);
+        }
     }
 
 

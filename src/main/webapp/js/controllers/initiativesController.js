@@ -1,18 +1,58 @@
 angular.module('initiativeRollerModule')
-    .controller('InitiativesController', ['$scope', 'restService', 'messageService', function($scope, restService, messageService) {
+    .controller('InitiativesController', ['$scope', '$animate', 'restService', 'messageService', 'pageService', function($scope, $animate, restService, messageService, pageService) {
         $scope.creatures = [];
         $scope.messageService = messageService;
+        $scope.pageService = pageService;
 
         $scope.init = function() {
             messageService.clearMessages();
-            restService.get('/rest/creature/calculate')
-                       .then(
-                           function(response) {
-                               $scope.creatures = response.data;
-                           },
-                           function() {
-                               messageService.addErrorMessage('Something went wrong while retrieving the calculated initiatives. Please refresh the page to try again.');
-                           }
-                       );
+            getCreatures();
         };
+
+        $scope.getCreatureClass = function(index) {
+            if(index == 0) {
+                return 'bg-primary well-lg first';
+            }
+
+            return 'well-sm';
+        };
+
+        $scope.getInitiativeClass = function(index) {
+            if(index == 0) {
+                return 'label-warning';
+            }
+
+            return 'label-default';
+        };
+
+        $scope.nextTurn = function(index) {
+            if(index == 0) {
+                restService.post('/rest/creature/next', null)
+                            .then(
+                                function () {
+                                    if($scope.creatures.length > 1) {
+                                            var creature = angular.copy($scope.creatures[0]);
+                                            $scope.creatures.splice(0, 1);
+                                        $scope.creatures.push(creature);
+                                    }
+                                },
+                                function () {
+                                    messageService.addErrorMessage('Something went wrong while trying to go to the next turn. Please try again. \n' +
+                                        'If the problem persists, contact the site administrator.')
+                                }
+                            );
+            }
+        };
+
+        function getCreatures() {
+            restService.get('/rest/creature/')
+                .then(
+                function(response) {
+                    $scope.creatures = response.data;
+                },
+                function() {
+                    messageService.addErrorMessage('Something went wrong while retrieving the creatures. Please refresh the page to try again.');
+                }
+            );
+        }
     }]);

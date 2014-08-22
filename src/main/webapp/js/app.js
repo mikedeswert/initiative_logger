@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('initiativeRollerApp', ['initiativeRollerModule', 'restModule', 'messageModule', 'directivesModule', 'ui.bootstrap', 'ngRoute']);
+angular.module('initiativeRollerApp', ['initiativeRollerModule', 'restModule', 'messageModule', 'directivesModule', 'ui.bootstrap', 'ngRoute', 'ngAnimate', 'ngTouch']);
 angular.module('initiativeRollerModule', []);
 angular.module('restModule', []);
 angular.module('messageModule', []);
