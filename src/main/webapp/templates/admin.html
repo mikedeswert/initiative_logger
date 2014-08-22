@@ -8,7 +8,7 @@
         </div>
     </div>
     <div id="adminControls" class="panel-group">
-        <accordion close-others="oneAtATime">
+        <accordion close-others="false">
             <accordion-group heading="Add creature" is-open="isAdminControlsOpen" is-disabled="false">
                 <form class="form-horizontal" role="form">
                     <div class="form-group">
@@ -17,7 +17,8 @@
                         <div class="col-sm-4">
                             <input id="creatureName" type="text" class="form-control" placeholder="Creature name"
                                    ng-model="newCreature.name"
-                                   ng-enter="createCreature()">
+                                   ng-enter="createCreature()"
+                                   focus-on="focusName">
                         </div>
                     </div>
                     <div class="form-group">
@@ -95,6 +96,6 @@
         </table>
 
     </div>
-    <!-- TODO: add clear functionality -->
-    <button class="btn btn-danger" ng-click="clearCreatures()">Clear</button>
+    <button class="btn btn-default" ng-click="calculateInitiatives()">Calculate</button>
+    <button class="btn btn-danger" ng-click="resetCreatures()">Reset</button>
 </div>

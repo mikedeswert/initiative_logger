@@ -10,6 +10,8 @@ angular.module('initiativeRollerModule')
             $scope.newCreature = creatureFactory.createDefaultCreature();
 
             getCreatures();
+
+            $scope.$broadcast('focusName');
         };
 
         $scope.createCreature = function() {
@@ -25,10 +27,14 @@ angular.module('initiativeRollerModule')
                             getCreatures();
                         },
                         function () {
-                            messageService.addErrorMessage('Something went wrong while saving the creature. Please try again later. \n' +
+                            messageService.addErrorMessage('Something went wrong while saving the creature. Please refresh the page to try again. \n' +
                                 '                           If the problem persists, please contact a site administrator.');
                         }
-                    );
+                ).then(
+                    function() {
+                        $scope.$broadcast('focusName');
+                    }
+                );
             }
         };
 
@@ -37,13 +43,38 @@ angular.module('initiativeRollerModule')
                        .then(
                            function() {
                                messageService.addSuccessMessage('Creature was successfully deleted.');
-                               $scope.creatures = getCreatures()
+                               getCreatures()
                            },
                            function() {
-                               messageService.addErrorMessage('Something went wrong while deleting the creature. Please try again later. \n' +
+                               messageService.addErrorMessage('Something went wrong while deleting the creature. Please refresh the page to try again. \n' +
                                    '                           If the problem persists, please contact a site administrator.')
                            }
                        );
+        };
+
+        $scope.calculateInitiatives = function() {
+            restService.get('/rest/creature/calculate')
+                       .then(
+                           function(response) {
+                               $scope.creatures = response.data;
+                           },
+                           function() {
+                               messageService.addErrorMessage('Something went wrong while retrieving the calculated initiatives. Please refresh the page to try again. \n' +
+                                   '                           If the problem persists, please contact a site administrator.');
+                           }
+                       );
+        };
+
+        $scope.resetCreatures = function() {
+            restService.get('/rest/creature/reset')
+                        .then(
+                            function() {
+                            },
+                            function() {
+                                messageService.addErrorMessage('Something went wrong while resetting the creatures. Please refresh the page to try again. \n' +
+                                    '                           If the problem persists, please contact a site administrator.');
+                            }
+                        );
         };
 
         $scope.isCreatureValid = function(creature) {

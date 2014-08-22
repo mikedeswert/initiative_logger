@@ -1,4 +1,4 @@
-angular.module('initiativeRollerModule').directive('ngEnter', function() {
+angular.module('directivesModule').directive('ngEnter', function() {
     return function(scope, element, attrs) {
         element.bind("keydown keypress", function(event) {
             if(event.which === 13) {

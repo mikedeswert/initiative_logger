@@ -1,9 +1,10 @@
 'use strict';
 
-angular.module('initiativeRollerApp', ['initiativeRollerModule', 'restModule', 'messageModule', 'ui.bootstrap', 'ngRoute']);
+angular.module('initiativeRollerApp', ['initiativeRollerModule', 'restModule', 'messageModule', 'directivesModule', 'ui.bootstrap', 'ngRoute']);
 angular.module('initiativeRollerModule', []);
 angular.module('restModule', []);
 angular.module('messageModule', []);
+angular.module('directivesModule', []);
 
 angular.module('initiativeRollerApp')
     .config(['$routeProvider', function($routeProvider) {
