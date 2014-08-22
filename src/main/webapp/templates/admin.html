@@ -1,0 +1,100 @@
+<div class="col-md-12" ng-init="init()">
+    <div ng-repeat="message in messageService.getMessages()">
+        <div ng-class="message.class">
+            <button type="button" class="close" data-dismiss="alert"
+                    ng-click="messageService.removeMessage(message)"><span
+                    aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            {{message.text}}
+        </div>
+    </div>
+    <div id="adminControls" class="panel-group">
+        <accordion close-others="oneAtATime">
+            <accordion-group heading="Add creature" is-open="isAdminControlsOpen" is-disabled="false">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="creatureName">Name</label>
+
+                        <div class="col-sm-4">
+                            <input id="creatureName" type="text" class="form-control" placeholder="Creature name"
+                                   ng-model="newCreature.name"
+                                   ng-enter="createCreature()">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="creatureType">Type</label>
+
+                        <div class="col-sm-4">
+                            <select id="creatureType" class="form-control" ng-model="newCreature.type">
+                                <option value="monster">Monster</option>
+                                <option value="player">Player</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="newCreature.type == 'monster'">
+                        <label class="col-sm-2 control-label" for="creatureInitiative">Initiative</label>
+
+                        <div class="col-sm-4">
+                            <input id="creatureInitiative" type="number" class="form-control"
+                                   ng-model="newCreature.initiative"
+                                   ng-enter="createCreature()"/>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="newCreature.type == 'player'">
+                        <label class="col-sm-2 control-label" for="creatureCalculatedInitiative">Calculated
+                            initiative</label>
+
+                        <div class="col-sm-4">
+                            <input id="creatureCalculatedInitiative" class="form-control"
+                                   ng-model="newCreature.calculatedInitiative"
+                                   ng-enter="createCreature()"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="button" class="btn btn-primary" ng-click="createCreature()"
+                                    ng-disabled="isCreatureNotValid(newCreature)">Create
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </accordion-group>
+        </accordion>
+    </div>
+
+    <div id="creatureOverview" class="panel panel-default">
+        <div class="panel-heading">Creatures</div>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="col-sm-2">Calculated initiative</th>
+                <th>Name</th>
+                <th>Initiative</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="creature in creatures | orderBy : creature.calculatedInitiative">
+                <td>{{creature.calculatedInitiative}}</td>
+                <td>{{creature.name}}</td>
+                <td>{{creature.initiative}}</td>
+                <td>
+                    <div class="btn-group right">
+                        <button type="button" class="btn btn-default" ng-click="deleteCreature(creature)"><span
+                                class="glyphicon glyphicon-trash"></span></button>
+                    </div>
+                </td>
+            </tr>
+            <tr ng-if="creatures.length == 0">
+                <td>There are no creatures yet</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <!-- TODO: add clear functionality -->
+    <button class="btn btn-danger" ng-click="clearCreatures()">Clear</button>
+</div>

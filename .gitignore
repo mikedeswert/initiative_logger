@@ -1,0 +1,22 @@
+*.class
+*.log
+target
+
+# Eclipse project files
+.classpath
+.project
+.settings
+.externalToolBuilders
+.springBeans
+
+# mac
+.DS_Store
+
+# IntelliJ project files
+.idea
+*.iml
+
+# Package files
+*.jar
+*.war
+*.ear
