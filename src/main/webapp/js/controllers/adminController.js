@@ -11,7 +11,7 @@ angular.module('initiativeRollerModule')
             messageService.clearMessages();
             $scope.newCreature = creatureFactory.createDefaultCreature();
 
-            getCreatures();
+            $scope.getCreatures();
 
             $scope.$broadcast('focusName');
         };
@@ -26,7 +26,7 @@ angular.module('initiativeRollerModule')
                         function () {
                             messageService.addSuccessMessage('The creature was successfully saved.');
                             $scope.newCreature = creatureFactory.createDefaultCreature();
-                            getCreatures();
+                            $scope.getCreatures();
                         },
                         function () {
                             messageService.addErrorMessage('Something went wrong while saving the creature. Please refresh the page to try again. \n' +
@@ -45,7 +45,7 @@ angular.module('initiativeRollerModule')
                        .then(
                            function() {
                                messageService.addSuccessMessage('Creature was successfully deleted.');
-                               getCreatures()
+                               $scope.getCreatures()
                            },
                            function() {
                                messageService.addErrorMessage('Something went wrong while deleting the creature. Please refresh the page to try again. \n' +
@@ -71,7 +71,7 @@ angular.module('initiativeRollerModule')
             restService.post('/rest/creature/reset', null)
                         .then(
                             function() {
-                                getCreatures();
+                                $scope.getCreatures();
                             },
                             function() {
                                 messageService.addErrorMessage('Something went wrong while resetting the creatures. Please refresh the page to try again. \n' +
@@ -105,7 +105,7 @@ angular.module('initiativeRollerModule')
             event.stopPropagation();
         };
 
-        function getCreatures() {
+        $scope.getCreatures = function() {
             restService.get('/rest/creature/')
                 .then(
                 function(response) {

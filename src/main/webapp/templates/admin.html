@@ -75,16 +75,17 @@
                     </button>
                 </div>
             </accordion-heading>
-            <form role="form" class="console">
+            <form role="form" class="console" ng-controller="ConsoleController" ng-init="init()">
                 <div class="form-group console-feedback">
-                    <textarea readonly rows="20" class="form-control"></textarea>
+                    <textarea readonly rows="20" class="form-control" ng-model="feedback" show-tail></textarea>
                 </div>
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon">&gt;</span>
                         <input type="text" class="form-control"
                                placeholder="Enter command (type 'help' for list of commands)"
-                               ng-enter="enterCommand">
+                               ng-enter="sendInput()"
+                               ng-model="input">
                     </div>
                 </div>
             </form>

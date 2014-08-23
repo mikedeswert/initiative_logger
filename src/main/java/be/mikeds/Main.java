@@ -1,5 +1,6 @@
 package be.mikeds;
 
+import be.mikeds.enums.Command;
 import be.mikeds.model.Creature;
 import be.mikeds.services.DiceRollerService;
 import be.mikeds.services.DiceRollerServiceImpl;
