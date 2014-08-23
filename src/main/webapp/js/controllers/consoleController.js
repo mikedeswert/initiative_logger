@@ -8,6 +8,7 @@ angular.module('consoleModule')
         };
 
         $scope.sendInput = function () {
+            $scope.feedback += '> ' + $scope.input + '\n';
             restService.post('/rest/console/send?input=' + $scope.input, null)
                 .then(function (response) {
                     $scope.feedback += response.data;

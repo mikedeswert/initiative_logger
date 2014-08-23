@@ -3,13 +3,18 @@ angular.module('initiativeRollerModule')
         $scope.creatures = [];
         $scope.messageService = messageService;
         $scope.pageService = pageService;
-        $scope.newCreature = {};
-        $scope.isAdminControlsOpen = true;
+        $scope.newCreature;
+        $scope.creatureToUpdate;
+        $scope.isAddCreatureExpanded = true;
+        $scope.isConsoleExpanded = true;
+        $scope.isUpdateCreatureExpanded = true;
         $scope.isConsoleOpen = false;
+        $scope.isUpdateOpen = false;
 
         $scope.init = function() {
             messageService.clearMessages();
             $scope.newCreature = creatureFactory.createDefaultCreature();
+            $scope.creatureToUpdate = creatureFactory.createDefaultCreature();
 
             $scope.getCreatures();
 
@@ -67,6 +72,46 @@ angular.module('initiativeRollerModule')
                        );
         };
 
+        $scope.updateCreature = function() {
+            if($scope.isCreatureValid($scope.creatureToUpdate)) {
+                restService.post('/rest/creature/update/' + $scope.creatureToUpdate.oldName +
+                    '?newName=' + $scope.creatureToUpdate.name +
+                    '&initiative=' + $scope.creatureToUpdate.initiative +
+                    '&calculatedInitiative=' + $scope.creatureToUpdate.calculatedInitiative, null)
+                    .then(
+                    function () {
+                        messageService.addSuccessMessage('The creature was successfully updated.');
+                        $scope.creatureToUpdate = creatureFactory.createDefaultCreature();
+                        $scope.closeUpdate();
+                        $scope.getCreatures();
+                    },
+                    function () {
+                        messageService.addErrorMessage('Something went wrong while updating the creature. Please refresh the page to try again. \n' +
+                            '                           If the problem persists, please contact a site administrator.');
+                    }
+                ).then(
+                    function() {
+                        $scope.$broadcast('focusName');
+                    }
+                );
+            }
+        };
+
+        $scope.selectCreatureToUpdate = function(creature) {
+            $scope.creatureToUpdate = angular.copy(creature);
+            $scope.creatureToUpdate.oldName = angular.copy($scope.creatureToUpdate.name);
+            $scope.isUpdateOpen = true;
+        };
+
+        $scope.closeUpdate = function() {
+            $scope.creatureToUpdate = creatureFactory.createDefaultCreature();
+            $scope.isUpdateOpen = false;
+        };
+
+        $scope.isSelected = function(creature) {
+            return creature.name == $scope.creatureToUpdate.name;
+        };
+
         $scope.resetCreatures = function() {
             restService.post('/rest/creature/reset', null)
                         .then(
@@ -82,10 +127,6 @@ angular.module('initiativeRollerModule')
 
         $scope.isCreatureValid = function(creature) {
             if(typeof creature == 'undefined' || creature == null) {
-                return false;
-            }
-
-            if(typeof creature.type == 'undefined' || creature.type == null || (creature.type != 'monster' && creature.type != 'player')) {
                 return false;
             }
 

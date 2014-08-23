@@ -48,6 +48,15 @@ public class CreatureResource {
     }
 
     @POST
+    @Path("/update/{oldName}")
+    public void addPlayer(@PathParam("oldName") String oldName, @QueryParam("newName") String newName, @QueryParam("initiative") int initiative, @QueryParam("calculatedInitiative") int calculatedInitiative) {
+        Creature creature = creatureService.getCreature(oldName);
+        creature.setCalculatedInitiative(calculatedInitiative);
+        creature.setInitiative(initiative);
+        creature.setName(newName);
+    }
+
+    @POST
     @Path("/delete/{name}")
     public void delete(@PathParam("name") String name) {
         creatureService.deleteCreature(name);

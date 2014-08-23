@@ -26,8 +26,6 @@ public class CommandParserServiceImpl implements CommandParserService {
     public String parseCommand(String input) {
         StringBuilder feedback = new StringBuilder();
 
-        feedback.append("> ");
-
         try {
             String[] inputParts = input.split(" ");
             String command = inputParts[0];

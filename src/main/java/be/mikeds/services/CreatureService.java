@@ -17,4 +17,6 @@ public interface CreatureService {
     void resetCreatures();
 
     void shiftCreaturesLeft();
+
+    Creature getCreature(String name);
 }

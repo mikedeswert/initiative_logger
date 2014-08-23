@@ -9,6 +9,7 @@ public class Creature {
     private String name;
     private int initiative;
     private int calculatedInitiative;
+    private String imageSource;
 
     public Creature(String name) {
         this.name = name;
@@ -31,7 +32,23 @@ public class Creature {
         return name;
     }
 
+    public String getImageSource() {
+        return imageSource;
+    }
+
+    public void setImageSource(String imageSource) {
+        this.imageSource = imageSource;
+    }
+
     public void setCalculatedInitiative(int calculatedInitiative) {
         this.calculatedInitiative = calculatedInitiative;
+    }
+
+    public void setInitiative(int initiative) {
+        this.initiative = initiative;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

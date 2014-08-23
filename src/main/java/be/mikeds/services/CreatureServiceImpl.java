@@ -3,9 +3,11 @@ package be.mikeds.services;
 import be.mikeds.model.Creature;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.sun.javafx.UnmodifiableArrayList;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
 
 import static java.util.Collections.sort;
 import static java.util.Collections.unmodifiableList;
@@ -74,6 +76,17 @@ public class CreatureServiceImpl implements CreatureService {
             creatures.add(creatures.get(0));
             creatures.remove(0);
         }
+    }
+
+    @Override
+    public Creature getCreature(String name) {
+        for (Creature creature : creatures) {
+            if(creature.getName().equals(name)) {
+                return creature;
+            }
+        }
+
+        return null;
     }
 
 
