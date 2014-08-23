@@ -5,6 +5,7 @@ angular.module('initiativeRollerModule')
         $scope.pageService = pageService;
         $scope.newCreature = {};
         $scope.isAdminControlsOpen = true;
+        $scope.isConsoleOpen = false;
 
         $scope.init = function() {
             messageService.clearMessages();

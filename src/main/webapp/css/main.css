@@ -32,16 +32,30 @@
     animation: zoomOutDown 0.5s;
 }
 
-.view.ng-enter {
-    -webkit-animation: flipInY 0.5s;
-    -moz-animation: flipInY 0.5s;
-    -ms-animation: flipInY 0.5s;
-    animation: flipInY 0.5s;
+.admin.ng-enter {
+    -webkit-animation: fadeInRightBig 0.5s;
+    -moz-animation: fadeInRightBig 0.5s;
+    -ms-animation: fadeInRightBig 0.5s;
+    animation: fadeInRightBig 0.5s;
 }
 
-.view.ng-leave {
-    -webkit-animation: flipOutY 0.5s;
-    -moz-animation: flipOutY 0.5s;
-    -ms-animation: flipOutY 0.5s;
-    animation: flipOutY 0.5s;
+.admin.ng-leave {
+    -webkit-animation: fadeOutLeftBig 0.5s;
+    -moz-animation: fadeOutLeftBig 0.5s;
+    -ms-animation: fadeOutLeftBig 0.5s;
+    animation: fadeOutLeftBig 0.5s;
+}
+
+.initiatives.ng-enter {
+    -webkit-animation: fadeInLeftBig 0.5s;
+    -moz-animation: fadeInLeftBig 0.5s;
+    -ms-animation: fadeInLeftBig 0.5s;
+    animation: fadeInLeftBig 0.5s;
+}
+
+.initiatives.ng-leave {
+    -webkit-animation: fadeOutRightBig 0.5s;
+    -moz-animation: fadeOutRightBig 0.5s;
+    -ms-animation: fadeOutRightBig 0.5s;
+    animation: fadeOutRightBig 0.5s;
 }

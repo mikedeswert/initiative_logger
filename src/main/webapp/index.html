@@ -28,9 +28,10 @@
     <script type="text/javascript" src="js/controllers/initiativesController.js"></script>
     <script type="text/javascript" src="js/controllers/adminController.js"></script>
     <script type="text/javascript" src="js/controllers/navbarController.js"></script>
+    <script type="text/javascript" src="js/controllers/mainController.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-3.2.0/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="css/animate.css"/>
+    <link rel="stylesheet" type="text/css" href="css/lib/bootstrap-3.2.0/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/lib/animate.css"/>
     <link rel="stylesheet" type="text/css" href="css/main.css"/>
 </head>
 <body ng-cloak class="ng-cloak">
@@ -50,7 +51,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="navbar-collapse" collapse="isCollapsed">
             <ul class="nav navbar-nav">
-                <li><a class="active" href="#/" id="initiativesLink">Initiatives</a></li>
+                <li><a class="active" href="#/initiatives" id="initiativesLink">Initiatives</a></li>
                 <li><a href="#/admin" id="adminLink">Admin</a></li>
             </ul>
         </div>
@@ -58,9 +59,9 @@
     </div>
     <!-- /.container-fluid -->
 </nav>
-<div class="container">
+<div class="container" ng-controller="MainController">
 
-    <div ng-view class="view"></div>
+    <div ng-view ng-class="pageService.getCurrentPage()"></div>
 </div>
 </body>
 </html>

@@ -7,60 +7,62 @@
             {{message.text}}
         </div>
     </div>
-    <div id="adminControls" class="panel-group">
-        <accordion close-others="false">
-            <accordion-group heading="Add creature" is-open="isAdminControlsOpen" is-disabled="false">
-                <form class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="creatureName">Name</label>
+    <accordion id="adminControls" close-others="false">
+        <accordion-group is-open="isAdminControlsOpen" is-disabled="false" ng-hide="isConsoleOpen">
+            <accordion-heading>
+                <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-retweet"></span></button>
+                <span>Add creature</span>
+            </accordion-heading>
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="creatureName">Name</label>
 
-                        <div class="col-sm-4">
-                            <input id="creatureName" type="text" class="form-control" placeholder="Creature name"
-                                   ng-model="newCreature.name"
-                                   ng-enter="createCreature()"
-                                   focus-on="focusName">
-                        </div>
+                    <div class="col-sm-4">
+                        <input id="creatureName" type="text" class="form-control" placeholder="Creature name"
+                               ng-model="newCreature.name"
+                               ng-enter="createCreature()"
+                               focus-on="focusName">
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="creatureType">Type</label>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="creatureType">Type</label>
 
-                        <div class="col-sm-4">
-                            <select id="creatureType" class="form-control" ng-model="newCreature.type">
-                                <option value="monster">Monster</option>
-                                <option value="player">Player</option>
-                            </select>
-                        </div>
+                    <div class="col-sm-4">
+                        <select id="creatureType" class="form-control" ng-model="newCreature.type">
+                            <option value="monster">Monster</option>
+                            <option value="player">Player</option>
+                        </select>
                     </div>
-                    <div class="form-group" ng-if="newCreature.type == 'monster'">
-                        <label class="col-sm-2 control-label" for="creatureInitiative">Initiative</label>
+                </div>
+                <div class="form-group" ng-if="newCreature.type == 'monster'">
+                    <label class="col-sm-2 control-label" for="creatureInitiative">Initiative</label>
 
-                        <div class="col-sm-4">
-                            <input id="creatureInitiative" type="number" class="form-control"
-                                   ng-model="newCreature.initiative"
-                                   ng-enter="createCreature()"/>
-                        </div>
+                    <div class="col-sm-4">
+                        <input id="creatureInitiative" type="number" class="form-control"
+                               ng-model="newCreature.initiative"
+                               ng-enter="createCreature()"/>
                     </div>
-                    <div class="form-group" ng-if="newCreature.type == 'player'">
-                        <label class="col-sm-2 control-label" for="creatureCalculatedInitiative">Calculated
-                            initiative</label>
+                </div>
+                <div class="form-group" ng-if="newCreature.type == 'player'">
+                    <label class="col-sm-2 control-label" for="creatureCalculatedInitiative">Calculated
+                        initiative</label>
 
-                        <div class="col-sm-4">
-                            <input id="creatureCalculatedInitiative" class="form-control"
-                                   ng-model="newCreature.calculatedInitiative"
-                                   ng-enter="createCreature()"/>
-                        </div>
+                    <div class="col-sm-4">
+                        <input id="creatureCalculatedInitiative" class="form-control"
+                               ng-model="newCreature.calculatedInitiative"
+                               ng-enter="createCreature()"/>
                     </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <button type="button" class="btn btn-primary" ng-click="createCreature()"
-                                    ng-disabled="isCreatureNotValid(newCreature)">Create
-                            </button>
-                        </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="button" class="btn btn-primary" ng-click="createCreature()"
+                                ng-disabled="isCreatureNotValid(newCreature)">Create
+                        </button>
                     </div>
-                </form>
-            </accordion-group>
-        </accordion>
-    </div>
+                </div>
+            </form>
+        </accordion-group>
+    </accordion>
 
     <div id="creatureOverview" class="panel panel-default">
         <div class="panel-heading">Creatures</div>
