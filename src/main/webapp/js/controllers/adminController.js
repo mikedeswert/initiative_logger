@@ -100,6 +100,11 @@ angular.module('initiativeRollerModule')
             return !$scope.isCreatureValid(creature);
         };
 
+        $scope.toggleConsoleWindow = function(event) {
+            $scope.isConsoleOpen = !$scope.isConsoleOpen;
+            event.stopPropagation();
+        };
+
         function getCreatures() {
             restService.get('/rest/creature/')
                 .then(

@@ -47,15 +47,63 @@
 }
 
 .initiatives.ng-enter {
-    -webkit-animation: fadeInLeftBig 0.5s;
-    -moz-animation: fadeInLeftBig 0.5s;
-    -ms-animation: fadeInLeftBig 0.5s;
-    animation: fadeInLeftBig 0.5s;
-}
+     -webkit-animation: fadeInLeftBig 0.5s;
+     -moz-animation: fadeInLeftBig 0.5s;
+     -ms-animation: fadeInLeftBig 0.5s;
+     animation: fadeInLeftBig 0.5s;
+ }
 
 .initiatives.ng-leave {
     -webkit-animation: fadeOutRightBig 0.5s;
     -moz-animation: fadeOutRightBig 0.5s;
     -ms-animation: fadeOutRightBig 0.5s;
     animation: fadeOutRightBig 0.5s;
+}
+
+.flip.ng-hide-remove {
+    -webkit-animation: flipInX 0.5s;
+    -moz-animation: flipInX 0.5s;
+    -ms-animation: flipInX 0.5s;
+    animation: flipInX 0.5s;
+}
+
+/*.flip.ng-hide-remove {*/
+    /*-webkit-animation: flipOutX 0.5s;*/
+    /*-moz-animation: flipOutX 0.5s;*/
+    /*-ms-animation: flipOutX 0.5s;*/
+    /*animation: flipOutX 0.5s;*/
+/*}*/
+
+.console textarea {
+    -webkit-border-bottom-right-radius: 0px;
+    -webkit-border-bottom-left-radius: 0px;
+    -moz-border-radius-bottomright: 0px;
+    -moz-border-radius-bottomleft: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+
+    background-color: #696969 !important;
+    color: #ffffff;
+
+    resize: none;
+}
+
+.console .console-feedback {
+    margin-bottom: 0;
+}
+
+.console .input-group span {
+    -webkit-border-top-left-radius: 0px;
+    -moz-border-radius-topleft: 0px;
+    border-top-left-radius: 0px;
+
+    border-top: 0;
+}
+
+.console .input-group input {
+    -webkit-border-top-right-radius: 0px;
+    -moz-border-radius-topright: 0px;
+    border-top-right-radius: 0px;
+
+    border-top: 0;
 }
