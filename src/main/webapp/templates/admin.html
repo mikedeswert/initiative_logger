@@ -1,4 +1,4 @@
-<div class="col-md-12" ng-init="init()" ng-swipe-right="pageService.goToInitiatives()">
+<div class="col-md-12" ng-init="init()" ng-swipe-right="pageService.goToInitiatives()" ng-swipe-left="pageService.goToBoard()" ng-cloak class="ng-cloak">
     <div ng-repeat="message in messageService.getMessages()">
         <div ng-class="message.class">
             <button type="button" class="close" data-dismiss="alert"

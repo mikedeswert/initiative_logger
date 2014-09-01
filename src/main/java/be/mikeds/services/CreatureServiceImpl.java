@@ -55,12 +55,7 @@ public class CreatureServiceImpl implements CreatureService {
             }
         }
 
-        sort(creatures, new Comparator<Creature>() {
-            @Override
-            public int compare(Creature c1, Creature c2) {
-                return c2.getCalculatedInitiative() - c1.getCalculatedInitiative();
-            }
-        });
+        sort(creatures, (c1, c2) -> c2.getCalculatedInitiative() - c1.getCalculatedInitiative());
 
         return creatures;
     }

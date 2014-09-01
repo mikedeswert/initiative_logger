@@ -7,6 +7,9 @@ angular.module('initiativeRollerModule')
             goToAdmin: function () {
                 $location.path('/admin');
             },
+            goToBoard: function () {
+                $location.path('/board');
+            },
             getCurrentPage: function () {
                 return $location.path().substr(1);
             }

@@ -1,5 +1,5 @@
 angular.module('initiativeRollerModule')
-    .controller('InitiativesController', ['$scope', '$animate', 'restService', 'messageService', 'pageService', function($scope, $animate, restService, messageService, pageService) {
+    .controller('InitiativesController', ['$scope', 'restService', 'messageService', 'pageService', function($scope, restService, messageService, pageService) {
         $scope.creatures = [];
         $scope.messageService = messageService;
         $scope.pageService = pageService;

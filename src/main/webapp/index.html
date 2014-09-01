@@ -13,6 +13,7 @@
     <script type="text/javascript" src="js/lib/angular-1.3.0-beta.18/angular-touch.min.js"></script>
     <script type="text/javascript" src="js/lib/ui-bootstrap-0.9.0/ui-bootstrap.min.js"></script>
     <script type="text/javascript" src="js/lib/ui-bootstrap-0.9.0/ui-bootstrap-tpls.min.js"></script>
+    <script type="text/javascript" src="js/lib/angular-panhandler/angular-panhandler.js"></script>
 
     <script type="text/javascript" src="js/app.js"></script>
 
@@ -25,16 +26,19 @@
     <script type="text/javascript" src="js/directives/enterDirective.js"></script>
     <script type="text/javascript" src="js/directives/focusDirective.js"></script>
     <script type="text/javascript" src="js/directives/tailDirective.js"></script>
+    <script type="text/javascript" src="js/directives/boardDirective.js"></script>
 
     <script type="text/javascript" src="js/controllers/initiativesController.js"></script>
     <script type="text/javascript" src="js/controllers/adminController.js"></script>
     <script type="text/javascript" src="js/controllers/navbarController.js"></script>
     <script type="text/javascript" src="js/controllers/mainController.js"></script>
     <script type="text/javascript" src="js/controllers/consoleController.js"></script>
+    <script type="text/javascript" src="js/controllers/boardController.js"></script>
 
     <link rel="stylesheet" type="text/css" href="css/lib/bootstrap-3.2.0/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/lib/animate.css"/>
     <link rel="stylesheet" type="text/css" href="css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="css/board.css"/>
 </head>
 <body ng-cloak class="ng-cloak">
 <nav class="navbar navbar-default" role="navigation" ng-controller="NavbarController">
@@ -53,15 +57,16 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="navbar-collapse" collapse="isCollapsed">
             <ul class="nav navbar-nav">
-                <li><a class="active" href="#/initiatives" id="initiativesLink">Initiatives</a></li>
+                <li><a href="#/initiatives" id="initiativesLink">Initiatives</a></li>
                 <li><a href="#/admin" id="adminLink">Admin</a></li>
+                <li><a href="#/board" id="boardLink">Board</a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
     </div>
     <!-- /.container-fluid -->
 </nav>
-<div class="container" ng-controller="MainController">
+<div ng-class="{container : pageService.getCurrentPage() != 'board', 'container-fluid': pageService.getCurrentPage()}" ng-controller="MainController">
     <div ng-view ng-class="pageService.getCurrentPage()"></div>
 </div>
 </body>

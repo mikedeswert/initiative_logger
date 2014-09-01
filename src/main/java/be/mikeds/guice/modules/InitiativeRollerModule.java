@@ -1,5 +1,6 @@
 package be.mikeds.guice.modules;
 
+import be.mikeds.rest.BoardResource;
 import be.mikeds.rest.ConsoleResource;
 import be.mikeds.rest.CreatureResource;
 import be.mikeds.services.*;
@@ -18,7 +19,9 @@ public class InitiativeRollerModule implements Module {
         binder.bind(CreatureService.class).to(CreatureServiceImpl.class);
         binder.bind(DiceRollerService.class).to(DiceRollerServiceImpl.class);
         binder.bind(CommandParserService.class).to(CommandParserServiceImpl.class);
+        binder.bind(BoardService.class).to(BoardServiceImpl.class);
         binder.bind(CreatureResource.class);
         binder.bind(ConsoleResource.class);
+        binder.bind(BoardResource.class);
     }
 }

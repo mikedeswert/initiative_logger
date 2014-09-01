@@ -6,6 +6,7 @@ angular.module('initiativeRollerApp', ['initiativeRollerModule',
                                        'directivesModule',
                                        'consoleModule',
                                        'ui.bootstrap',
+                                       'panhandler',
                                        'ngRoute',
                                        'ngAnimate',
                                        'ngTouch']);
@@ -20,6 +21,7 @@ angular.module('initiativeRollerApp')
         $routeProvider
             .when('/initiatives', {templateUrl: 'templates/initiatives.html', controller: 'InitiativesController'})
             .when('/admin', {templateUrl: 'templates/admin.html', controller: 'AdminController'})
+            .when('/board', {templateUrl: 'templates/board.html', controller: 'BoardController'})
             .otherwise({redirectTo: '/initiatives'});
     }]);
 

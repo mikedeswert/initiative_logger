@@ -43,6 +43,7 @@ public class CreatureResource {
     @Path("/addPlayer")
     public void addPlayer(@QueryParam("name") String name, @QueryParam("calculatedInitiative") int calculatedInitiative) {
         Creature player = new Creature(name);
+        player.setImageSource("img/" + name.toLowerCase() + ".jpg");
         player.setCalculatedInitiative(calculatedInitiative);
         creatureService.addCreature(player);
     }
