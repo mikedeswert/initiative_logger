@@ -54,7 +54,7 @@ public class CommandParserServiceImpl implements CommandParserService {
                     feedback.append(printCreatures(creatureService.getCreatures()));
                     break;
                 case HELP:
-                    feedback.append(Command.printCommands());
+                    feedback.append(Command.getCommands());
                     break;
             }
         } catch (Exception e) {

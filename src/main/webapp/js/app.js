@@ -9,7 +9,8 @@ angular.module('initiativeRollerApp', ['initiativeRollerModule',
                                        'panhandler',
                                        'ngRoute',
                                        'ngAnimate',
-                                       'ngTouch']);
+                                       'ngTouch',
+                                       'ngDraggable']);
 angular.module('initiativeRollerModule', []);
 angular.module('restModule', []);
 angular.module('messageModule', []);

@@ -25,7 +25,7 @@ public enum Command {
         this.helpText = helpText;
     }
 
-    public static String printCommands() {
+    public static String getCommands() {
         StringBuilder builder = new StringBuilder();
 
         for (Command command : Command.values()) {

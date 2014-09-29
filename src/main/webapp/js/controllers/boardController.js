@@ -1,3 +1,5 @@
+"use strict";
+
 angular.module('initiativeRollerModule')
     .controller('BoardController', ['$scope', 'restService', 'messageService', 'pageService', function($scope, restService, messageService, pageService) {
         $scope.creatures = [];
@@ -10,6 +12,11 @@ angular.module('initiativeRollerModule')
             messageService.clearMessages();
             getCreatures();
             getBoard();
+        };
+
+        $scope.onDropComplete = function(data, event) {
+            var event = event;
+            var data = data;
         };
 
         function getCreatures() {

@@ -15,7 +15,7 @@
     <!--</div>-->
     <div id="creatureTokenOverview">
         <div class="creature-token-list" ng-show="isCreatureTokenListOpen">
-            <div ng-repeat="creature in creatures | orderBy : creature.name" class="token-container">
+            <div ng-repeat="creature in creatures | orderBy : creature.name" class="token-container" ng-drag="true" ng-drag-data="creature">
                 <img class="img-circle token-md" alt="token image" ng-src="{{creature.imageSource}}" />
                 <p class="text-center">{{creature.name}}</p>
             </div>
@@ -28,6 +28,7 @@
         </button>
     </div>
 
+        <div id="test-drop" ng-drop="true" ng-drop-success="onDropComplete($data, $event)" style="width: 100%; height: 200px;"></div>
     <div class="container-fluid" style="overflow: auto; height: 90vh" panhandler>
         <div id="board" board>
         </div>
