@@ -51,7 +51,7 @@ angular.module('directivesModule').directive('board', ['$compile', function ($co
                         "height:" + boardWidth + "px;" +
                         "display:block;");
 
-                    for (var y = 0; y < board.size; y++) {
+                    /*for (var y = 0; y < board.size; y++) {
                         var rowElement = document.createElement("div");
                         rowElement.setAttribute("style", "width: " + boardWidth + "px;" +
                             "height: " + boardWidth / board.size + "px;");
@@ -61,8 +61,26 @@ angular.module('directivesModule').directive('board', ['$compile', function ($co
                         }
 
                         boardContainer.appendChild(rowElement);
-                    }
+                    }*/
                 });
               }
 
-}]);
+}]).directive('row', function () {
+    return function(scope, elem, attr) {
+        scope.$watch('board', function () {
+            var boardWidth = elem[0].parentNode.offsetWidth;
+            elem[0].setAttribute("style", "width: " + boardWidth + "px;" +
+                                          "height: " + boardWidth / scope.board.size + "px;");
+        });
+    }
+
+}).directive('cell', function () {
+    return function(scope, elem, attr) {
+        scope.$watch('board', function () {
+            var boardWidth = elem[0].parentNode.parentNode.offsetWidth;
+            elem[0].setAttribute("style", "width: " + boardWidth / scope.board.size + "px;" +
+                                          "height: " + boardWidth / scope.board.size + "px;");
+        });
+    }
+
+});

@@ -15,9 +15,33 @@ angular.module('initiativeRollerModule')
         };
 
         $scope.onDropComplete = function(data, event) {
+
             var event = event;
             var data = data;
         };
+
+        $scope.getCellClassNames = function(cellIndex, rowIndex) {
+            var classNames = "tile " + $scope.board.tiles[rowIndex][cellIndex].type.toLowerCase();
+
+            if(rowIndex == 0) {
+                classNames += " top";
+            }
+
+            if(cellIndex == 0) {
+                classNames += " left";
+            }
+
+            if(rowIndex+1 == $scope.board.size) {
+                classNames += " bottom";
+            }
+
+            if(cellIndex+1 == $scope.board.size) {
+                classNames += " right";
+            }
+
+            return classNames;
+        };
+
 
         function getCreatures() {
             restService.get('/rest/creature/')
