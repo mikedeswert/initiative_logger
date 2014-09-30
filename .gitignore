@@ -1,6 +1,7 @@
 *.class
 *.log
 target
+node_modules
 
 # Eclipse project files
 .classpath
