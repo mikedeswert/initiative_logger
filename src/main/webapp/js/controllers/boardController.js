@@ -14,10 +14,13 @@ angular.module('initiativeRollerModule')
             getBoard();
         };
 
-        $scope.onDropComplete = function(data, event) {
+        $scope.onDragComplete = function(data, event) {
 
-            var event = event;
-            var data = data;
+            var cell = event.currentScope.cell;
+
+            if(typeof cell != 'undefined' && cell != null) {
+                cell.tokens.push(data);
+            }
         };
 
         $scope.getCellClassNames = function(cellIndex, rowIndex) {
