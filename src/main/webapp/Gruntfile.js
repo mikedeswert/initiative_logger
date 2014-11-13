@@ -2,6 +2,28 @@ module.exports = function(grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        less: {
+            development: {
+                options: {
+                    compress: true,
+                    yuicompress: true,
+                    optimization: 2
+                },
+                files: {
+                    "css/main.css": "less/main.less",
+                    "css/board.css": "less/board.less"
+                }
+            }
+        },
+        watch: {
+            styles: {
+                files: ['less/**/*.less'],
+                tasks: ['less'],
+                options: {
+                    nospawn: true
+                }
+            }
+        },
         protractor: {
             options: {
                 configFile: 'node_modules/protractor/referenceConf.js', // Default config file
@@ -25,14 +47,11 @@ module.exports = function(grunt) {
         }
     });
 
+    grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-protractor-runner');
 
-    grunt.registerTask('test-e2e', [
-        'protractor:test'
-    ]);
-
-    grunt.registerTask('test-e2e-local', [
-        'protractor:testLocal'
-    ]);
-    // Loading of tasks and registering tasks will be written here
+    grunt.registerTask('default', ['watch']);
+    grunt.registerTask('test-e2e', ['protractor:test']);
+    grunt.registerTask('test-e2e-local', ['protractor:testLocal']);
 };

@@ -1,3 +1,5 @@
+*.css
+!lib/*.css
 *.class
 *.log
 target

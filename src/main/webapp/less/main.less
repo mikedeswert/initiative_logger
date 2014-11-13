@@ -1,0 +1,99 @@
+@activeCreatureBackgroundColor: #428bca;
+@activeCreatureBorderColor: #003869;
+
+@import "animations.less";
+
+.well.bg-primary {
+    background-color: @activeCreatureBackgroundColor;
+    border: 1px solid @activeCreatureBorderColor;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.4);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.4);
+}
+
+.creature.first {
+    cursor: pointer;
+}
+
+.creature.first:hover {
+    background-color: #4997DA;
+}
+
+.creature.first:active {
+    background-color: #3F81BB;
+}
+
+.creature.ng-enter {
+    .zoom-in-down-animation;
+}
+
+.creature.ng-leave {
+    .zoom-out-down-animation(0.5s);
+}
+
+.admin.ng-enter {
+    .fade-in-right-animation(0.5s);
+}
+
+.admin.ng-leave {
+    .fade-out-left-animation(0.5s);
+}
+
+.initiatives.ng-enter {
+    .fade-in-left-animation(0.5s);
+}
+
+.initiatives.ng-leave {
+    .fade-out-right-animation(0.5s);
+}
+
+.flip.ng-hide-remove {
+    .flip-in-x-animation(0.5s);
+}
+
+.console {
+    textarea {
+        -webkit-border-bottom-right-radius: 0px;
+        -webkit-border-bottom-left-radius: 0px;
+        -moz-border-radius-bottomright: 0px;
+        -moz-border-radius-bottomleft: 0px;
+        border-bottom-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+
+        background-color: #696969 !important;
+        color: #ffffff;
+
+        resize: none;
+    }
+
+    .feedback {
+        margin-bottom: 0;
+    }
+
+    .input-group {
+        span {
+            -webkit-border-top-left-radius: 0px;
+            -moz-border-radius-topleft: 0px;
+            border-top-left-radius: 0px;
+
+            border-top: 0;
+        }
+
+        input {
+            -webkit-border-top-right-radius: 0px;
+            -moz-border-radius-topright: 0px;
+            border-top-right-radius: 0px;
+
+            border-top: 0;
+        }
+    }
+}
+
+.token-md {
+    width: 100px;
+    height: 100px;
+    padding: 4px;
+    border: 3px rgb(131, 131, 131) solid;
+    background-color: rgb(236, 236, 236);
+    cursor: pointer;
+}
