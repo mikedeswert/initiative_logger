@@ -1,5 +1,7 @@
-*.css
-!lib/*.css
+
+**/css/*
+!**/css/lib
+
 *.class
 *.log
 target
