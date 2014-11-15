@@ -42,7 +42,7 @@
     <link rel="stylesheet" type="text/css" href="less/main.css"/>
     <link rel="stylesheet" type="text/css" href="less/board.css"/>
 </head>
-<body ng-cloak class="ng-cloak">
+<body data-ng-cloak class="ng-cloak">
 <nav class="navbar navbar-default" role="navigation" ng-controller="NavbarController">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -68,8 +68,18 @@
     </div>
     <!-- /.container-fluid -->
 </nav>
-<div ng-class="{container : pageService.getCurrentPage() != 'board', 'container-fluid': pageService.getCurrentPage() == 'board'}" ng-controller="MainController">
-    <div ng-view ng-class="pageService.getCurrentPage()"></div>
+<div id="wrap"
+     data-ng-class="{container : pageService.getCurrentPage() != 'board', 'container-fluid': pageService.getCurrentPage() == 'board'}"
+     data-ng-controller="MainController">
+    <div data-ng-view data-ng-class="pageService.getCurrentPage()"></div>
 </div>
+<footer>
+    <div class="websocket-status" data-ng-controller="webSocketStatusController">
+        <div class="container" data-ng-if="showStatus" data-ng-class="status">
+            {{getStatus()}}
+            <img data-ng-if="isConnecting()" src="img/connecting.gif" alt="connecting"/>
+        </div>
+    </div>
+</footer>
 </body>
 </html>

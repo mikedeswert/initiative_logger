@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('initiativeRollerApp', ['initiativeRollerModule',
-                                       'restModule',
+                                       'webTransportModule',
                                        'messageModule',
                                        'directivesModule',
                                        'consoleModule',
@@ -12,7 +12,7 @@ angular.module('initiativeRollerApp', ['initiativeRollerModule',
                                        'ngTouch',
                                        'ngDraggable']);
 angular.module('initiativeRollerModule', []);
-angular.module('restModule', []);
+angular.module('webTransportModule', []);
 angular.module('messageModule', []);
 angular.module('directivesModule', []);
 angular.module('consoleModule', []);

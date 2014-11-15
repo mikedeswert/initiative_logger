@@ -1,10 +1,11 @@
 angular.module('initiativeRollerModule')
-    .controller('InitiativesController', ['$scope', 'restService', 'messageService', 'pageService', function($scope, restService, messageService, pageService) {
+    .controller('InitiativesController', ['$scope', 'restService', 'messageService', 'pageService', 'webSocketFactory', function($scope, restService, messageService, pageService, webSocketFactory) {
         $scope.creatures = [];
         $scope.messageService = messageService;
         $scope.pageService = pageService;
 
         $scope.init = function() {
+            webSocketFactory.createNotifyWebSocket(getCreatures);
             messageService.clearMessages();
             getCreatures();
         };

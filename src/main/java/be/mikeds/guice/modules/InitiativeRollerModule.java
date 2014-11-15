@@ -4,6 +4,7 @@ import be.mikeds.rest.BoardResource;
 import be.mikeds.rest.ConsoleResource;
 import be.mikeds.rest.CreatureResource;
 import be.mikeds.services.*;
+import be.mikeds.socket.NotifySocket;
 import com.google.inject.AbstractModule;
 import com.google.inject.Binder;
 import com.google.inject.Module;
@@ -23,5 +24,6 @@ public class InitiativeRollerModule implements Module {
         binder.bind(CreatureResource.class);
         binder.bind(ConsoleResource.class);
         binder.bind(BoardResource.class);
+        binder.bind(NotifySocket.class);
     }
 }

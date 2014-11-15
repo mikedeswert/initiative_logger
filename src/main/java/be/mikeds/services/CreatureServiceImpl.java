@@ -1,13 +1,12 @@
 package be.mikeds.services;
 
 import be.mikeds.model.Creature;
+import be.mikeds.util.*;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
+import java.util.Observer;
 
 import static java.util.Collections.sort;
 import static java.util.Collections.unmodifiableList;
@@ -22,6 +21,7 @@ public class CreatureServiceImpl implements CreatureService {
     private static final int TWENTY_SIDED = 20;
 
     private List<Creature> creatures = new ArrayList<>();
+    private Set<be.mikeds.util.Observer> observers = new HashSet<>();
 
     @Inject
     private DiceRollerService diceRollerService;
@@ -85,4 +85,15 @@ public class CreatureServiceImpl implements CreatureService {
     }
 
 
+    @Override
+    public void subscribe(be.mikeds.util.Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (be.mikeds.util.Observer observer : observers) {
+            observer.update(this, null);
+        }
+    }
 }
