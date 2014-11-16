@@ -1,14 +1,19 @@
 "use strict";
 
 angular.module('initiativeRollerModule')
-    .controller('BoardController', ['$scope', 'restService', 'messageService', 'pageService', function($scope, restService, messageService, pageService) {
+    .controller('BoardController', ['$scope', 'restService', 'messageService', 'pageService', 'webSocketService', 'creatureService', function($scope, restService, messageService, pageService, webSocketService, creatureService) {
         $scope.creatures = [];
-        $scope.messageService = messageService;
         $scope.pageService = pageService;
         $scope.board = {};
         $scope.isCreatureTokenListOpen = false;
 
         $scope.init = function() {
+            webSocketService.subscribe('BoardController', function() {
+                getCreatures();
+                getBoard();
+
+            });
+
             messageService.clearMessages();
             getCreatures();
             getBoard();
@@ -47,15 +52,9 @@ angular.module('initiativeRollerModule')
 
 
         function getCreatures() {
-            restService.get('/rest/creature/')
-                .then(
-                function(response) {
-                    $scope.creatures = response.data;
-                },
-                function() {
-                    messageService.addErrorMessage('Something went wrong while retrieving the creatures. Please refresh the page to try again.');
-                }
-            );
+            creatureService.getCreatures().then(function(creatures) {
+                $scope.creatures = creatures;
+            });
         }
 
         function getBoard() {

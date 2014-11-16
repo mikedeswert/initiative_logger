@@ -1,11 +1,32 @@
-@activeCreatureBackgroundColor: #428bca;
-@activeCreatureBorderColor: #003869;
+/* Colors */
+@blue: #428bca;
+@darkBlue: #003869;
+
+@footerHeight: 60px;
 
 @import "animations.less";
 
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+
+#wrap {
+    min-height: 100%;
+    height: 100%;
+    margin: 0 auto -@footerHeight * 2;
+}
+
+footer {
+    height: @footerHeight;
+}
+
 .well.bg-primary {
-    background-color: @activeCreatureBackgroundColor;
-    border: 1px solid @activeCreatureBorderColor;
+    background-color: @blue;
+    border: 1px solid @darkBlue;
     border-radius: 4px;
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.4);
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.4);
@@ -86,6 +107,52 @@
 
             border-top: 0;
         }
+    }
+}
+
+
+.websocket-status {
+    height: @footerHeight;
+    position: relative;
+
+    div {
+        height: 100%;
+    }
+
+    p {
+        margin-top: 5px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    img {
+        position: absolute;
+        border-top: @footerHeight/3;
+        left: 50%;
+    }
+
+    .connecting {
+        background-color: @blue;
+    }
+
+    .connected {
+        background-color: #00911c;
+    }
+
+    .error {
+        background-color: #b62e31;
+    }
+
+    .closed {
+        background-color: #b6a36b;
+    }
+
+    div.ng-enter {
+        .fade-in-up-animation(1s);
+    }
+
+    div.ng-leave {
+        .fade-out-up-animation(1s);
     }
 }
 

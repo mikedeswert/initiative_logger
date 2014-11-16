@@ -1,83 +1,83 @@
 package be.mikeds.rest;
 
+import be.mikeds.aspects.NotifyClients;
 import be.mikeds.model.Creature;
 import be.mikeds.services.CreatureService;
-import com.google.inject.Inject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
 import java.util.List;
-
-import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 /**
  * --------------------------------
  * Created by mikeds on 17/08/2014.
  * --------------------------------
  */
-@Path("/creature")
+@Controller
+@RequestMapping("/rest/creature")
 public class CreatureResource {
 
+    @Autowired
     private CreatureService creatureService;
 
-    @Inject
-    public CreatureResource(final CreatureService creatureService)
-    {
-        this.creatureService = creatureService;
-    }
 
-    @GET
-    @Path("/")
-    @Produces(APPLICATION_JSON)
-    public List<Creature> getCreatures() {
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public @ResponseBody List<Creature> getCreatures() {
         return creatureService.getCreatures();
     }
 
-    @POST
-    @Path("/addMonster")
-    public void addMonster(@QueryParam("name") String name, @QueryParam("initiative") int initiative) {
+    @RequestMapping(value = "/addMonster", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @NotifyClients
+    public void addMonster(@RequestParam("name") String name, @RequestParam("initiative") int initiative) {
         creatureService.addCreature(new Creature(name, initiative));
     }
 
-    @POST
-    @Path("/addPlayer")
-    public void addPlayer(@QueryParam("name") String name, @QueryParam("calculatedInitiative") int calculatedInitiative) {
+    @RequestMapping(value = "/addPlayer", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @NotifyClients
+    public void addPlayer(@RequestParam("name") String name, @RequestParam("calculatedInitiative") int calculatedInitiative) {
         Creature player = new Creature(name);
         player.setImageSource("img/" + name.toLowerCase() + ".jpg");
         player.setCalculatedInitiative(calculatedInitiative);
         creatureService.addCreature(player);
     }
 
-    @POST
-    @Path("/update/{oldName}")
-    public void addPlayer(@PathParam("oldName") String oldName, @QueryParam("newName") String newName, @QueryParam("initiative") int initiative, @QueryParam("calculatedInitiative") int calculatedInitiative) {
+    @RequestMapping(value = "/update/{oldName}", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @NotifyClients
+    public void updateCreature(@PathVariable("oldName") String oldName, @RequestParam("newName") String newName, @RequestParam("initiative") int initiative, @RequestParam("calculatedInitiative") int calculatedInitiative) {
         Creature creature = creatureService.getCreature(oldName);
         creature.setCalculatedInitiative(calculatedInitiative);
         creature.setInitiative(initiative);
         creature.setName(newName);
     }
 
-    @POST
-    @Path("/delete/{name}")
-    public void delete(@PathParam("name") String name) {
+    @RequestMapping(value = "/delete/{name}", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @NotifyClients
+    public void delete(@PathVariable("name") String name) {
         creatureService.deleteCreature(name);
     }
 
-    @POST
-    @Path("/reset")
+    @RequestMapping(value = "/reset", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @NotifyClients
     public void resetCreatures() {
         creatureService.resetCreatures();
     }
 
-    @GET
-    @Path("/calculate")
-    @Produces(APPLICATION_JSON)
-    public List<Creature> calculateInitiative() {
+    @RequestMapping(value = "/calculate", method = RequestMethod.GET)
+    @NotifyClients
+    public @ResponseBody List<Creature> calculateInitiative() {
         return creatureService.calculateInitiative();
     }
 
-    @POST
-    @Path("/next")
+    @RequestMapping(value = "/next", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @NotifyClients
     public void nextTurn() {
         creatureService.shiftCreaturesLeft();
     }

@@ -1,6 +1,6 @@
 exports.config = {
     chromeOnly: true,
-    baseUrl: 'http://localhost:9090/',
+    baseUrl: 'http://localhost:9009/',
     capabilities: {
         'browserName': 'chrome'
     },

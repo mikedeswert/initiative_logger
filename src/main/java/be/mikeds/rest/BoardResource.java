@@ -1,41 +1,35 @@
 package be.mikeds.rest;
 
+import be.mikeds.aspects.NotifyClients;
 import be.mikeds.model.Board;
 import be.mikeds.model.Token;
 import be.mikeds.services.BoardService;
-import com.google.inject.Inject;
-
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-
-import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * --------------------------------
  * Created by mikeds on 24/08/2014.
  * --------------------------------
  */
-@Path("/board")
+@Controller
+@RequestMapping("/rest/board")
 public class BoardResource {
 
+    @Autowired
     private BoardService boardService;
 
-    @Inject
-    public BoardResource(BoardService boardService) {
-        this.boardService = boardService;
-    }
-
-    @GET
-    @Path("/")
-    @Produces(APPLICATION_JSON)
-    public Board getBoard() {
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public @ResponseBody Board getBoard() {
         return boardService.getBoard();
     }
 
-    @POST
-    @Path("/addToken")
-    @Consumes(APPLICATION_JSON)
-    public void addToken(Token token, @QueryParam("positionX") int positionX, @QueryParam("positionY") int positionY) {
+    @RequestMapping(value = "/addToken", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @NotifyClients
+    public void addToken(Token token, @RequestParam("positionX") int positionX, @RequestParam("positionY") int positionY) {
         boardService.addToken(token, positionX, positionY);
     }
 

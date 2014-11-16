@@ -1,5 +1,8 @@
 package be.mikeds.services;
 
+import org.springframework.stereotype.Service;
+
+import java.io.Serializable;
 import java.util.Random;
 
 /**
@@ -7,7 +10,10 @@ import java.util.Random;
  * Created by mikeds on 18/08/2014.
  * --------------------------------
  */
-public class DiceRollerServiceImpl implements DiceRollerService {
+@Service
+public class DiceRollerServiceImpl implements DiceRollerService, Serializable {
+
+    private static final long serialVersionUID = 306498815139477703L;
 
     @Override
     public int roll(int numberOfDice, int numberOfSides) {
