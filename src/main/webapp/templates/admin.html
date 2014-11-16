@@ -1,12 +1,4 @@
 <div class="col-md-12" ng-init="init()" ng-swipe-right="pageService.goToInitiatives()" ng-swipe-left="pageService.goToBoard()" ng-cloak class="ng-cloak">
-    <div ng-repeat="message in messageService.getMessages()">
-        <div ng-class="message.class">
-            <button type="button" class="close" data-dismiss="alert"
-                    ng-click="messageService.removeMessage(message)"><span
-                    aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            {{message.text}}
-        </div>
-    </div>
     <accordion id="adminControls" close-others="false">
         <accordion-group class="flip" is-open="isAddCreatureExpanded" is-disabled="false" ng-hide="isConsoleOpen || isUpdateOpen">
             <accordion-heading>

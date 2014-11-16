@@ -1,12 +1,11 @@
 package be.mikeds.services;
 
 import be.mikeds.model.Creature;
-import be.mikeds.util.*;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.*;
-import java.util.Observer;
 
 import static java.util.Collections.sort;
 import static java.util.Collections.unmodifiableList;
@@ -16,14 +15,15 @@ import static java.util.Collections.unmodifiableList;
  * Created by mikeds on 17/08/2014.
  * --------------------------------
  */
-@Singleton
-public class CreatureServiceImpl implements CreatureService {
+@Service
+public class CreatureServiceImpl implements CreatureService, Serializable {
+    private static final long serialVersionUID = 154826582429750751L;
     private static final int TWENTY_SIDED = 20;
 
     private List<Creature> creatures = new ArrayList<>();
     private Set<be.mikeds.util.Observer> observers = new HashSet<>();
 
-    @Inject
+    @Autowired
     private DiceRollerService diceRollerService;
 
     @Override

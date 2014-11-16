@@ -1,35 +1,29 @@
 package be.mikeds.rest;
 
-import be.mikeds.model.Creature;
+import be.mikeds.aspects.NotifyClients;
 import be.mikeds.services.CommandParserService;
-import be.mikeds.services.CreatureService;
-import com.google.inject.Inject;
-
-import javax.ws.rs.*;
-import java.util.List;
-
-import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * --------------------------------
  * Created by mikeds on 17/08/2014.
  * --------------------------------
  */
-@Path("/console")
+@Controller
+@RequestMapping("/rest/console")
 public class ConsoleResource {
 
+    @Autowired
     private CommandParserService commandParserService;
 
-    @Inject
-    public ConsoleResource(final CommandParserService commandParserService)
-    {
-        this.commandParserService = commandParserService;
-    }
-
-    @POST
-    @Path("/send")
-    @Produces(APPLICATION_JSON)
-    public String enterCommand(@QueryParam("input") String input) {
+    @RequestMapping(value = "/send", method = RequestMethod.POST)
+    @NotifyClients
+    public @ResponseBody String enterCommand(@RequestParam("input") String input) {
         return commandParserService.parseCommand(input);
     }
 }

@@ -1,11 +1,10 @@
 angular.module('initiativeRollerModule')
-    .controller('InitiativesController', ['$scope', 'restService', 'messageService', 'pageService', 'webSocketFactory', function($scope, restService, messageService, pageService, webSocketFactory) {
+    .controller('InitiativesController', ['$scope', 'restService', 'messageService', 'pageService', 'webSocketService', function($scope, restService, messageService, pageService, webSocketService) {
         $scope.creatures = [];
-        $scope.messageService = messageService;
         $scope.pageService = pageService;
 
         $scope.init = function() {
-            webSocketFactory.createNotifyWebSocket(getCreatures);
+            webSocketService.subscribe('InitiativesController', getCreatures);
             messageService.clearMessages();
             getCreatures();
         };
@@ -46,14 +45,8 @@ angular.module('initiativeRollerModule')
         };
 
         function getCreatures() {
-            restService.get('/rest/creature/')
-                .then(
-                function(response) {
-                    $scope.creatures = response.data;
-                },
-                function() {
-                    messageService.addErrorMessage('Something went wrong while retrieving the creatures. Please refresh the page to try again.');
-                }
-            );
+            creatureService.getCreatures().then(function(creatures) {
+                $scope.creatures = creatures;
+            });
         }
     }]);

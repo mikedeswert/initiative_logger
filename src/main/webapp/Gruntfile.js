@@ -1,57 +1,31 @@
 module.exports = function(grunt) {
+    var protractor = require('./config/protractor'),
+        less = require('./config/less'),
+        karma = require('./config/karma'),
+        watch = require('./config/watch'),
+        copy = require('./config/copy');
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        less: {
-            development: {
-                options: {
-                    compress: true,
-                    yuicompress: true,
-                    optimization: 2
-                },
-                files: {
-                    "css/main.css": "less/main.less",
-                    "css/board.css": "less/board.less"
-                }
-            }
+        config: {
+            server_home: grunt.option('server-home') || 'C:\\Tools\\apache-tomcat-8.0.3',
+            project_name: grunt.option('project-name') ||  'initiative_roller'
         },
-        watch: {
-            styles: {
-                files: ['less/**/*.less'],
-                tasks: ['less'],
-                options: {
-                    nospawn: true
-                }
-            }
-        },
-        protractor: {
-            options: {
-                configFile: 'node_modules/protractor/referenceConf.js', // Default config file
-                keepAlive: true, // If false, the grunt process stops when the test fails.
-                args: {
-                    // Arguments passed to the command
-                }
-            },
-            test: {
-                configFile: '../../test/webapp/e2e.conf.js', // Target-specific config file
-                options: {
-                    args: {} // Target-specific arguments
-                }
-            },
-            testlocal: {
-                configFile: '../../test/webapp/e2e.local.conf.js', // Target-specific config file
-                options: {
-                    args: {} // Target-specific arguments
-                }
-            }
-        }
+        protractor: protractor,
+        less: less,
+        karma: karma,
+        copy: copy,
+        watch: watch
     });
 
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-protractor-runner');
+    grunt.loadNpmTasks('grunt-karma');
 
     grunt.registerTask('default', ['watch']);
+    grunt.registerTask('deploy', ['copy', 'test-e2e-local']);
     grunt.registerTask('test-e2e', ['protractor:test']);
     grunt.registerTask('test-e2e-local', ['protractor:testLocal']);
 };

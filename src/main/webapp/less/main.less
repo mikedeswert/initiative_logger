@@ -1,7 +1,28 @@
+/* Colors */
 @blue: #428bca;
 @darkBlue: #003869;
 
+@footerHeight: 60px;
+
 @import "animations.less";
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+
+#wrap {
+    min-height: 100%;
+    height: 100%;
+    margin: 0 auto -@footerHeight * 2;
+}
+
+footer {
+    height: @footerHeight;
+}
 
 .well.bg-primary {
     background-color: @blue;
@@ -89,13 +110,33 @@
     }
 }
 
+
 .websocket-status {
+    height: @footerHeight;
+    position: relative;
+
+    div {
+        height: 100%;
+    }
+
+    p {
+        margin-top: 5px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    img {
+        position: absolute;
+        border-top: @footerHeight/3;
+        left: 50%;
+    }
+
     .connecting {
-        background-attachment: @blue;
+        background-color: @blue;
     }
 
     .connected {
-        background-color: #00b625;
+        background-color: #00911c;
     }
 
     .error {
@@ -104,6 +145,14 @@
 
     .closed {
         background-color: #b6a36b;
+    }
+
+    div.ng-enter {
+        .fade-in-up-animation(1s);
+    }
+
+    div.ng-leave {
+        .fade-out-up-animation(1s);
     }
 }
 

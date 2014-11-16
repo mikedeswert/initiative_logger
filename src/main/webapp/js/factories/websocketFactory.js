@@ -1,39 +1,53 @@
-angular.module('webTransportModule').service('webSocketFactory', ['messageService', function(messageService, urlService, webSocketStatusService) {
-    function browserDoesNotSupportWebSockets() {
-        return !window.WebSocket;
+angular.module('webTransportModule').service('webSocketFactory', ['$timeout', 'webSocketStatusService', 'urlService', function($timeout, webSocketStatusService, urlService) {
+    function initializeSocket(notifyCallback) {
+        var socket = {};
+        socket.client = new SockJS(urlService.createUrl('notify'));
+        socket.stomp = Stomp.over(socket.client);
+        socket.stomp.connect({}, function() {
+            socket.stomp.subscribe("/topic/notify", notifyCallback);
+        });
+
+        return socket;
     }
 
-    this.createNotifyWebSocket = function(updateCallback) {
-        if(browserDoesNotSupportWebSockets()) {
-            messageService.addErrorMessage('Woops! This browser does not support websockets. Please switch to a browser with websocket support in order to use this application.')
-            return null;
-        }
+    function createWebSocket(notifyCallback) {
+        var socket = initializeSocket(notifyCallback);
 
-        var socket = new WebSocket(urlService.createUrl('notify'));
-
-        socket.onopen = function() {
+        var onopen = socket.client.onopen;
+        socket.client.onopen = function() {
             webSocketStatusService.setStatus('connecting');
+            onopen();
         };
 
-        socket.onclose = function() {
+        var onclose = socket.client.onclose;
+        socket.client.onclose = function() {
             webSocketStatusService.setStatus('closed');
+            onclose();
+            reconnect(socket, notifyCallback);
         };
 
-        socket.onerror = function() {
+        socket.client.onerror = function() {
             webSocketStatusService.setStatus('error');
+            reconnect(socket, notifyCallback);
         };
 
-        socket.onmessage = function(message) {
-            if(message == 'connected') {
-                webSocketStatusService.setStatus('connected');
-            }
-
-            if(message == 'update') {
-                updateCallback();
-            }
+        var onmessage = socket.client.onmessage;
+        socket.client.onmessage = function(evt) {
+            onmessage(evt);
+            webSocketStatusService.setStatus('connected');
         };
 
         return socket;
+    }
+
+    this.createNotifyWebSocket = function(notifyCallback) {
+        return createWebSocket(notifyCallback);
     };
+
+    function reconnect(socket, notifyCallback) {
+        $timeout(function() {
+            socket = createWebSocket(notifyCallback);
+        }, 10000);
+    }
 
 }]);

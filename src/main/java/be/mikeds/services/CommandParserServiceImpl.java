@@ -2,8 +2,10 @@ package be.mikeds.services;
 
 import be.mikeds.enums.Command;
 import be.mikeds.model.Creature;
-import com.google.inject.Inject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.List;
 
 import static java.lang.Integer.parseInt;
@@ -13,14 +15,12 @@ import static java.lang.Integer.parseInt;
  * Created by mikeds on 23/08/2014.
  * --------------------------------
  */
-public class CommandParserServiceImpl implements CommandParserService {
+@Service
+public class CommandParserServiceImpl implements CommandParserService, Serializable {
+    private static final long serialVersionUID = -368473287531627378L;
 
+    @Autowired
     private CreatureService creatureService;
-
-    @Inject
-    public CommandParserServiceImpl(CreatureService creatureService) {
-        this.creatureService = creatureService;
-    }
 
     @Override
     public String parseCommand(String input) {
