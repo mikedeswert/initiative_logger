@@ -22,8 +22,10 @@ tar xzf $toolshome/$tomcattar -C $toolshome
 
 # Clone and instal @svvitale his mongo4pi
 sudo apt-get install git
-git clone https://github.com/svvitale/mongo4pi.git $toolshome
-sudo $toolshome/mongo4pi/install.sh
+sudo git clone https://github.com/svvitale/mongo4pi.git $toolshome/mongo4pi
+sudo chmod 755 $toolshome/mongo4pi/install.sh
+cd $toolshome/mongo4pi
+./install.sh
 
 # Modify Tomcat configuration using sed
 sudo apt-get install sed
