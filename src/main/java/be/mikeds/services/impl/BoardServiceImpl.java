@@ -1,7 +1,8 @@
-package be.mikeds.services;
+package be.mikeds.services.impl;
 
 import be.mikeds.model.Board;
 import be.mikeds.model.Token;
+import be.mikeds.services.BoardService;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
@@ -12,8 +13,7 @@ import java.io.Serializable;
  * --------------------------------
  */
 @Service
-public class BoardServiceImpl implements BoardService, Serializable {
-    private static final long serialVersionUID = 8749172023007897575L;
+public class BoardServiceImpl implements BoardService {
     protected static final int DEFAULT_SIZE = 20;
 
     private Board board = new Board(DEFAULT_SIZE);

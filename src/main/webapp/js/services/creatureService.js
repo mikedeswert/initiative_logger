@@ -43,7 +43,7 @@ angular.module('webTransportModule')
                 )
             },
             deleteCreature: function(creature) {
-                restService.post('/rest/creature/delete/' + creature.name, null)
+                restService.post('/rest/creature/delete/' + creature.id, null)
                     .then(
                     function() {
                         messageService.addSuccessMessage('Creature was successfully deleted.');

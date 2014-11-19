@@ -16,6 +16,7 @@
                 be.mikeds.spring.config.AppConfig,
                 be.mikeds.spring.config.WebAppConfig,
                 be.mikeds.spring.config.WebSocketAppConfig
+                be.mikeds.spring.config.MongoConfig
             </param-value>
         </init-param>
         <async-supported>true</async-supported>
