@@ -1,7 +1,6 @@
 package be.mikeds.services;
 
 import be.mikeds.model.Creature;
-import be.mikeds.util.Observable;
 
 import java.util.List;
 
@@ -10,14 +9,14 @@ import java.util.List;
  * Created by mikeds on 17/08/2014.
  * --------------------------------
  */
-public interface CreatureService extends Observable {
+public interface CreatureService {
     void addCreature(Creature creature);
-    void deleteCreature(String name);
+    void deleteCreature(String id);
     List<Creature> getCreatures();
-    List<Creature> calculateInitiative();
+    void calculateInitiative();
     void resetCreatures();
 
-    void shiftCreaturesLeft();
+    void incrementCreatureTurnCount(String id);
 
     Creature getCreature(String name);
 }

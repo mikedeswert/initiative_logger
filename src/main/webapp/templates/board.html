@@ -2,7 +2,7 @@
     <div id="creatureTokenOverview">
         <div class="creature-token-list" ng-show="isCreatureTokenListOpen">
             <div ng-repeat="creature in creatures | orderBy : creature.name" class="token-container" ng-drag="true" ng-drag-success="onDragComplete($data, $event)" ng-drag-data="creature">
-                <img class="img-circle token-md" alt="token image" ng-src="{{creature.imageSource}}" />
+                <img src="" class="img-circle token medium" alt="token image" ng-src="{{creature.imageSource}}" />
                 <p class="text-center">{{creature.name}}</p>
             </div>
         </div>

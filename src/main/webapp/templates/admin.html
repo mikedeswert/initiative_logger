@@ -1,10 +1,10 @@
-<div class="col-md-12" ng-init="init()" ng-swipe-right="pageService.goToInitiatives()" ng-swipe-left="pageService.goToBoard()" ng-cloak class="ng-cloak">
+<div class="col-md-12 ng-cloak" data-ng-cloak data-ng-init="init()" data-ng-swipe-right="pageService.goToInitiatives()" data-ng-swipe-left="pageService.goToBoard()">
     <accordion id="adminControls" close-others="false">
-        <accordion-group class="flip" is-open="isAddCreatureExpanded" is-disabled="false" ng-hide="isConsoleOpen || isUpdateOpen">
+        <accordion-group class="flip" is-open="isAddCreatureExpanded" is-disabled="false" data-ng-hide="isConsoleOpen || isUpdateOpen">
             <accordion-heading>
                 <div class="btn-group btn-block">
                     <h4 class="pull-left">Add creature</h4>
-                    <button type="button" class="btn btn-default pull-right" title="Show console" ng-click="toggleConsoleWindow($event)"><span
+                    <button type="button" class="btn btn-default pull-right" title="Show console" data-ng-click="toggleConsoleWindow($event)"><span
                             class="glyphicon glyphicon-retweet"></span>
                     </button>
                 </div>
@@ -15,75 +15,75 @@
 
                     <div class="col-sm-4">
                         <input id="creatureName" type="text" class="form-control" placeholder="Creature name"
-                               ng-model="newCreature.name"
-                               ng-enter="createCreature()"
-                               focus-on="focusName">
+                               data-ng-model="newCreature.name"
+                               data-ng-enter="createCreature()"
+                               data-focus-on="focusName">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="creatureType">Type</label>
 
                     <div class="col-sm-4">
-                        <select id="creatureType" class="form-control" ng-model="newCreature.type">
+                        <select id="creatureType" class="form-control" data-ng-model="newCreature.type">
                             <option value="monster">Monster</option>
                             <option value="player">Player</option>
                         </select>
                     </div>
                 </div>
-                <div class="form-group" ng-if="newCreature.type == 'monster'">
+                <div class="form-group" data-ng-if="newCreature.type == 'monster'">
                     <label class="col-sm-2 control-label" for="creatureInitiative">Initiative</label>
 
                     <div class="col-sm-4">
                         <input id="creatureInitiative" type="number" class="form-control"
-                               ng-model="newCreature.initiative"
-                               ng-enter="createCreature()"/>
+                               data-ng-model="newCreature.initiative"
+                               data-ng-enter="createCreature()"/>
                     </div>
                 </div>
-                <div class="form-group" ng-if="newCreature.type == 'player'">
+                <div class="form-group" data-ng-if="newCreature.type == 'player'">
                     <label class="col-sm-2 control-label" for="creatureCalculatedInitiative">Calculated
                         initiative</label>
 
                     <div class="col-sm-4">
                         <input id="creatureCalculatedInitiative" class="form-control"
-                               ng-model="newCreature.calculatedInitiative"
-                               ng-enter="createCreature()"/>
+                               data-ng-model="newCreature.calculatedInitiative"
+                               data-ng-enter="createCreature()"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="button" class="btn btn-primary" ng-click="createCreature()"
-                                ng-disabled="isCreatureNotValid(newCreature)">Create
+                        <button type="button" class="btn btn-primary" data-ng-click="createCreature()"
+                                data-ng-disabled="isCreatureNotValid(newCreature)">Create
                         </button>
 
                     </div>
                 </div>
             </form>
         </accordion-group>
-        <accordion-group class="flip" is-open="isConsoleExpanded" is-disabled="false" ng-show="isConsoleOpen">
+        <accordion-group class="flip" is-open="isConsoleExpanded" is-disabled="false" data-ng-show="isConsoleOpen">
             <accordion-heading>
                 <div class="btn-group btn-block">
                     <h4 class="pull-left">Add creature</h4>
-                    <button type="button" class="btn btn-default pull-right" title="Hide console" ng-click="toggleConsoleWindow($event)">
+                    <button type="button" class="btn btn-default pull-right" title="Hide console" data-ng-click="toggleConsoleWindow($event)">
                         <span class="glyphicon glyphicon-retweet"></span>
                     </button>
                 </div>
             </accordion-heading>
-            <form role="form" class="console" ng-controller="ConsoleController" ng-init="init()">
+            <form role="form" class="console" data-ng-controller="ConsoleController" data-ng-init="init()">
                 <div class="form-group feedback">
-                    <textarea readonly rows="20" class="form-control" ng-model="feedback" show-tail></textarea>
+                    <textarea readonly rows="20" class="form-control" data-ng-model="feedback" show-tail></textarea>
                 </div>
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon">&gt;</span>
                         <input type="text" class="form-control"
                                placeholder="Enter command (type 'help' for list of commands)"
-                               ng-enter="sendInput()"
-                               ng-model="input">
+                               data-ng-enter="sendInput()"
+                               data-ng-model="input">
                     </div>
                 </div>
             </form>
         </accordion-group>
-        <accordion-group class="flip" is-open="isUpdateCreatureExpanded" is-disabled="false" ng-show="isUpdateOpen">
+        <accordion-group class="flip" is-open="isUpdateCreatureExpanded" is-disabled="false" data-ng-show="isUpdateOpen">
             <accordion-heading>
                 <div class="btn-group btn-block">
                     <h4 class="pull-left">Update creature</h4>
@@ -95,9 +95,9 @@
 
                     <div class="col-sm-4">
                         <input id="updateCreatureName" type="text" class="form-control" placeholder="Creature name"
-                               ng-model="creatureToUpdate.name"
-                               ng-enter="updateCreature()"
-                               focus-on="focusName">
+                               data-ng-model="creatureToUpdate.name"
+                               data-ng-enter="updateCreature()"
+                               data-focus-on="focusName">
                     </div>
                 </div>
                 <div class="form-group">
@@ -105,8 +105,8 @@
 
                     <div class="col-sm-4">
                         <input id="updateCreatureInitiative" type="number" class="form-control"
-                               ng-model="creatureToUpdate.initiative"
-                               ng-enter="createCreature()"/>
+                               data-ng-model="creatureToUpdate.initiative"
+                               data-ng-enter="createCreature()"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -115,16 +115,16 @@
 
                     <div class="col-sm-4">
                         <input id="updateCreatureCalculatedInitiative" class="form-control"
-                               ng-model="creatureToUpdate.calculatedInitiative"
-                               ng-enter="updateCreature()"/>
+                               data-ng-model="creatureToUpdate.calculatedInitiative"
+                               data-ng-enter="updateCreature()"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="button" class="btn btn-primary" ng-click="updateCreature()"
-                                ng-disabled="isCreatureNotValid(creatureToUpdate)">Update
+                        <button type="button" class="btn btn-primary" data-ng-click="updateCreature()"
+                                data-ng-disabled="isCreatureNotValid(creatureToUpdate)">Update
                         </button>
-                        <button type="button" class="btn btn-default" ng-click="closeUpdate()">Cancel
+                        <button type="button" class="btn btn-default" data-ng-click="closeUpdate()">Cancel
                         </button>
                     </div>
                 </div>
@@ -145,20 +145,20 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="creature in creatures | orderBy : creature.calculatedInitiative" ng-class="{'bg-primary': isSelected(creature)}">
+            <tr data-ng-repeat="creature in creatures | orderBy : '-calculatedInitiative'" data-ng-class="{'bg-primary': isSelected(creature)}">
                 <td>{{creature.calculatedInitiative}}</td>
                 <td>{{creature.name}}</td>
                 <td>{{creature.initiative}}</td>
                 <td>
                     <div class="btn-group pull-right">
-                        <button type="button" class="btn btn-default" ng-click="selectCreatureToUpdate(creature)"><span
+                        <button type="button" class="btn btn-default" data-ng-click="selectCreatureToUpdate(creature)"><span
                                 class="glyphicon glyphicon-edit"></span></button>
-                        <button type="button" class="btn btn-default" ng-click="deleteCreature(creature)"><span
+                        <button type="button" class="btn btn-default" data-ng-click="deleteCreature(creature)"><span
                                 class="glyphicon glyphicon-trash"></span></button>
                     </div>
                 </td>
             </tr>
-            <tr ng-if="creatures.length == 0">
+            <tr data-ng-if="creatures.length == 0">
                 <td>No creatures yet</td>
                 <td></td>
                 <td></td>
@@ -168,6 +168,6 @@
         </table>
 
     </div>
-    <button class="btn btn-default" ng-click="calculateInitiatives()">Calculate</button>
-    <button class="btn btn-danger" ng-click="resetCreatures()">Reset</button>
+    <button class="btn btn-default" data-ng-click="calculateInitiatives()">Calculate</button>
+    <button class="btn btn-danger" data-ng-click="resetCreatures()">Reset</button>
 </div>

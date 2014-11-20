@@ -55,11 +55,11 @@ public class CreatureResource {
         creature.setName(newName);
     }
 
-    @RequestMapping(value = "/delete/{name}", method = RequestMethod.POST)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @NotifyClients
-    public void delete(@PathVariable("name") String name) {
-        creatureService.deleteCreature(name);
+    public void delete(@PathVariable("id") String id) {
+        creatureService.deleteCreature(id);
     }
 
     @RequestMapping(value = "/reset", method = RequestMethod.POST)
@@ -70,16 +70,17 @@ public class CreatureResource {
     }
 
     @RequestMapping(value = "/calculate", method = RequestMethod.GET)
-    @NotifyClients
-    public @ResponseBody List<Creature> calculateInitiative() {
-        return creatureService.calculateInitiative();
-    }
-
-    @RequestMapping(value = "/next", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @NotifyClients
-    public void nextTurn() {
-        creatureService.shiftCreaturesLeft();
+    public void calculateInitiative() {
+        creatureService.calculateInitiative();
+    }
+
+    @RequestMapping(value = "/{id}/incrementTurnCount", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @NotifyClients
+    public void incrementCreatureTurnCount(@PathVariable String id) {
+        creatureService.incrementCreatureTurnCount(id);
     }
 }
 

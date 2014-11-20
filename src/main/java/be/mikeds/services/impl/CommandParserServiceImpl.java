@@ -1,7 +1,9 @@
-package be.mikeds.services;
+package be.mikeds.services.impl;
 
 import be.mikeds.enums.Command;
 import be.mikeds.model.Creature;
+import be.mikeds.services.CommandParserService;
+import be.mikeds.services.CreatureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +18,7 @@ import static java.lang.Integer.parseInt;
  * --------------------------------
  */
 @Service
-public class CommandParserServiceImpl implements CommandParserService, Serializable {
-    private static final long serialVersionUID = -368473287531627378L;
+public class CommandParserServiceImpl implements CommandParserService {
 
     @Autowired
     private CreatureService creatureService;
@@ -48,7 +49,8 @@ public class CommandParserServiceImpl implements CommandParserService, Serializa
                     feedback.append("Creatures have been reset.");
                     break;
                 case CALCULATE:
-                    feedback.append(printCreatures(creatureService.calculateInitiative()));
+                    creatureService.calculateInitiative();
+                    feedback.append(printCreatures(creatureService.getCreatures()));
                     break;
                 case GET_CREATURES:
                     feedback.append(printCreatures(creatureService.getCreatures()));
