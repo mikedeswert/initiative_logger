@@ -1,10 +1,22 @@
 #!/bin/bash
-# Setup of Java and Tomcat on the Raspberry Pi
+# Setup of Java, Tomcat and MongoDB on the Raspberry Pi
 # Execute this file on a Raspberry Pi to setup a deployment environment
+#
+# Please be aware that this shell script installs the following:
+# 	- oracle-java8-jdk
+#	- git
+#	- sed
 
 # Java should already be installed but let us make sure it is Java 8 and correctly updated
 sudo apt-get install oracle-java8-jdk
 sudo apt-get update
+
+# Clone and instal @svvitale his mongo4pi
+sudo apt-get install git
+sudo git clone https://github.com/svvitale/mongo4pi.git $toolshome/mongo4pi
+sudo chmod 755 $toolshome/mongo4pi/install.sh
+cd $toolshome/mongo4pi
+./install.sh
 
 # Download and unzip Tomcat 8 to the tools directory
 toolshome=~/tools
@@ -17,15 +29,9 @@ mkdir $toolshome
 rm -f $toolshome/$tomcattar
 rm -rf $toolshome/$tomcat
 
+## Download and unzip
 wget http://apache.cu.be/tomcat/tomcat-7/v7.0.57/bin/$tomcattar -P $toolshome
 tar xzf $toolshome/$tomcattar -C $toolshome
-
-# Clone and instal @svvitale his mongo4pi
-sudo apt-get install git
-sudo git clone https://github.com/svvitale/mongo4pi.git $toolshome/mongo4pi
-sudo chmod 755 $toolshome/mongo4pi/install.sh
-cd $toolshome/mongo4pi
-./install.sh
 
 # Modify Tomcat configuration using sed
 sudo apt-get install sed
