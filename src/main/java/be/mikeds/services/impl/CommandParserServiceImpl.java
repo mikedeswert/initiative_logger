@@ -2,8 +2,10 @@ package be.mikeds.services.impl;
 
 import be.mikeds.enums.Command;
 import be.mikeds.model.Creature;
+import be.mikeds.model.Encounter;
 import be.mikeds.services.CommandParserService;
 import be.mikeds.services.CreatureService;
+import be.mikeds.services.EncounterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,9 @@ public class CommandParserServiceImpl implements CommandParserService {
     @Autowired
     private CreatureService creatureService;
 
+    @Autowired
+    private EncounterService encounterService;
+
     @Override
     public String parseCommand(String input) {
         StringBuilder feedback = new StringBuilder();
@@ -40,17 +45,22 @@ public class CommandParserServiceImpl implements CommandParserService {
                     addPlayer(inputParts);
                     feedback.append("Player ").append(inputParts[1]).append(" has been added successfully.");
                     break;
+                case ADD_ENCOUNTER:
+                    addEncounter(inputParts);
+                    feedback.append("Encounter ").append(inputParts[1]).append(" has been added successfully.");
+                    break;
                 case DELETE:
                     creatureService.deleteCreature(inputParts[1]);
                     feedback.append("Creature ").append(inputParts[1]).append(" has been deleted successfully.");
                     break;
                 case CLEAR:
-                    creatureService.resetCreatures();
+                    resetCreatures(inputParts);
                     feedback.append("Creatures have been reset.");
                     break;
                 case CALCULATE:
-                    creatureService.calculateInitiative();
-                    feedback.append(printCreatures(creatureService.getCreatures()));
+                    calculateCreatureInitiatives(inputParts);
+                    Encounter encounter = encounterService.getEncounter(inputParts[1]);
+                    feedback.append("Encounter: ").append(encounter.getName()).append("\n").append(printCreatures(encounter.getCreatures()));
                     break;
                 case GET_CREATURES:
                     feedback.append(printCreatures(creatureService.getCreatures()));
@@ -59,6 +69,8 @@ public class CommandParserServiceImpl implements CommandParserService {
                     feedback.append(Command.getCommands());
                     break;
             }
+        } catch (IllegalArgumentException iae) {
+            feedback.append(iae.getMessage());
         } catch (Exception e) {
             feedback.append("Invalid command (type 'help' to see a list of commands)");
         } finally {
@@ -68,15 +80,40 @@ public class CommandParserServiceImpl implements CommandParserService {
         return feedback.toString();
     }
 
+    private void addEncounter(String[] inputParts) {
+        Encounter encounter = new Encounter();
+        encounter.setName(inputParts[1]);
+        encounterService.addEncounter(encounter);
+    }
+
+    private void resetCreatures(String[] inputParts) {
+        encounterService.resetCreatures(encounterService.getEncounter(inputParts[1]));
+    }
+
+    private void calculateCreatureInitiatives(String[] inputParts) {
+        encounterService.calculateCreatureInitiatives(encounterService.getEncounter(inputParts[1]));
+    }
+
     private void addCreature(String[] inputParts) {
-        Creature monster = new Creature(inputParts[1], parseInt(inputParts[2]));
-        creatureService.addCreature(monster);
+        updateEncounter(inputParts, new Creature(inputParts[2], parseInt(inputParts[3])));
     }
 
     private void addPlayer(String[] inputParts) {
-        Creature player = new Creature(inputParts[1], 0);
-        player.setCalculatedInitiative(parseInt(inputParts[2]));
-        creatureService.addCreature(player);
+        Creature player = new Creature(inputParts[2], 0);
+        player.setCalculatedInitiative(parseInt(inputParts[3]));
+        updateEncounter(inputParts, player);
+    }
+
+    private void updateEncounter(String[] inputParts, Creature creature) {
+        Encounter encounter = encounterService.getEncounter(inputParts[1]);
+
+        if(encounter == null) {
+            throw new IllegalArgumentException("No encounter exists with id: " + inputParts[0]);
+        }
+
+        encounter.addCreature(creature);
+
+        encounterService.updateEncounter(encounter);
     }
 
     private String printCreatures(List<Creature> creatures) {

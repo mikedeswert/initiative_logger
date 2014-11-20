@@ -20,16 +20,27 @@ import static java.util.Collections.unmodifiableList;
  */
 @Service
 public class CreatureServiceImpl implements CreatureService {
-    private static final int TWENTY_SIDED = 20;
 
     @Autowired
     private CreatureRepository creatureRepository;
 
-    @Autowired
-    private DiceRollerService diceRollerService;
-
     @Override
     public void addCreature(Creature creature) {
+        creatureRepository.save(creature);
+    }
+
+    @Override
+    public List<Creature> getCreatures() {
+        return unmodifiableList(creatureRepository.findAll());
+    }
+
+    @Override
+    public Creature getCreature(String id) {
+        return creatureRepository.findOne(id);
+    }
+
+    @Override
+    public void updateCreature(Creature creature) {
         creatureRepository.save(creature);
     }
 
@@ -39,39 +50,10 @@ public class CreatureServiceImpl implements CreatureService {
     }
 
     @Override
-    public List<Creature> getCreatures() {
-        List<Creature> creatures = creatureRepository.findAll();
-        //sort(creatures, (c1, c2) -> (c1.getTurnCount() - c2.getTurnCount() != 0) ? c1.getTurnCount() - c2.getTurnCount() : c2.getCalculatedInitiative() - c1.getCalculatedInitiative());
-        return unmodifiableList(creatures);
-    }
-
-    @Override
-    public void calculateInitiative() {
-        List<Creature> creatures = creatureRepository.findAll();
-
-        for (Creature creature : creatures) {
-            if (creature.getCalculatedInitiative() == 0) {
-                creature.setCalculatedInitiative(diceRollerService.roll(1, TWENTY_SIDED) + creature.getInitiative());
-            }
-        }
-
-        creatureRepository.save(creatures);
-    }
-
-    @Override
-    public void resetCreatures() {
-        creatureRepository.deleteAll();
-    }
-
-    @Override
     public void incrementCreatureTurnCount(String id) {
         Creature creature = creatureRepository.findOne(id);
         creature.incrementTurnCounnt();
         creatureRepository.save(creature);
     }
 
-    @Override
-    public Creature getCreature(String id) {
-        return creatureRepository.findOne(id);
-    }
 }

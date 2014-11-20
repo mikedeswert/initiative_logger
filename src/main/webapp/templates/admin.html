@@ -1,10 +1,55 @@
-<div class="col-md-12 ng-cloak" data-ng-cloak data-ng-init="init()" data-ng-swipe-right="pageService.goToInitiatives()" data-ng-swipe-left="pageService.goToBoard()">
-    <accordion id="adminControls" close-others="false">
-        <accordion-group class="flip" is-open="isAddCreatureExpanded" is-disabled="false" data-ng-hide="isConsoleOpen || isUpdateOpen">
+<div class="col-md-12 ng-cloak" data-ng-cloak data-ng-init="init()" data-ng-swipe-right="pageService.goToInitiatives()"
+     data-ng-swipe-left="pageService.goToBoard()">
+    <div id="encounterControls" class="panel panel-default">
+        <div class="panel-body flip" data-ng-if="!isCreateEncounterOpen && !isUpdateEncounterOpen">
+            <div class="col-md-10">
+                <select id="selectEncounter" class="form-control" data-ng-model="$parent.selectedEncounter"
+                        data-ng-options="encounter.name for encounter in encounters">
+                    <option value="">Select encounter</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <div class="btn-group pull-right">
+                    <button type="button" class="btn btn-default" data-ng-click="selectEncounterToUpdate(creature)"
+                            data-ng-disabled="!isAnEncounterSelected()"><span
+                            class="glyphicon glyphicon-edit"></span></button>
+                    <button type="button" class="btn btn-default" data-ng-click="openCreateEncounterView()"><span
+                            class="glyphicon glyphicon-plus"></span></button>
+                </div>
+            </div>
+        </div>
+        <div id="createEncounterControls" class="panel-body flip" data-ng-if="isCreateEncounterOpen">
+            <div class="col-md-10">
+                <input type="text" class="form-control" data-ng-model="newEncounter.name"/>
+            </div>
+            <div class="col-md-2">
+                <div class="btn-group pull-right">
+                    <button class="btn btn-primary" data-ng-click="createEncounter()">Save</button>
+                    <button class="btn btn-default" data-ng-click="closeCreateEncounter()">Cancel</button>
+                </div>
+            </div>
+        </div>
+        <div id="updateEncounterControls" class="panel-body flip" data-ng-if="isUpdateEncounterOpen">
+            <div class="col-md-10">
+                <input type="text" class="form-control" data-ng-model="encounterToUpdate.name"/>
+            </div>
+            <div class="col-md-2">
+                <div class="btn-group pull-right">
+                    <button class="btn btn-primary" data-ng-click="updateEncounter()">Save</button>
+                    <button class="btn btn-default" data-ng-click="closeUpdateEncounter()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <accordion data-ng-if="isAnEncounterSelected()" id="adminControls" close-others="false">
+        <accordion-group class="flip" is-open="isAddCreatureExpanded" is-disabled="false"
+                         data-ng-hide="isConsoleOpen || isUpdateOpen">
             <accordion-heading>
                 <div class="btn-group btn-block">
                     <h4 class="pull-left">Add creature</h4>
-                    <button type="button" class="btn btn-default pull-right" title="Show console" data-ng-click="toggleConsoleWindow($event)"><span
+                    <button type="button" class="btn btn-default pull-right" title="Show console"
+                            data-ng-click="toggleConsoleWindow($event)"><span
                             class="glyphicon glyphicon-retweet"></span>
                     </button>
                 </div>
@@ -63,7 +108,8 @@
             <accordion-heading>
                 <div class="btn-group btn-block">
                     <h4 class="pull-left">Add creature</h4>
-                    <button type="button" class="btn btn-default pull-right" title="Hide console" data-ng-click="toggleConsoleWindow($event)">
+                    <button type="button" class="btn btn-default pull-right" title="Hide console"
+                            data-ng-click="toggleConsoleWindow($event)">
                         <span class="glyphicon glyphicon-retweet"></span>
                     </button>
                 </div>
@@ -83,7 +129,8 @@
                 </div>
             </form>
         </accordion-group>
-        <accordion-group class="flip" is-open="isUpdateCreatureExpanded" is-disabled="false" data-ng-show="isUpdateOpen">
+        <accordion-group class="flip" is-open="isUpdateCreatureExpanded" is-disabled="false"
+                         data-ng-show="isUpdateOpen">
             <accordion-heading>
                 <div class="btn-group btn-block">
                     <h4 class="pull-left">Update creature</h4>
@@ -145,21 +192,29 @@
             </tr>
             </thead>
             <tbody>
-            <tr data-ng-repeat="creature in creatures | orderBy : '-calculatedInitiative'" data-ng-class="{'bg-primary': isSelected(creature)}">
+            <tr data-ng-repeat="creature in selectedEncounter.creatures | orderBy : '-calculatedInitiative'"
+                data-ng-class="{'bg-primary': isSelected(creature)}">
                 <td>{{creature.calculatedInitiative}}</td>
                 <td>{{creature.name}}</td>
                 <td>{{creature.initiative}}</td>
                 <td>
                     <div class="btn-group pull-right">
-                        <button type="button" class="btn btn-default" data-ng-click="selectCreatureToUpdate(creature)"><span
+                        <button type="button" class="btn btn-default"
+                                data-ng-click="selectCreatureToUpdate(creature)"><span
                                 class="glyphicon glyphicon-edit"></span></button>
                         <button type="button" class="btn btn-default" data-ng-click="deleteCreature(creature)"><span
                                 class="glyphicon glyphicon-trash"></span></button>
                     </div>
                 </td>
             </tr>
-            <tr data-ng-if="creatures.length == 0">
+            <tr data-ng-if="isAnEncounterSelected() && selectedEncounter.creatures.length == 0">
                 <td>No creatures yet</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr data-ng-if="!isAnEncounterSelected()">
+                <td>No encounter selected</td>
                 <td></td>
                 <td></td>
                 <td></td>

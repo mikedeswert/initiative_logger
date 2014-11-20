@@ -45,35 +45,18 @@ public class CreatureResource {
         creatureService.addCreature(player);
     }
 
-    @RequestMapping(value = "/update/{oldName}", method = RequestMethod.POST)
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @NotifyClients
-    public void updateCreature(@PathVariable("oldName") String oldName, @RequestParam("newName") String newName, @RequestParam("initiative") int initiative, @RequestParam("calculatedInitiative") int calculatedInitiative) {
-        Creature creature = creatureService.getCreature(oldName);
-        creature.setCalculatedInitiative(calculatedInitiative);
-        creature.setInitiative(initiative);
-        creature.setName(newName);
+    public void updateCreature(@RequestBody Creature creature) {
+        creatureService.updateCreature(creature);
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @NotifyClients
-    public void delete(@PathVariable("id") String id) {
+    public void deleteCreature(@PathVariable("id") String id) {
         creatureService.deleteCreature(id);
-    }
-
-    @RequestMapping(value = "/reset", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @NotifyClients
-    public void resetCreatures() {
-        creatureService.resetCreatures();
-    }
-
-    @RequestMapping(value = "/calculate", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @NotifyClients
-    public void calculateInitiative() {
-        creatureService.calculateInitiative();
     }
 
     @RequestMapping(value = "/{id}/incrementTurnCount", method = RequestMethod.POST)

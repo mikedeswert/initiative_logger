@@ -8,8 +8,9 @@ import static com.sun.org.apache.xalan.internal.lib.ExsltStrings.padding;
  * --------------------------------
  */
 public enum Command {
-    ADD("<name> <initiative>", "Add a monster with given <name> and <initiative> to the creature list."),
-    ADD_PLAYER("<name> <calculated initiative>", "Add a player with given <name> and <calculated initiative> from the creature list."),
+    ADD("<encounter> <name> <initiative>", "Add a monster with given <name> and <initiative> to the creature list of given <encounter>."),
+    ADD_PLAYER("<encounter> <name> <calculated initiative>", "Add a player with given <name> and <calculated initiative> from the creature list of given <encounter>."),
+    ADD_ENCOUNTER("<name>", "Add an encounter with given <name>"),
     DELETE("<name>", "Delete all creatures with given <name> from the creature list."),
     CLEAR("", "Clear all creatures from the list."),
     CALCULATE("", "Calculates the initiatives for all creatures and returns a sorted list."),

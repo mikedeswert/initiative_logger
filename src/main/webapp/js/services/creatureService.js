@@ -1,4 +1,4 @@
-angular.module('webTransportModule')
+angular.module('initiativeRollerModule')
     .factory('creatureService', ['restService', 'messageService', 'creatureFactory', function(restService, messageService, creatureFactory) {
         return {
             getCreatures: function() {

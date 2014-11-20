@@ -11,12 +11,11 @@ import java.util.List;
  */
 public interface CreatureService {
     void addCreature(Creature creature);
-    void deleteCreature(String id);
     List<Creature> getCreatures();
-    void calculateInitiative();
-    void resetCreatures();
+    Creature getCreature(String name);
+    void updateCreature(Creature creature);
+    void deleteCreature(String id);
 
     void incrementCreatureTurnCount(String id);
 
-    Creature getCreature(String name);
 }

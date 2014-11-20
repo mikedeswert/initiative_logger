@@ -1,5 +1,5 @@
 angular.module('initiativeRollerModule')
-    .controller('AdminController', ['$scope', 'restService', 'messageService', 'pageService', 'creatureFactory', 'webSocketService', 'creatureService', function($scope, restService, messageService, pageService, creatureFactory, webSocketService, creatureService) {
+    .controller('AdminController', ['$scope', 'restService', 'messageService', 'pageService', 'creatureFactory', 'webSocketService', 'creatureService', 'encounterService', function($scope, restService, messageService, pageService, creatureFactory, webSocketService, creatureService, encounterService) {
         $scope.creatures = [];
         $scope.pageService = pageService;
         $scope.newCreature = creatureFactory.createDefaultCreature();;
@@ -9,20 +9,52 @@ angular.module('initiativeRollerModule')
         $scope.isUpdateCreatureExpanded = true;
         $scope.isConsoleOpen = false;
         $scope.isUpdateOpen = false;
+        $scope.isCreateEncounterOpen = false;
+        $scope.isUpdateEncounterOpen = false;
+        $scope.selectedEncounter;
+        $scope.newEncounter = {name: ''};
+        $scope.encounterToUpdate = {name: ''};
+        $scope.encounters = [];
 
         $scope.init = function() {
-            webSocketService.subscribe('AdminController', getCreatures);
+            webSocketService.subscribe('AdminController', getEncounters);
 
             messageService.clearMessages();
 
-            getCreatures();
+            getEncounters();
+            $scope.selectedEncounter = $scope.encounters[0];
 
             $scope.$broadcast('focusName');
         };
 
+        $scope.createEncounter = function() {
+            if(encounterService.isEncounterValid($scope.newEncounter)) {
+                encounterService.createEncounter($scope.newEncounter).then(
+                    function() {
+                        $scope.closeCreateEncounter();
+                    }
+                );
+            }
+        };
+
+        $scope.updateEncounter = function() {
+            if(encounterService.isEncounterValid($scope.encounterToUpdate)) {
+                encounterService.updateEncounter($scope.encounterToUpdate).then(
+                    function() {
+                        $scope.closeUpdateEncounter();
+                    }
+                );
+            }
+        };
+
         $scope.createCreature = function() {
             if(creatureService.isCreatureValid($scope.newCreature)) {
-                creatureService.createCreature($scope.newCreature).then(
+                if($scope.selectedEncounter.creatures == null) {
+                    $scope.selectedEncounter.creatures = [];
+                }
+
+                $scope.selectedEncounter.creatures.push($scope.newCreature);
+                encounterService.updateEncounter($scope.selectedEncounter).then(
                     function() {
                         $scope.newCreature = creatureFactory.createDefaultCreature();
                         $scope.$broadcast('focusName');
@@ -35,7 +67,6 @@ angular.module('initiativeRollerModule')
             if(creatureService.isCreatureValid($scope.creatureToUpdate)) {
                 creatureService.updateCreature($scope.creatureToUpdate).then(
                     function() {
-                        $scope.creatureToUpdate = creatureFactory.createDefaultCreature();
                         $scope.closeUpdate();
                         $scope.$broadcast('focusName');
                     }
@@ -48,13 +79,28 @@ angular.module('initiativeRollerModule')
         };
 
         $scope.calculateInitiatives = function() {
-            creatureService.calculateInitiatives();
+            encounterService.calculateCreatureInitiatives($scope.selectedEncounter);
         };
 
         $scope.selectCreatureToUpdate = function(creature) {
             $scope.creatureToUpdate = angular.copy(creature);
             $scope.creatureToUpdate.oldName = angular.copy($scope.creatureToUpdate.name);
             $scope.isUpdateOpen = true;
+        };
+
+        $scope.selectEncounterToUpdate = function() {
+            $scope.encounterToUpdate = angular.copy($scope.selectedEncounter);
+            $scope.isUpdateEncounterOpen = true;
+        };
+
+        $scope.closeCreateEncounter = function() {
+            $scope.newEncounter = {name: ''};
+            $scope.isCreateEncounterOpen = false;
+        };
+
+        $scope.closeUpdateEncounter = function() {
+            $scope.encounterToUpdate = {name: ''};
+            $scope.isUpdateEncounterOpen = false;
         };
 
         $scope.closeUpdate = function() {
@@ -70,7 +116,6 @@ angular.module('initiativeRollerModule')
             creatureService.resetCreatures();
         };
 
-
         $scope.isCreatureNotValid = function(creature) {
             return !creatureService.isCreatureValid(creature);
         };
@@ -80,9 +125,30 @@ angular.module('initiativeRollerModule')
             event.stopPropagation();
         };
 
-        function getCreatures() {
-            creatureService.getCreatures().then(function(creatures) {
-                $scope.creatures = creatures;
-            });
+        $scope.openCreateEncounterView = function() {
+            $scope.isCreateEncounterOpen = true;
+        };
+
+        $scope.isAnEncounterSelected = function() {
+            return typeof $scope.selectedEncounter != 'undefined' && $scope.selectedEncounter != null;
+        };
+
+        $scope.$watch('selectedEncounter', function(newVal, oldVal) {
+            encounterService.setSelectedEncounter(newVal);
+        });
+
+        $scope.$watch(
+            function() {
+                return encounterService.getSelectedEncounter();
+            },
+            function() {
+                $scope.seelctedEncounter = encounterService.getSelectedEncounter();
+            }
+        );
+
+        function getEncounters() {
+            encounterService.getEncounters().then(function(encounters) {
+                $scope.encounters = encounters;
+            })
         }
     }]);
