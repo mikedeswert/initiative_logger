@@ -1,5 +1,6 @@
 package be.mikeds.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -18,6 +19,7 @@ public class Creature {
     private int initiative;
     private int calculatedInitiative;
     private int turnCount;
+    private String type;
     private String imageSource;
 
     public Creature() {
@@ -72,15 +74,24 @@ public class Creature {
         this.turnCount = turnCount;
     }
 
-    public void incrementTurnCounnt() {
-        this.turnCount++;
-    }
-
     public String getImageSource() {
         return imageSource;
     }
 
     public void setImageSource(String imageSource) {
         this.imageSource = imageSource;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    @JsonIgnore
+    public void incrementTurnCounnt() {
+        this.turnCount++;
     }
 }

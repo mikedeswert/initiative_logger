@@ -7,7 +7,7 @@ angular.module('webTransportModule')
             },
             post: function(url, content) {
                 delete $http.defaults.headers.common['X-Requested-With'];
-                return $http.post(urlService.createUrl(url), content);
+                return $http.post(urlService.createUrl(url), JSON.stringify(content));
             }
         }
     }]);
