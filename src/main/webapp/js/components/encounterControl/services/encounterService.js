@@ -1,5 +1,5 @@
-angular.module('initiativeRollerModule')
-    .factory('encounterService', ['restService', 'messageService', 'creatureFactory', function (restService, messageService, creatureFactory) {
+angular.module('encounterControl')
+    .factory('encounterService', ['restService', 'messageService', function (restService, messageService) {
         var selectedEncounter;
 
         return {

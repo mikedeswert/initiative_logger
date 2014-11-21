@@ -1,7 +1,7 @@
-angular.module('webTransportModule').service('webSocketFactory', ['$timeout', 'webSocketStatusService', 'urlService', function($timeout, webSocketStatusService, urlService) {
+angular.module('webTransportModule').service('webSocketFactory', ['$timeout', 'webSocketStatusService', 'urlFactory', function($timeout, webSocketStatusService, urlFactory) {
     function initializeSocket(notifyCallback) {
         var socket = {};
-        socket.client = new SockJS(urlService.createUrl('notify'));
+        socket.client = new SockJS(urlFactory.createUrl('notify'));
         socket.stomp = Stomp.over(socket.client);
         socket.stomp.connect({}, function() {
             socket.stomp.subscribe("/topic/notify", notifyCallback);

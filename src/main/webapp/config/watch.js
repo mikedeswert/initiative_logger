@@ -1,18 +1,18 @@
 module.exports = {
     styles: {
         files: ['less/**/*.less'],
-        tasks: ['less', 'deploy'],
+        tasks: ['less', 'deploy', 'test-e2e-local'],
         options: {
             nospawn: true
         }
     },
     js: {
         files: ['js/**/*.js'],
-        tasks: ['karma', 'deploy']
+        tasks: ['karma', 'deploy', 'test-e2e-local']
     },
     markup: {
         files: ['**/*.html'],
-        tasks: ['deploy']
+        tasks: ['deploy', 'test-e2e-local']
     },
     unit: {
         files: ['../../test/webapp/unit/**/*.js'],

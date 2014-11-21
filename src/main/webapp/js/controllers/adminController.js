@@ -9,42 +9,10 @@ angular.module('initiativeRollerModule')
         $scope.isUpdateCreatureExpanded = true;
         $scope.isConsoleOpen = false;
         $scope.isUpdateOpen = false;
-        $scope.isCreateEncounterOpen = false;
-        $scope.isUpdateEncounterOpen = false;
-        $scope.selectedEncounter;
-        $scope.newEncounter = {name: ''};
-        $scope.encounterToUpdate = {name: ''};
-        $scope.encounters = [];
+        $scope.selectedEncounter = encounterService.getSelectedEncounter();
 
         $scope.init = function() {
-            webSocketService.subscribe('AdminController', getEncounters);
-
             messageService.clearMessages();
-
-            getEncounters();
-            $scope.selectedEncounter = $scope.encounters[0];
-
-            $scope.$broadcast('focusName');
-        };
-
-        $scope.createEncounter = function() {
-            if(encounterService.isEncounterValid($scope.newEncounter)) {
-                encounterService.createEncounter($scope.newEncounter).then(
-                    function() {
-                        $scope.closeCreateEncounter();
-                    }
-                );
-            }
-        };
-
-        $scope.updateEncounter = function() {
-            if(encounterService.isEncounterValid($scope.encounterToUpdate)) {
-                encounterService.updateEncounter($scope.encounterToUpdate).then(
-                    function() {
-                        $scope.closeUpdateEncounter();
-                    }
-                );
-            }
         };
 
         $scope.createCreature = function() {
@@ -88,21 +56,6 @@ angular.module('initiativeRollerModule')
             $scope.isUpdateOpen = true;
         };
 
-        $scope.selectEncounterToUpdate = function() {
-            $scope.encounterToUpdate = angular.copy($scope.selectedEncounter);
-            $scope.isUpdateEncounterOpen = true;
-        };
-
-        $scope.closeCreateEncounter = function() {
-            $scope.newEncounter = {name: ''};
-            $scope.isCreateEncounterOpen = false;
-        };
-
-        $scope.closeUpdateEncounter = function() {
-            $scope.encounterToUpdate = {name: ''};
-            $scope.isUpdateEncounterOpen = false;
-        };
-
         $scope.closeUpdate = function() {
             $scope.creatureToUpdate = creatureFactory.createDefaultCreature();
             $scope.isUpdateOpen = false;
@@ -125,30 +78,16 @@ angular.module('initiativeRollerModule')
             event.stopPropagation();
         };
 
-        $scope.openCreateEncounterView = function() {
-            $scope.isCreateEncounterOpen = true;
-        };
-
         $scope.isAnEncounterSelected = function() {
             return typeof $scope.selectedEncounter != 'undefined' && $scope.selectedEncounter != null;
         };
-
-        $scope.$watch('selectedEncounter', function(newVal, oldVal) {
-            encounterService.setSelectedEncounter(newVal);
-        });
 
         $scope.$watch(
             function() {
                 return encounterService.getSelectedEncounter();
             },
             function() {
-                $scope.seelctedEncounter = encounterService.getSelectedEncounter();
+                $scope.selectedEncounter = encounterService.getSelectedEncounter();
             }
         );
-
-        function getEncounters() {
-            encounterService.getEncounters().then(function(encounters) {
-                $scope.encounters = encounters;
-            })
-        }
     }]);

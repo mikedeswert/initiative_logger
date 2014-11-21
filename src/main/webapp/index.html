@@ -21,17 +21,21 @@
 
     <script type="text/javascript" src="js/app.js"></script>
 
+    <!-- Encounter Control Component-->
+    <script type="text/javascript" src="js/components/encounterControl/directives/encounterControlDirective.js"></script>
+    <script type="text/javascript" src="js/components/encounterControl/controllers/encounterController.js"></script>
+    <script type="text/javascript" src="js/components/encounterControl/services/encounterService.js"></script>
+
     <script type="text/javascript" src="js/services/restService.js"></script>
     <script type="text/javascript" src="js/services/messageService.js"></script>
     <script type="text/javascript" src="js/services/pageService.js"></script>
     <script type="text/javascript" src="js/services/webSocketService.js"></script>
     <script type="text/javascript" src="js/services/webSocketStatusService.js"></script>
-    <script type="text/javascript" src="js/services/urlService.js"></script>
     <script type="text/javascript" src="js/services/creatureService.js"></script>
-    <script type="text/javascript" src="js/services/encounterService.js"></script>
 
     <script type="text/javascript" src="js/factories/creatureFactory.js"></script>
     <script type="text/javascript" src="js/factories/webSocketFactory.js"></script>
+    <script type="text/javascript" src="js/factories/urlFactory.js"></script>
 
     <script type="text/javascript" src="js/directives/enterDirective.js"></script>
     <script type="text/javascript" src="js/directives/focusDirective.js"></script>
@@ -95,7 +99,7 @@
         <div class="container" data-ng-show="showStatus" data-ng-class="status">
             <p>{{getStatus()}}</p>
 
-            <img data-ng-if="isConnecting()" src="img/connecting.gif" alt="connecting"/>
+            <img data-ng-show="isConnecting()" src="img/connecting.gif" alt="connecting"/>
         </div>
     </div>
 </footer>

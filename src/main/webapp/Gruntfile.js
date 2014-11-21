@@ -25,7 +25,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-karma');
 
     grunt.registerTask('default', ['watch']);
-    grunt.registerTask('deploy', ['copy', 'test-e2e-local']);
+    grunt.registerTask('deploy', ['copy']);
     grunt.registerTask('test-e2e', ['protractor:test']);
     grunt.registerTask('test-e2e-local', ['protractor:testLocal']);
 };

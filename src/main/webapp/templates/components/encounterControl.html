@@ -1,0 +1,47 @@
+<div id="encounterControl" class="ng-cloak" data-ng-cloak data-ng-controller="EncounterController" data-ng-init="init()">
+    <div class="panel panel-default flip" data-ng-hide="isCreateEncounterOpen || isUpdateEncounterOpen">
+        <div class="panel-body">
+            <div class="col-md-10">
+                <select id="selectEncounter" class="form-control" data-ng-model="selectedEncounter"
+                        data-ng-options="encounter.name for encounter in encounters">
+                    <option value="">Select encounter</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <div class="btn-group pull-right">
+                    <button type="button" class="btn btn-default" data-ng-click="selectEncounterToUpdate(creature)"
+                            data-ng-disabled="!isAnEncounterSelected()"><span
+                            class="glyphicon glyphicon-edit"></span></button>
+                    <button type="button" class="btn btn-default" data-ng-click="openCreateEncounterView()"><span
+                            class="glyphicon glyphicon-plus"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="createEncounterControl" class="panel panel-default flip" data-ng-show="isCreateEncounterOpen">
+        <div class="panel-body">
+            <div class="col-md-10">
+                <input type="text" class="form-control" data-ng-model="newEncounter.name"/>
+            </div>
+            <div class="col-md-2">
+                <div class="btn-group pull-right">
+                    <button class="btn btn-primary" data-ng-click="createEncounter()">Save</button>
+                    <button class="btn btn-default" data-ng-click="closeCreateEncounter()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="updateEncounterControl" class="panel panel-default flip" data-ng-show="isUpdateEncounterOpen">
+        <div class="panel-body">
+            <div class="col-md-10">
+                <input type="text" class="form-control" data-ng-model="encounterToUpdate.name"/>
+            </div>
+            <div class="col-md-2">
+                <div class="btn-group pull-right">
+                    <button class="btn btn-primary" data-ng-click="updateEncounter()">Save</button>
+                    <button class="btn btn-default" data-ng-click="closeUpdateEncounter()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

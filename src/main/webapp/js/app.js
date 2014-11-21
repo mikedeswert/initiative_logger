@@ -5,6 +5,7 @@ angular.module('initiativeRollerApp', ['initiativeRollerModule',
                                        'messageModule',
                                        'directivesModule',
                                        'consoleModule',
+                                       'encounterControl',
                                        'ui.bootstrap',
                                        'panhandler',
                                        'ngRoute',
@@ -16,6 +17,7 @@ angular.module('webTransportModule', []);
 angular.module('messageModule', []);
 angular.module('directivesModule', []);
 angular.module('consoleModule', []);
+angular.module('encounterControl', []);
 
 angular.module('initiativeRollerApp')
     .config(['$routeProvider', function($routeProvider) {
