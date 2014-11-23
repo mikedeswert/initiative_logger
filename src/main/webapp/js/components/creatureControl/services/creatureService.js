@@ -54,30 +54,6 @@ angular.module('initiativeRollerModule')
                     }
                 );
             },
-            calculateInitiatives: function() {
-                restService.get('/rest/creature/calculate')
-                    .then(
-                    function(response) {
-                        // Do nothing
-                    },
-                    function() {
-                        messageService.addErrorMessage('Something went wrong while retrieving the calculated initiatives. Please refresh the page to try again. \n' +
-                            '                           If the problem persists, please contact a site administrator.');
-                    }
-                );
-            },
-            resetCreatures: function() {
-                restService.post('/rest/creature/reset', null)
-                    .then(
-                    function() {
-                        // Do nothing
-                    },
-                    function() {
-                        messageService.addErrorMessage('Something went wrong while resetting the creatures. Please refresh the page to try again. \n' +
-                            '                           If the problem persists, please contact a site administrator.');
-                    }
-                );
-            },
             isCreatureValid: function(creature) {
                 if(typeof creature == 'undefined' || creature == null) {
                     return false;

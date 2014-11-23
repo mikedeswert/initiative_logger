@@ -2,6 +2,16 @@ angular.module('encounterControl')
     .factory('encounterService', ['restService', 'messageService', function (restService, messageService) {
         var selectedEncounter;
 
+        function ensureCreatureArrayExists(encounters) {
+            angular.forEach(encounters, function(encounter) {
+                if(typeof encounter.creatures == 'undefined' || encounter.creatures == null) {
+                    encounter.creatures = [];
+                }
+            });
+
+            return encounters;
+        }
+
         return {
             getSelectedEncounter: function() {
                 return selectedEncounter;
@@ -9,11 +19,14 @@ angular.module('encounterControl')
             setSelectedEncounter: function(newSelectedEncounter) {
                 selectedEncounter = newSelectedEncounter;
             },
+            isEncounterSelected: function() {
+                return typeof selectedEncounter != 'undefined' && selectedEncounter != null;
+            },
             getEncounters: function () {
                 return restService.get('/rest/encounter/')
                     .then(
                     function (response) {
-                        return response.data;
+                        return ensureCreatureArrayExists(response.data);
                     },
                     function () {
                         messageService.addErrorMessage('Something went wrong while retrieving the encounters. Please refresh the page to try again.');

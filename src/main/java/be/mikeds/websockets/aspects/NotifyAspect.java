@@ -1,4 +1,4 @@
-package be.mikeds.aspects;
+package be.mikeds.websockets.aspects;
 
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
@@ -20,7 +20,7 @@ public class NotifyAspect {
 
     private static final String WEBSOCKET_TOPIC = "/topic/notify";
 
-    @Pointcut("@annotation(be.mikeds.aspects.NotifyClients)")
+    @Pointcut("@annotation(be.mikeds.websockets.annotations.NotifyClients)")
     public void notifyPointcut() {}
 
     @Pointcut("execution(* be.mikeds.rest..*(..))")

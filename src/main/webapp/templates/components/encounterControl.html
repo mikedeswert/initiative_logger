@@ -1,4 +1,4 @@
-<div id="encounterControl" class="ng-cloak" data-ng-cloak data-ng-controller="EncounterController" data-ng-init="init()">
+<div class="encounterControl ng-cloak" data-ng-cloak data-ng-controller="EncounterController" data-ng-init="init()">
     <div class="panel panel-default flip" data-ng-hide="isCreateEncounterOpen || isUpdateEncounterOpen">
         <div class="panel-body">
             <div class="col-md-10">
@@ -10,7 +10,7 @@
             <div class="col-md-2">
                 <div class="btn-group pull-right">
                     <button type="button" class="btn btn-default" data-ng-click="selectEncounterToUpdate(creature)"
-                            data-ng-disabled="!isAnEncounterSelected()"><span
+                            data-ng-disabled="!isEncounterSelected()"><span
                             class="glyphicon glyphicon-edit"></span></button>
                     <button type="button" class="btn btn-default" data-ng-click="openCreateEncounterView()"><span
                             class="glyphicon glyphicon-plus"></span></button>
@@ -21,7 +21,7 @@
     <div id="createEncounterControl" class="panel panel-default flip" data-ng-show="isCreateEncounterOpen">
         <div class="panel-body">
             <div class="col-md-10">
-                <input type="text" class="form-control" data-ng-model="newEncounter.name"/>
+                <input type="text" class="form-control" data-ng-model="newEncounter.name" data-on-enter="createEncounter()"/>
             </div>
             <div class="col-md-2">
                 <div class="btn-group pull-right">
@@ -34,7 +34,7 @@
     <div id="updateEncounterControl" class="panel panel-default flip" data-ng-show="isUpdateEncounterOpen">
         <div class="panel-body">
             <div class="col-md-10">
-                <input type="text" class="form-control" data-ng-model="encounterToUpdate.name"/>
+                <input type="text" class="form-control" data-ng-model="encounterToUpdate.name" data-on-enter="updateEncounter()"/>
             </div>
             <div class="col-md-2">
                 <div class="btn-group pull-right">

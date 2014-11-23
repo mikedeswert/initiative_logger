@@ -1,11 +1,10 @@
 package be.mikeds.rest;
 
-import be.mikeds.aspects.NotifyClients;
+import be.mikeds.websockets.annotations.NotifyClients;
 import be.mikeds.model.Encounter;
 import be.mikeds.services.EncounterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 

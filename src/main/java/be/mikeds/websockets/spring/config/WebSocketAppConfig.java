@@ -1,4 +1,4 @@
-package be.mikeds.spring.config;
+package be.mikeds.websockets.spring.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

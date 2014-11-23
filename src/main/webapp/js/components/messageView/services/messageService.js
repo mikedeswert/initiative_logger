@@ -1,4 +1,4 @@
-angular.module('messageModule')
+angular.module('messageView')
     .factory('messageService', [function() {
         var messages = [];
 

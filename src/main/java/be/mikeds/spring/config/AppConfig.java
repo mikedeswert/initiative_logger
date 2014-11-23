@@ -1,6 +1,6 @@
 package be.mikeds.spring.config;
 
-import be.mikeds.aspects.NotifyAspect;
+import be.mikeds.websockets.aspects.NotifyAspect;
 import org.springframework.context.annotation.*;
 import org.springframework.stereotype.Controller;
 

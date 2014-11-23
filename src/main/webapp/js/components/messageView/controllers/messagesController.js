@@ -1,4 +1,4 @@
-angular.module('initiativeRollerModule')
+angular.module('messageView')
     .controller('MessagesController', ['$scope', 'messageService', function ($scope, messageService) {
         $scope.messages = messageService.getMessages();
 

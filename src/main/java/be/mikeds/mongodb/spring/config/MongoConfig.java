@@ -1,5 +1,6 @@
-package be.mikeds.spring.config;
+package be.mikeds.mongodb.spring.config;
 
+import be.mikeds.mongodb.listeners.CascadingMongoEventListener;
 import com.mongodb.MongoClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,5 +25,10 @@ public class MongoConfig {
     @Bean
     public MongoTemplate mongoTemplate() throws Exception {
         return new MongoTemplate(mongoDbFactory());
+    }
+
+    @Bean
+    public CascadingMongoEventListener mongoEventListener() {
+        return new CascadingMongoEventListener();
     }
 }

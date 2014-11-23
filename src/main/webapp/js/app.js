@@ -1,23 +1,22 @@
 'use strict';
 
-angular.module('initiativeRollerApp', ['initiativeRollerModule',
-                                       'webTransportModule',
-                                       'messageModule',
-                                       'directivesModule',
-                                       'consoleModule',
-                                       'encounterControl',
-                                       'ui.bootstrap',
-                                       'panhandler',
-                                       'ngRoute',
-                                       'ngAnimate',
-                                       'ngTouch',
-                                       'ngDraggable']);
+angular.module('initiativeRollerApp', [// Modules
+                                       'initiativeRollerModule', 'webTransportModule', 'directivesModule',
+                                       // Components
+                                       'encounterControl', 'creatureControl', 'messageView', 'webSocketStatusView', 'navBar',
+                                       // External libraries
+                                       'ui.bootstrap', 'panhandler', 'ngRoute', 'ngAnimate', 'ngTouch', 'ngDraggable']);
+// Modules
 angular.module('initiativeRollerModule', []);
 angular.module('webTransportModule', []);
-angular.module('messageModule', []);
 angular.module('directivesModule', []);
-angular.module('consoleModule', []);
+
+// Components
 angular.module('encounterControl', []);
+angular.module('creatureControl', []);
+angular.module('messageView', []);
+angular.module('webSocketStatusView', []);
+angular.module('navBar', []);
 
 angular.module('initiativeRollerApp')
     .config(['$routeProvider', function($routeProvider) {
@@ -28,5 +27,4 @@ angular.module('initiativeRollerApp')
             .otherwise({redirectTo: '/initiatives'});
     }]);
 
-//test feature branch
 

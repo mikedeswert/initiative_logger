@@ -1,6 +1,7 @@
 package be.mikeds.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -23,6 +24,9 @@ public class Creature {
     private String imageSource;
 
     public Creature() {
+        if(id == null) {
+            this.id = ObjectId.get().toString();
+        }
     }
 
     public Creature(String name) {

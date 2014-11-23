@@ -1,8 +1,12 @@
 package be.mikeds.model;
 
+import be.mikeds.mongodb.annotations.CascadeSave;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,7 +21,10 @@ public class Encounter {
     private String id;
 
     private Board board;
-    private List<Creature> creatures;
+
+    @DBRef
+    @CascadeSave
+    private List<Creature> creatures = new ArrayList<>();
     private String name;
 
     public Encounter() {}

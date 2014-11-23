@@ -1,0 +1,7 @@
+<div class="websocket-status ng-cloak" data-ng-cloak data-ng-controller="WebSocketStatusController">
+    <div class="container" data-ng-show="showStatus" data-ng-class="status">
+        <p>{{getStatus()}}</p>
+
+        <img data-ng-show="isConnecting()" src="img/connecting.gif" alt="connecting"/>
+    </div>
+</div>

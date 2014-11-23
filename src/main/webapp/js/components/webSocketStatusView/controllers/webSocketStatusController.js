@@ -1,4 +1,4 @@
-angular.module('initiativeRollerModule')
+angular.module('webSocketStatusView')
     .controller('WebSocketStatusController', ['$scope', 'webSocketStatusService', '$timeout', function($scope, webSocketStatusService, $timeout) {
         $scope.status = updateStatus();
         $scope.showStatus = false;

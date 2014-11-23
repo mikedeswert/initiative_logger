@@ -39,8 +39,6 @@ public class EncounterServiceImpl implements EncounterService {
         return unmodifiableList(encounterRepository.findAll());
     }
 
-
-
     @Override
     public Encounter getEncounter(String id) {
         return encounterRepository.findOne(id);
@@ -50,6 +48,7 @@ public class EncounterServiceImpl implements EncounterService {
     public void updateEncounter(Encounter encounter) {
         encounterRepository.save(encounter);
     }
+
 
     @Override
     public void deleteEncounter(String id) {

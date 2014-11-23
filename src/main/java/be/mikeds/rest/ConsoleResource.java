@@ -1,6 +1,6 @@
 package be.mikeds.rest;
 
-import be.mikeds.aspects.NotifyClients;
+import be.mikeds.websockets.annotations.NotifyClients;
 import be.mikeds.services.CommandParserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

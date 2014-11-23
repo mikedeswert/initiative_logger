@@ -1,4 +1,4 @@
-angular.module('consoleModule')
+angular.module('creatureControl')
     .controller('ConsoleController', ['$scope', 'restService', 'messageService', function ($scope, restService, messageService) {
         $scope.feedback = '';
         $scope.input = '';

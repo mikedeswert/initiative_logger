@@ -52,8 +52,8 @@ angular.module('encounterControl')
             $scope.isUpdateEncounterOpen = false;
         };
 
-        $scope.isAnEncounterSelected = function () {
-            return typeof $scope.selectedEncounter != 'undefined' && $scope.selectedEncounter != null;
+        $scope.isEncounterSelected = function() {
+            return encounterService.isEncounterSelected();
         };
 
         $scope.$watch('selectedEncounter', function (newVal, oldVal) {

@@ -1,6 +1,6 @@
 package be.mikeds.rest;
 
-import be.mikeds.aspects.NotifyClients;
+import be.mikeds.websockets.annotations.NotifyClients;
 import be.mikeds.model.Board;
 import be.mikeds.model.Token;
 import be.mikeds.services.BoardService;
