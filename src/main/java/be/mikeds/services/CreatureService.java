@@ -15,7 +15,7 @@ public interface CreatureService {
     Creature getCreature(String name);
     void updateCreature(Creature creature);
     void deleteCreature(String id);
-
+    void deleteAllCreatures();
     void incrementCreatureTurnCount(String id);
 
 }

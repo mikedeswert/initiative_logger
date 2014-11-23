@@ -59,6 +59,13 @@ public class CreatureResource {
         creatureService.deleteCreature(id);
     }
 
+    @RequestMapping(value = "/delete/", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @NotifyClients
+    public void deleteAllCreatures() {
+        creatureService.deleteAllCreatures();
+    }
+
     @RequestMapping(value = "/{id}/incrementTurnCount", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @NotifyClients

@@ -28,10 +28,7 @@ angular.module('initiativeRollerModule')
                 )
             },
             updateCreature: function(creatureToUpdate) {
-                return restService.post('/rest/creature/update/' + creatureToUpdate.oldName +
-                    '?newName=' + creatureToUpdate.name +
-                    '&initiative=' + creatureToUpdate.initiative +
-                    '&calculatedInitiative=' + creatureToUpdate.calculatedInitiative, null)
+                return restService.post('/rest/creature/update/', creatureToUpdate)
                     .then(
                     function () {
                         messageService.addSuccessMessage('The creature was successfully updated.');

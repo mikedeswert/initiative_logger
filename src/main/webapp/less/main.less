@@ -45,11 +45,13 @@ footer {
 }
 
 .creature.ng-enter {
-    .zoom-in-down-animation;
+    /*.zoom-in-down-animation;  */
+    .fade-in-up-animation(1s);
 }
 
 .creature.ng-leave {
-    .zoom-out-down-animation(0.5s);
+    .fade-out-up-animation(0.5s);
+    /*.zoom-out-down-animation(0.5s); */
 }
 
 .admin.ng-enter {
@@ -74,12 +76,12 @@ footer {
 
 .console {
     textarea {
-        -webkit-border-bottom-right-radius: 0px;
-        -webkit-border-bottom-left-radius: 0px;
-        -moz-border-radius-bottomright: 0px;
-        -moz-border-radius-bottomleft: 0px;
-        border-bottom-right-radius: 0px;
-        border-bottom-left-radius: 0px;
+        -webkit-border-bottom-right-radius: 0;
+        -webkit-border-bottom-left-radius: 0;
+        -moz-border-radius-bottomright: 0;
+        -moz-border-radius-bottomleft: 0;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
 
         background-color: #696969 !important;
         color: #ffffff;

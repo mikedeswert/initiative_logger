@@ -24,9 +24,9 @@ public class CascadingMongoEventListener extends AbstractMongoEventListener {
     public void onBeforeConvert(final Object source) {
         ReflectionUtils.doWithFields(source.getClass(), field -> {
             ReflectionUtils.makeAccessible(field);
+            final Object fieldValue = field.get(source);
 
-            if (field.isAnnotationPresent(DBRef.class) && field.isAnnotationPresent(CascadeSave.class)){
-                final Object fieldValue = field.get(source);
+            if (fieldValue != null && field.isAnnotationPresent(DBRef.class) && field.isAnnotationPresent(CascadeSave.class)){
 
                 DbRefFieldCallback callback = new DbRefFieldCallback();
 

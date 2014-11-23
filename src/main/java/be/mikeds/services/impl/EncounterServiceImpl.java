@@ -68,7 +68,9 @@ public class EncounterServiceImpl implements EncounterService {
 
     @Override
     public void resetCreatures(Encounter encounter) {
-        encounter.setCreatures(new ArrayList<>());
+        for (Creature creature : encounter.getCreatures()) {
+            creature.setCalculatedInitiative(0);
+        }
 
         encounterRepository.save(encounter);
     }

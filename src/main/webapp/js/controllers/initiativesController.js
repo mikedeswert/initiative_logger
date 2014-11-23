@@ -1,12 +1,11 @@
 angular.module('initiativeRollerModule')
-    .controller('InitiativesController', ['$scope', 'restService', 'messageService', 'pageService', 'webSocketService', 'creatureService', function ($scope, restService, messageService, pageService, webSocketService, creatureService) {
-        $scope.creatures = [];
+    .controller('InitiativesController', ['$scope', 'restService', 'messageService', 'pageService', 'webSocketService', 'creatureService', 'encounterService', function ($scope, restService, messageService, pageService, webSocketService, creatureService, encounterService) {
         $scope.pageService = pageService;
 
         $scope.init = function () {
-            webSocketService.subscribe('InitiativesController', getCreatures);
+            webSocketService.subscribe('InitiativesController', updateSelectedEncounter);
             messageService.clearMessages();
-            getCreatures();
+            updateSelectedEncounter();
         };
 
         $scope.getCreatureClass = function (index) {
@@ -40,9 +39,14 @@ angular.module('initiativeRollerModule')
             }
         };
 
-        function getCreatures() {
-            creatureService.getCreatures().then(function (creatures) {
-                $scope.creatures = creatures;
-            });
+        $scope.$watch(
+            function() {
+                return encounterService.getSelectedEncounter();
+            },
+            updateSelectedEncounter
+        );
+
+        function updateSelectedEncounter() {
+            $scope.selectedEncounter = encounterService.getSelectedEncounter();
         }
     }]);

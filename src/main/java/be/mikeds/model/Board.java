@@ -1,6 +1,8 @@
 package be.mikeds.model;
 
 import be.mikeds.enums.TileType;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import static be.mikeds.enums.TileType.GRASS;
 
@@ -9,12 +11,28 @@ import static be.mikeds.enums.TileType.GRASS;
  * Created by mikeds on 24/08/2014.
  * --------------------------------
  */
+
+@Document(collection = "boards")
 public class Board {
+
+    @Id
+    private String id;
+
     private Tile[][] tiles;
     private int size;
 
+    public Board() {}
+
     public Board(int size) {
         this.size = size;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Tile[][] getTiles() {

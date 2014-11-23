@@ -10,10 +10,7 @@ angular.module('creatureControl')
         $scope.isUpdateOpen = false;
 
         $scope.init = function() {
-            webSocketService.subscribe('CreatureController', function() {
-                updateSelectedEncounter();
-            });
-
+            webSocketService.subscribe('CreatureController', updateSelectedEncounter);
             updateSelectedEncounter();
         };
 
@@ -50,7 +47,6 @@ angular.module('creatureControl')
 
         $scope.selectCreatureToUpdate = function(creature) {
             $scope.creatureToUpdate = angular.copy(creature);
-            $scope.creatureToUpdate.oldName = angular.copy($scope.creatureToUpdate.name);
             $scope.isUpdateOpen = true;
         };
 

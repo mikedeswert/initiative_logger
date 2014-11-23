@@ -50,6 +50,11 @@ public class CreatureServiceImpl implements CreatureService {
     }
 
     @Override
+    public void deleteAllCreatures() {
+        creatureRepository.deleteAll();
+    }
+
+    @Override
     public void incrementCreatureTurnCount(String id) {
         Creature creature = creatureRepository.findOne(id);
         creature.incrementTurnCounnt();

@@ -20,6 +20,8 @@ public class Encounter {
     @Id
     private String id;
 
+    @DBRef
+    @CascadeSave
     private Board board;
 
     @DBRef
