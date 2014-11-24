@@ -3,7 +3,7 @@
 angular.module('initiativeRollerApp', [// Modules
                                        'initiativeRollerModule', 'webTransportModule', 'directivesModule',
                                        // Components
-                                       'encounterControl', 'creatureControl', 'messageView', 'webSocketStatusView', 'navBar',
+                                       'encounterControl', 'creatureControl', 'boardControl', 'messageView', 'webSocketStatusView', 'navBar',
                                        // External libraries
                                        'ui.bootstrap', 'panhandler', 'ngRoute', 'ngAnimate', 'ngTouch', 'ngDraggable']);
 // Modules
@@ -14,6 +14,7 @@ angular.module('directivesModule', []);
 // Components
 angular.module('encounterControl', []);
 angular.module('creatureControl', []);
+angular.module('boardControl', []);
 angular.module('messageView', []);
 angular.module('webSocketStatusView', []);
 angular.module('navBar', []);

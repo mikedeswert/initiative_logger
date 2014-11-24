@@ -27,6 +27,7 @@ public class Encounter {
     @DBRef
     @CascadeSave
     private List<Creature> creatures = new ArrayList<>();
+
     private String name;
 
     public Encounter() {}

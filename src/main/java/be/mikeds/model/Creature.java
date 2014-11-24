@@ -22,6 +22,8 @@ public class Creature {
     private int turnCount;
     private String type;
     private String imageSource;
+    private boolean invisible;
+    private boolean bloodied;
 
     public Creature() {
         if(id == null) {
@@ -92,6 +94,22 @@ public class Creature {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public boolean isInvisible() {
+        return invisible;
+    }
+
+    public void setInvisible(boolean invisible) {
+        this.invisible = invisible;
+    }
+
+    public boolean isBloodied() {
+        return bloodied;
+    }
+
+    public void setBloodied(boolean bloodied) {
+        this.bloodied = bloodied;
     }
 
     @JsonIgnore

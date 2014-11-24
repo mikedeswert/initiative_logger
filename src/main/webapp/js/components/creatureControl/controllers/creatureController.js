@@ -42,6 +42,11 @@ angular.module('creatureControl')
             creatureService.deleteCreature(creature);
         };
 
+        $scope.toggleVisibility = function(creature) {
+            creature.invisible = !creature.invisible;
+            creatureService.updateCreature(creature);
+        };
+
         $scope.calculateInitiatives = function() {
             encounterService.calculateCreatureInitiatives($scope.selectedEncounter);
         };

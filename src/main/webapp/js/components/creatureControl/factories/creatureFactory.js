@@ -4,7 +4,8 @@ angular.module('initiativeRollerModule').service('creatureFactory', function() {
             name:'',
             type:'monster',
             initiative: 0,
-            calculatedInitiative: 0
+            calculatedInitiative: 0,
+            invisible: false
         };
     };
 

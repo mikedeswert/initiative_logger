@@ -19,6 +19,7 @@ public class Board {
     @Id
     private String id;
 
+    private String name;
     private Tile[][] tiles;
     private int size;
 
@@ -34,6 +35,14 @@ public class Board {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Tile[][] getTiles() {

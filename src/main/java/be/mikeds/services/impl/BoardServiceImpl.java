@@ -21,6 +21,31 @@ public class BoardServiceImpl implements BoardService {
     private BoardRepository boardRepository;
 
     public BoardServiceImpl() {
+
+    }
+
+    @Override
+    public Board getBoard() {
+        if (boardRepository.findAll().size() == 0) {
+            Board board = new Board(DEFAULT_SIZE);
+            board.initialize();
+            board.setName("Default board");
+            boardRepository.save(board);
+        }
+
+        return boardRepository.findAll().get(0);
+    }
+
+    @Override
+    public List<Board> getBoards() {
+        if (boardRepository.findAll().size() == 0) {
+            Board board = new Board(DEFAULT_SIZE);
+            board.initialize();
+            board.setName("Default board");
+            boardRepository.save(board);
+        }
+
+        return boardRepository.findAll();
     }
 
     @Override
@@ -29,14 +54,8 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Board getBoard() {
-        if (boardRepository.findAll().size() == 0) {
-            Board board = new Board(DEFAULT_SIZE);
-            board.initialize();
-            boardRepository.save(board);
-        }
-
-        return boardRepository.findAll().get(0);
+    public void deleteBoards() {
+        boardRepository.deleteAll();
     }
 }
 

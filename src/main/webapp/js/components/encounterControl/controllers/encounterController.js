@@ -1,5 +1,5 @@
 angular.module('encounterControl')
-    .controller('EncounterController', ['$scope', 'webSocketService', 'encounterService', function ($scope, webSocketService, encounterService) {
+    .controller('EncounterController', ['$scope', 'webSocketService', 'encounterService', 'boardService', function ($scope, webSocketService, encounterService, boardService) {
         $scope.encounters = [];
         $scope.initialized = false;
         $scope.isCreateEncounterOpen = false;
@@ -8,9 +8,16 @@ angular.module('encounterControl')
         $scope.newEncounter = {name: ''};
         $scope.encounterToUpdate = {name: ''};
 
+        $scope.boards = [];
+
         $scope.init = function () {
-            webSocketService.subscribe('EncounterController', getEncounters);
+            webSocketService.subscribe('EncounterController', function() {
+                    getEncounters();
+                    getBoards();
+                }
+            );
             getEncounters();
+            getBoards();
         };
 
         $scope.createEncounter = function () {
@@ -89,6 +96,12 @@ angular.module('encounterControl')
                 $scope.selectedEncounter = getEncounter(encounterService.getSelectedEncounter());
             }).finally(function () {
                 $scope.initialized = true;
+            });
+        }
+
+        function getBoards() {
+            boardService.getBoards().then(function (boards) {
+                $scope.boards = boards;
             });
         }
     }]);

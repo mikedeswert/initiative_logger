@@ -1,14 +1,14 @@
-angular.module('initiativeRollerModule')
+angular.module('boardControl')
     .factory('boardService', ['restService', 'messageService', function(restService, messageService) {
         return {
-            getBoard: function() {
+            getBoards: function() {
                 return restService.get('/rest/board/')
                     .then(
                     function(response) {
                         return response.data;
                     },
                     function() {
-                        messageService.addErrorMessage('Something went wrong while retrieving the board. Please refresh the page to try again.');
+                        messageService.addErrorMessage('Something went wrong while retrieving the boards. Please refresh the page to try again.');
                     }
                 );
             },

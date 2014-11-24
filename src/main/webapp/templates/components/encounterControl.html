@@ -20,26 +20,48 @@
     </div>
     <div id="createEncounterControl" class="panel panel-default flip" data-ng-show="isCreateEncounterOpen">
         <div class="panel-body">
-            <div class="col-md-10">
-                <input type="text" class="form-control" data-ng-model="newEncounter.name" data-on-enter="createEncounter()"/>
+            <div class="row">
+                <div class="col-md-10">
+                    <input type="text" class="form-control" data-ng-model="newEncounter.name"
+                           data-on-enter="createEncounter()"/>
+                </div>
+                <div class="col-md-2">
+                    <div class="btn-group pull-right">
+                        <button class="btn btn-primary" data-ng-click="createEncounter()">Save</button>
+                        <button class="btn btn-default" data-ng-click="closeCreateEncounter()">Cancel</button>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-2">
-                <div class="btn-group pull-right">
-                    <button class="btn btn-primary" data-ng-click="createEncounter()">Save</button>
-                    <button class="btn btn-default" data-ng-click="closeCreateEncounter()">Cancel</button>
+            <div class="row top-buffer">
+                <div class="col-md-10">
+                    <select id="selectCreateEncounterBoard" class="form-control" data-ng-model="newEncounter.board"
+                            data-ng-options="board.name for board in boards">
+                        <option value="">Select board</option>
+                    </select>
                 </div>
             </div>
         </div>
     </div>
     <div id="updateEncounterControl" class="panel panel-default flip" data-ng-show="isUpdateEncounterOpen">
         <div class="panel-body">
-            <div class="col-md-10">
-                <input type="text" class="form-control" data-ng-model="encounterToUpdate.name" data-on-enter="updateEncounter()"/>
+            <div class="row">
+                <div class="col-md-10">
+                    <input type="text" class="form-control" data-ng-model="encounterToUpdate.name"
+                           data-on-enter="updateEncounter()"/>
+                </div>
+                <div class="col-md-2">
+                    <div class="btn-group pull-right">
+                        <button class="btn btn-primary" data-ng-click="updateEncounter()">Save</button>
+                        <button class="btn btn-default" data-ng-click="closeUpdateEncounter()">Cancel</button>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-2">
-                <div class="btn-group pull-right">
-                    <button class="btn btn-primary" data-ng-click="updateEncounter()">Save</button>
-                    <button class="btn btn-default" data-ng-click="closeUpdateEncounter()">Cancel</button>
+            <div class="row top-buffer">
+                <div class="col-md-10">
+                    <select id="selectUpdateEncounterBoard" class="form-control" data-ng-model="encounterToUpdate.board"
+                            data-ng-options="board.name for board in boards">
+                        <option value="">Select board</option>
+                    </select>
                 </div>
             </div>
         </div>

@@ -1,16 +1,16 @@
 <div ng-init="init()" ng-swipe-right="pageService.goToAdmin()" ng-cloak class="ng-cloak">
 
     <div id="creatureTokenOverview">
-        <div class="creature-token-list" ng-show="isCreatureTokenListOpen">
-            <div ng-repeat="creature in creatures | orderBy : creature.name" class="token-container" ng-drag="true" ng-drag-success="onCreatureDragComplete($data, $event)" ng-drag-data="creature">
+        <div class="creature-token-list" data-ng-show="isCreatureTokenListOpen">
+            <div data-ng-repeat="creature in creatures | orderBy : creature.name" class="token-container" ng-drag="true" ng-drag-success="onCreatureDragComplete($data, $event)" ng-drag-data="creature">
                 <img src="" class="img-circle token medium" alt="token image" ng-src="{{creature.imageSource}}" />
                 <p class="text-center">{{creature.name}}</p>
             </div>
         </div>
-        <button class="btn btn-primary open-creature-token-list" ng-click="isCreatureTokenListOpen = true" ng-hide="isCreatureTokenListOpen">
+        <button class="btn btn-primary open-creature-token-list" data-ng-click="isCreatureTokenListOpen = true" data-ng-hide="isCreatureTokenListOpen">
             <span class="glyphicon glyphicon-chevron-right"></span>
         </button>
-        <button class="btn btn-primary close-creature-token-list" ng-click="isCreatureTokenListOpen = false" ng-show="isCreatureTokenListOpen">
+        <button class="btn btn-primary close-creature-token-list" data-ng-click="isCreatureTokenListOpen = false" data-ng-show="isCreatureTokenListOpen">
             <span class="glyphicon glyphicon-chevron-left"></span>
         </button>
     </div>
@@ -19,20 +19,7 @@
         <encounter-control></encounter-control>
     </div>
 
-    <div class="row-fluid board-container" style="overflow: auto; height: 90vh" panhandler>
-
-        <div id="board" board>
-            <div data-ng-repeat="row in board.tiles" row>
-                <div data-ng-repeat="cell in row" data-ng-class="getCellClassNames($index, $parent.$index)"
-                                                                          ng-drop="true"
-                                                                          cell>
-                    <div data-ng-repeat="token in cell.tokens" class="token-container" ng-drag="true" ng-drag-success="onTokenDragComplete($data, $event)" ng-drag-data="token">
-                        <img src="" class="img-circle token" alt="token image" title="{{token.name}}" data-ng-src="{{token.imageSource}}" token/>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <board-control></board-control>
     <!--<div class="container-fluid" style="overflow: auto; height: 90vh" panhandler>-->
         <!--<div id="board" board>-->
         <!--</div>-->

@@ -1,32 +1,6 @@
 "use strict";
 
-angular.module('directivesModule').directive('board', ['$compile', function ($compile) {
-    function scale() {
-
-    }
-
-    function getClassNames(y, x, boardSize) {
-        var classNames = "tile";
-
-        if (y == 0) {
-            classNames += " top";
-        }
-
-        if (x == 0) {
-            classNames += " right";
-        }
-
-        if (y + 1 == boardSize) {
-            classNames += " bottom";
-        }
-
-        if (x + 1 == boardSize) {
-            classNames += " right";
-        }
-
-        return classNames;
-    }
-
+angular.module('boardControl').directive('board', ['$compile', function ($compile) {
     function createTileElement(board, boardWidth, x, y) {
         var tileElement = document.createElement("div");
         tileElement.setAttribute("style", "width: " + boardWidth / board.size + "px;" +
@@ -80,7 +54,7 @@ angular.module('directivesModule').directive('board', ['$compile', function ($co
             function (newVal, oldVal) {
                 var boardWidth = elem[0].parentNode.offsetWidth;
                 elem[0].setAttribute("style", "width: " + boardWidth + "px;" +
-                "height: " + boardWidth / scope.board.size + "px;");
+                "height: " + boardWidth / scope.selectedEncounter.board.size + "px;");
             }
         )
     }
@@ -99,9 +73,9 @@ angular.module('directivesModule').directive('board', ['$compile', function ($co
             },
             function (newVal, oldVal) {
                 var boardWidth = elem[0].parentNode.parentNode.offsetWidth;
-                elem[0].setAttribute("style", "width: " + boardWidth / scope.board.size + "px;" +
-                "height: " + boardWidth / scope.board.size + "px;" +
-                "line-height: " + boardWidth / scope.board.size + "px;");
+                elem[0].setAttribute("style", "width: " + boardWidth / scope.selectedEncounter.board.size + "px;" +
+                "height: " + boardWidth / scope.selectedEncounter.board.size + "px;" +
+                "line-height: " + boardWidth / scope.selectedEncounter.board.size + "px;");
             }
         )
     }
@@ -114,8 +88,8 @@ angular.module('directivesModule').directive('board', ['$compile', function ($co
             },
             function (newVal, oldVal) {
                 var boardWidth = elem[0].parentNode.parentNode.parentNode.offsetWidth;
-                elem[0].setAttribute("style", "max-width: " + (boardWidth / scope.board.size * 0.80) + "px;");
-                elem[0].setAttribute("height", (boardWidth / scope.board.size * 0.80) + "px;");
+                elem[0].setAttribute("style", "max-width: " + (boardWidth / scope.selectedEncounter.board.size * 0.80) + "px;");
+                elem[0].setAttribute("height", (boardWidth / scope.selectedEncounter.board.size * 0.80) + "px;");
             }
         )
     }
