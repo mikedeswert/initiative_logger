@@ -1,11 +1,12 @@
 package be.mikeds.services.impl;
 
 import be.mikeds.model.Board;
-import be.mikeds.model.Token;
+import be.mikeds.repositories.BoardRepository;
 import be.mikeds.services.BoardService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.Serializable;
+import java.util.List;
 
 /**
  * --------------------------------
@@ -16,19 +17,26 @@ import java.io.Serializable;
 public class BoardServiceImpl implements BoardService {
     protected static final int DEFAULT_SIZE = 20;
 
-    private Board board = new Board(DEFAULT_SIZE);
+    @Autowired
+    private BoardRepository boardRepository;
 
     public BoardServiceImpl() {
-        board.initialize();
     }
 
     @Override
-    public void addToken(Token token, int positionX, int positionY) {
-        board.addToken(token, positionX, positionY);
+    public void updateBoard(Board board) {
+        boardRepository.save(board);
     }
 
     @Override
     public Board getBoard() {
-        return board;
+        if (boardRepository.findAll().size() == 0) {
+            Board board = new Board(DEFAULT_SIZE);
+            board.initialize();
+            boardRepository.save(board);
+        }
+
+        return boardRepository.findAll().get(0);
     }
 }
+

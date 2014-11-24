@@ -1,6 +1,7 @@
 package be.mikeds.model;
 
 import be.mikeds.enums.TileType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -51,6 +52,7 @@ public class Board {
         this.size = size;
     }
 
+    @JsonIgnore
     public void initializeBoard(TileType tileType) {
         tiles = new Tile[size][size];
 
@@ -61,11 +63,9 @@ public class Board {
         }
     }
 
+    @JsonIgnore
     public void initialize() {
         initializeBoard(GRASS);
     }
 
-    public void addToken(Token token, int positionX, int positionY) {
-        tiles[positionX][positionY].addToken(token);
-    }
 }

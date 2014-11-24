@@ -4,7 +4,7 @@
     -moz-border-radius-topleft: 0px;
     -moz-border-radius-bottomleft: 0px;
     border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
+    border-bottom-left-radius: 0;
 
     height: 60px;
     width: 40px;
@@ -14,39 +14,44 @@
     right: -40px;
 }
 
-#creatureTokenOverview {
-    position: absolute;
-    height: 100vh;
-    float: left;
-    z-index: 999;
-}
-
 .board {
-    div {
+    #creatureTokenOverview {
+        position: absolute;
+        height: 100vh;
+        float: left;
+        z-index: 999;
+
         display: block;
         margin: 0;
         padding: 0;
+
+        .token-container {
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            display: inline-block;
+        }
     }
 
-    div.tile {
-        display: inline-block;
+    .board-container {
         border: 1px solid black;
     }
 
-    .tile.left {
-        border-left-width: 2px;
-    }
+    div.tile {
+        float: left;
+        border: 1px solid black;
+        text-align: center;
 
-    .tile.top {
-        border-top-width: 2px;
-    }
+        .token-container {
+            height: 100%;
+            vertical-align: middle;
 
-    .tile.right {
-        border-right-width: 2px;
-    }
+            img {
+                vertical-align: middle;
+            }
+        }
 
-    .tile.bottom {
-        border-bottom-width: 2px;
+
     }
 
     .tile.grass {
@@ -72,13 +77,6 @@
         overflow: auto;
 
         background-color: white;
-    }
-
-    .token-container {
-        width: 100px;
-        height: 100px;
-        margin: 10px;
-        display: inline-block;
     }
 }
 

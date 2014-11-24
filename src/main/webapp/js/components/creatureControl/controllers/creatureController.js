@@ -38,6 +38,7 @@ angular.module('creatureControl')
         };
 
         $scope.deleteCreature = function(creature) {
+            deleteCreatureFromEncounter(creature);
             creatureService.deleteCreature(creature);
         };
 
@@ -85,5 +86,10 @@ angular.module('creatureControl')
 
         function updateSelectedEncounter() {
             $scope.selectedEncounter = encounterService.getSelectedEncounter();
+        }
+
+        function deleteCreatureFromEncounter(creature) {
+            $scope.selectedEncounter.creatures.splice($scope.selectedEncounter.creatures.indexOf(creature), 1);
+            encounterService.updateEncounter($scope.selectedEncounter);
         }
     }]);

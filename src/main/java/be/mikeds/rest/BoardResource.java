@@ -26,11 +26,11 @@ public class BoardResource {
         return boardService.getBoard();
     }
 
-    @RequestMapping(value = "/addToken", method = RequestMethod.POST)
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @NotifyClients
-    public void addToken(Token token, @RequestParam("positionX") int positionX, @RequestParam("positionY") int positionY) {
-        boardService.addToken(token, positionX, positionY);
+    public void updateBoard(@RequestBody Board board) {
+        boardService.updateBoard(board);
     }
 
 }

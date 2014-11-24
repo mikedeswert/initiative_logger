@@ -1,5 +1,5 @@
 angular.module('initiativeRollerModule')
-    .factory('creatureService', ['restService', 'messageService', 'creatureFactory', function(restService, messageService, creatureFactory) {
+    .factory('creatureService', ['restService', 'messageService', function(restService, messageService) {
         return {
             getCreatures: function() {
                 return restService.get('/rest/creature/')

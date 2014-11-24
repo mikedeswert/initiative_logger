@@ -9,7 +9,7 @@ import be.mikeds.model.Token;
  * --------------------------------
  */
 public interface BoardService {
-    void addToken(Token token, int positionX, int positionY);
+    void updateBoard(Board board);
 
     Board getBoard();
 }

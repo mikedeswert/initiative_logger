@@ -117,6 +117,13 @@ footer {
     position: relative;
 
     div {
+        -webkit-border-top-left-radius: 4px;
+        -webkit-border-top-right-radius: 4px;
+        -moz-border-radius-topleft: 4px;
+        -moz-border-radius-topright: 4px;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+
         height: 100%;
     }
 
@@ -133,27 +140,36 @@ footer {
     }
 
     .connecting {
-        background-color: @blue;
+        color: #31708f;
+        background-color: #d9edf7;
+        border-color: #bce8f1;
     }
 
     .connected {
-        background-color: #00911c;
+        color: #3c763d;
+        background-color: #dff0d8;
+        border-color: #d6e9c6;
     }
 
     .error {
-        background-color: #b62e31;
+        color: #a94442;
+        background-color: #f2dede;
+        border-color: #ebccd1;
     }
 
     .closed {
-        background-color: #b6a36b;
+        color: #8a6d3b;
+        background-color: #fcf8e3;
+        border-color: #faebcc;
     }
 
-    div.ng-enter {
-        .fade-in-up-animation(1s);
+
+    .container.ng-hide-remove {
+        .fade-in-animation(1s);
     }
 
-    div.ng-leave {
-        .fade-out-up-animation(1s);
+    .container.ng-hide-add {
+        .fade-out-animation(0.5s);
     }
 }
 

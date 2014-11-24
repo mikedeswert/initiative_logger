@@ -8,29 +8,29 @@ angular.module('directivesModule').directive('board', ['$compile', function ($co
     function getClassNames(y, x, boardSize) {
         var classNames = "tile";
 
-        if(y == 0) {
+        if (y == 0) {
             classNames += " top";
         }
 
-        if(x == 0) {
+        if (x == 0) {
             classNames += " right";
         }
 
-        if(y+1 == boardSize) {
+        if (y + 1 == boardSize) {
             classNames += " bottom";
         }
 
-        if(x+1 == boardSize) {
+        if (x + 1 == boardSize) {
             classNames += " right";
         }
 
         return classNames;
     }
 
-    function createTileElement(board, boardWidth , x, y) {
+    function createTileElement(board, boardWidth, x, y) {
         var tileElement = document.createElement("div");
         tileElement.setAttribute("style", "width: " + boardWidth / board.size + "px;" +
-            "height: " + boardWidth / board.size + "px;");
+        "height: " + boardWidth / board.size + "px;");
 
         tileElement.setAttribute("ng-drop", "true");
         tileElement.setAttribute("ng-drop-success", "onDropComplete($data, $event)");
@@ -42,45 +42,82 @@ angular.module('directivesModule').directive('board', ['$compile', function ($co
         return tileElement;
     }
 
-    return function(scope, elem, attr) {
-                scope.$watch('board', function () {
-                    var board = scope.board;
-                    var boardContainer = elem[0];
-                    var boardWidth = elem[0].offsetWidth;
-                    boardContainer.setAttribute("style", "width:" + boardWidth + "px;" +
-                        "height:" + boardWidth + "px;" +
-                        "display:block;");
+    return function (scope, elem, attr) {
+        var boardContainer = elem[0];
 
-                    /*for (var y = 0; y < board.size; y++) {
-                        var rowElement = document.createElement("div");
-                        rowElement.setAttribute("style", "width: " + boardWidth + "px;" +
-                            "height: " + boardWidth / board.size + "px;");
+        /*        scope.$watch('board', function () {
+         var boardWidth = elem[0].offsetWidth;
+         boardContainer.setAttribute("style", "width:" + boardWidth + "px;" +
+         "height:" + boardWidth + "px;" +
+         "display:block;");
+         });*/
 
-                        for (var x = 0; x < board.size; x++) {
-                            rowElement.appendChild(createTileElement(board, boardWidth, x, y));
-                        }
-
-                        boardContainer.appendChild(rowElement);
-                    }*/
-                });
-              }
+        scope.$watch(
+            function () {
+                return elem[0].offsetWidth;
+            },
+            function (newVal, oldVal) {
+                if (newVal != oldVal) {
+                    boardContainer.setAttribute("style", "width:" + newVal + "px;" +
+                    "height:" + newVal + "px;" +
+                    "display:block;");
+                }
+            }
+        )
+    }
 
 }]).directive('row', function () {
-    return function(scope, elem, attr) {
-        scope.$watch('board', function () {
-            var boardWidth = elem[0].parentNode.offsetWidth;
-            elem[0].setAttribute("style", "width: " + boardWidth + "px;" +
-                                          "height: " + boardWidth / scope.board.size + "px;");
-        });
+    return function (scope, elem, attr) {
+        /*  scope.$watch('board', function () {
+         var boardWidth =
+         elem[0].setAttribute("style", "width: " + boardWidth + "px;" +
+         "height: " + boardWidth / scope.board.size + "px;");
+         });*/
+        scope.$watch(
+            function () {
+                return elem[0].parentNode.offsetWidth;
+            },
+            function (newVal, oldVal) {
+                var boardWidth = elem[0].parentNode.offsetWidth;
+                elem[0].setAttribute("style", "width: " + boardWidth + "px;" +
+                "height: " + boardWidth / scope.board.size + "px;");
+            }
+        )
     }
 
 }).directive('cell', function () {
-    return function(scope, elem, attr) {
-        scope.$watch('board', function () {
-            var boardWidth = elem[0].parentNode.parentNode.offsetWidth;
-            elem[0].setAttribute("style", "width: " + boardWidth / scope.board.size + "px;" +
-                                          "height: " + boardWidth / scope.board.size + "px;");
-        });
+    return function (scope, elem, attr) {
+        /*        scope.$watch('board', function () {
+         var boardWidth = elem[0].parentNode.parentNode.offsetWidth;
+         elem[0].setAttribute("style", "width: " + boardWidth / scope.board.size + "px;" +
+         "height: " + boardWidth / scope.board.size + "px;");
+         });*/
+
+        scope.$watch(
+            function () {
+                return elem[0].parentNode.parentNode.offsetWidth;
+            },
+            function (newVal, oldVal) {
+                var boardWidth = elem[0].parentNode.parentNode.offsetWidth;
+                elem[0].setAttribute("style", "width: " + boardWidth / scope.board.size + "px;" +
+                "height: " + boardWidth / scope.board.size + "px;" +
+                "line-height: " + boardWidth / scope.board.size + "px;");
+            }
+        )
+    }
+
+}).directive('token', function () {
+    return function (scope, elem, attr) {
+        scope.$watch(
+            function () {
+                return elem[0].parentNode.parentNode.parentNode.offsetWidth;
+            },
+            function (newVal, oldVal) {
+                var boardWidth = elem[0].parentNode.parentNode.parentNode.offsetWidth;
+                elem[0].setAttribute("style", "max-width: " + (boardWidth / scope.board.size * 0.80) + "px;");
+                elem[0].setAttribute("height", (boardWidth / scope.board.size * 0.80) + "px;");
+            }
+        )
     }
 
 });

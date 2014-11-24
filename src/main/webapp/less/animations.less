@@ -56,6 +56,20 @@
     animation: fadeOutUpBig @duration;
 }
 
+.fade-in-animation(@duration:@defaultDuration) {
+    -webkit-animation: fadeIn @duration;
+    -moz-animation: fadeIn @duration;
+    -ms-animation: fadeIn @duration;
+    animation: fadeIn @duration;
+}
+
+.fade-out-animation(@duration:@defaultDuration) {
+    -webkit-animation: fadeOut @duration;
+    -moz-animation: fadeOut @duration;
+    -ms-animation: fadeOut @duration;
+    animation: fadeOut @duration;
+}
+
 .flip-in-x-animation(@duration:@defaultDuration) {
     -webkit-animation: flipInX @duration;
     -moz-animation: flipInX @duration;
