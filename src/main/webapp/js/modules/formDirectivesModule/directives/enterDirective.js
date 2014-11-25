@@ -1,4 +1,4 @@
-angular.module('directivesModule').directive('onEnter', function() {
+angular.module('formDirectivesModule').directive('onEnter', function() {
     return function(scope, element, attrs) {
         element.bind("keydown keypress", function(event) {
             if(event.which === 13) {

@@ -1,5 +1,5 @@
-angular.module('initiativeRollerModule')
-    .controller('InitiativesController', ['$scope', 'restService', 'messageService', 'pageService', 'webSocketService', 'creatureService', 'encounterService', function ($scope, restService, messageService, pageService, webSocketService, creatureService, encounterService) {
+angular.module('pageModule')
+    .controller('InitiativesPageController', ['$scope', 'restService', 'messageService', 'pageService', 'webSocketService', 'creatureService', 'encounterService', function ($scope, restService, messageService, pageService, webSocketService, creatureService, encounterService) {
         $scope.pageService = pageService;
 
         $scope.init = function () {

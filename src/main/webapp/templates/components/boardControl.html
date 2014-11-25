@@ -6,7 +6,9 @@
                  data-cell>
                 <div data-ng-repeat="token in cell.tokens" class="token-container" data-ng-drag="true" data-ng-drag-success="onTokenDragComplete($data, $event)" data-ng-drag-data="token">
                     <img src="" class="img-circle token" alt="token image" title="{{token.creature.name}}"
-                         data-ng-src="{{token.creature.imageSource}}" data-ng-hide="token.creature.invisible" data-token/>
+                         data-ng-class="{bloodied: token.creature.bloodied}"
+                         data-ng-src="{{token.creature.imageSource}}" data-ng-hide="token.creature.invisible" data-token
+                         data-tooltip-html-unsafe="{{tokenControlTemplate}}"  data-tooltip-trigger="click" data-tooltip-placement="right"/>
                 </div>
             </div>
         </div>

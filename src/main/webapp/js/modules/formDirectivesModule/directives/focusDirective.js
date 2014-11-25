@@ -1,4 +1,4 @@
-angular.module('directivesModule').directive('focusOn', function ($timeout) {
+angular.module('formDirectivesModule').directive('focusOn', function ($timeout) {
     return function (scope, elem, attr) {
         scope.$on(attr.focusOn, function (e) {
             $timeout(function () {

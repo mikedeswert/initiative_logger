@@ -1,4 +1,4 @@
-angular.module('initiativeRollerModule')
+angular.module('creatureControl')
     .factory('creatureService', ['restService', 'messageService', function(restService, messageService) {
         return {
             getCreatures: function() {

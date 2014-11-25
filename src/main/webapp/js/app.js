@@ -1,15 +1,15 @@
 'use strict';
 
 angular.module('initiativeRollerApp', [// Modules
-                                       'initiativeRollerModule', 'webTransportModule', 'directivesModule',
+                                       'pageModule', 'webTransportModule', 'formDirectivesModule',
                                        // Components
                                        'encounterControl', 'creatureControl', 'boardControl', 'messageView', 'webSocketStatusView', 'navBar',
                                        // External libraries
                                        'ui.bootstrap', 'panhandler', 'ngRoute', 'ngAnimate', 'ngTouch', 'ngDraggable']);
 // Modules
-angular.module('initiativeRollerModule', []);
+angular.module('pageModule', []);
 angular.module('webTransportModule', []);
-angular.module('directivesModule', []);
+angular.module('formDirectivesModule', []);
 
 // Components
 angular.module('encounterControl', []);
@@ -22,9 +22,9 @@ angular.module('navBar', []);
 angular.module('initiativeRollerApp')
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider
-            .when('/initiatives', {templateUrl: 'templates/initiatives.html', controller: 'InitiativesController'})
-            .when('/admin', {templateUrl: 'templates/admin.html', controller: 'AdminController'})
-            .when('/board', {templateUrl: 'templates/board.html', controller: 'BoardController'})
+            .when('/initiatives', {templateUrl: 'templates/initiatives.html', controller: 'InitiativesPageController'})
+            .when('/encounters', {templateUrl: 'templates/encounters.html', controller: 'EncounterPageController'})
+            .when('/board', {templateUrl: 'templates/board.html', controller: 'BoardPageController'})
             .otherwise({redirectTo: '/initiatives'});
     }]);
 

@@ -1,4 +1,4 @@
-angular.module('initiativeRollerModule').service('creatureFactory', function() {
+angular.module('creatureControl').service('creatureFactory', function() {
     this.createDefaultCreature = function() {
         return {
             name:'',

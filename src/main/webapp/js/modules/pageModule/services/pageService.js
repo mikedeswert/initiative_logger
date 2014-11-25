@@ -1,11 +1,11 @@
-angular.module('initiativeRollerModule')
+angular.module('pageModule')
     .factory('pageService', ['$location', function ($location) {
         return {
             goToInitiatives: function () {
                 $location.path('/initiatives');
             },
-            goToAdmin: function () {
-                $location.path('/admin');
+            goToEncounters: function () {
+                $location.path('/encounters');
             },
             goToBoard: function () {
                 $location.path('/board');

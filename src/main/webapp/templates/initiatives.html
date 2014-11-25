@@ -1,4 +1,4 @@
-<div class="ng-cloak col-md-12" data-ng-cloak data-ng-init="init()" data-ng-swipe-left="pageService.goToAdmin()" >
+<div class="ng-cloak col-md-12" data-ng-cloak data-ng-init="init()" data-ng-swipe-left="pageService.goToEncounters()" >
     <encounter-control></encounter-control>
     <div >
         <div data-ng-repeat="creature in orderedCreatures = (selectedEncounter.creatures | orderBy : ['turnCount', '-calculatedInitiative'])" class="col-sm-12 creature well" data-ng-class="getCreatureClass($index)" data-ng-click="nextTurn()">
