@@ -1,7 +1,5 @@
 angular.module('pageModule')
-    .controller('InitiativesPageController', ['$scope', 'restService', 'messageService', 'pageService', 'webSocketService', 'creatureService', 'encounterService', function ($scope, restService, messageService, pageService, webSocketService, creatureService, encounterService) {
-        $scope.pageService = pageService;
-
+    .controller('InitiativesPageController', ['$scope', 'restService', 'messageService', 'webSocketService', 'creatureService', 'encounterService', function ($scope, restService, messageService, webSocketService, creatureService, encounterService) {
         $scope.init = function () {
             webSocketService.subscribe('InitiativesController', updateSelectedEncounter);
             messageService.clearMessages();
@@ -25,7 +23,7 @@ angular.module('pageModule')
         };
 
         $scope.nextTurn = function () {
-            if(typeof $scope.orderedCreatures != 'undefined' || $scope.orderedCreatures.length > 0) {
+            if($scope.orderedCreatures != undefined || $scope.orderedCreatures.length > 0) {
                 restService.post('/rest/creature/' + $scope.orderedCreatures[0].id + '/incrementTurnCount', null)
                     .then(
                     function () {

@@ -18,4 +18,5 @@ public interface EncounterService {
     void deleteEncounter(String id);
     void calculateCreatureInitiatives(Encounter encounter);
     void resetCreatures(Encounter encounter);
+    void deleteAllEncounters();
 }

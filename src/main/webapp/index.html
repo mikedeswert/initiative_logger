@@ -39,6 +39,15 @@
     <script type="text/javascript" src="js/components/boardControl/factories/tokenFactory.js"></script>
     <script type="text/javascript" src="js/components/boardControl/services/boardService.js"></script>
 
+    <!-- Board Editor Component -->
+    <script type="text/javascript" src="js/components/boardEditor/directives/boardEditorDirective.js"></script>
+    <script type="text/javascript" src="js/components/boardEditor/controllers/boardEditorController.js"></script>
+
+    <!--  Tile Editor Component -->
+    <script type="text/javascript" src="js/components/tileEditor/directives/tileEditorDirective.js"></script>
+    <script type="text/javascript" src="js/components/tileEditor/controllers/tileEditorController.js"></script>
+    <script type="text/javascript" src="js/components/tileEditor/services/tileEditorService.js"></script>
+
     <!-- Message View Component -->
     <script type="text/javascript" src="js/components/messageView/controllers/messagesController.js"></script>
     <script type="text/javascript" src="js/components/messageView/directives/messageViewDirective.js"></script>
@@ -69,6 +78,7 @@
     <script type="text/javascript" src="js/modules/pageModule/controllers/initiativesPageController.js"></script>
     <script type="text/javascript" src="js/modules/pageModule/controllers/encounterPageController.js"></script>
     <script type="text/javascript" src="js/modules/pageModule/controllers/boardPageController.js"></script>
+    <script type="text/javascript" src="js/modules/pageModule/controllers/editorPageController.js"></script>
     <script type="text/javascript" src="js/modules/pageModule/services/pageService.js"></script>
 
 
@@ -81,7 +91,7 @@
 <nav-bar></nav-bar>
 <div id="wrap"
      data-ng-cloak class="ng-cloak"
-     data-ng-class="{container : pageService.getCurrentPage() != 'board', 'container-fluid': pageService.getCurrentPage() == 'board'}"
+     data-ng-class="{container : pageService.getCurrentPage() != 'board', 'container-fluid': pageService.getCurrentPage() == 'board' || pageService.getCurrentPage() == 'editor'}"
      data-ng-controller="MainController">
     <message-view></message-view>
     <div data-ng-view data-ng-class="pageService.getCurrentPage()"></div>

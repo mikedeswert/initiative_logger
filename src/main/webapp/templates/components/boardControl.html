@@ -1,14 +1,20 @@
-<div class="row-fluid board-container" data-ng-if="isEncounterSelected()" style="overflow: auto; height: 90vh" data-panhandler>
+<div class="row-fluid board-container"
+     data-panhandler >
     <div id="board" data-board>
-        <div data-ng-repeat="row in selectedEncounter.board.tiles" data-row>
+        <div data-ng-repeat="row in board.tiles" data-row>
             <div data-ng-repeat="cell in row" data-ng-class="getCellClassNames($index, $parent.$index)"
                  data-ng-drop="true"
                  data-cell>
-                <div data-ng-repeat="token in cell.tokens" class="token-container" data-ng-drag="true" data-ng-drag-success="onTokenDragComplete($data, $event)" data-ng-drag-data="token">
-                    <img src="" class="img-circle token" alt="token image" title="{{token.creature.name}}"
-                         data-ng-class="{bloodied: token.creature.bloodied}"
-                         data-ng-src="{{token.creature.imageSource}}" data-ng-hide="token.creature.invisible" data-token
-                         data-tooltip-html-unsafe="{{tokenControlTemplate}}"  data-tooltip-trigger="click" data-tooltip-placement="right"/>
+                <div data-ng-repeat="token in cell.tokens">
+                    <div class="token-container"
+                         data-ng-drag="true" data-ng-drag-success="onTokenDragComplete($data, $event)"
+                         data-ng-drag-data="token">
+                        <img src="" class="img-circle token" alt="token image" title="{{token.creature.name}}"
+                             data-ng-class="{bloodied: token.creature.bloodied}"
+                             data-ng-src="{{token.creature.imageSource}}"
+                             data-ng-hide="token.creature.invisible"
+                             data-token />
+                    </div>
                 </div>
             </div>
         </div>

@@ -162,6 +162,9 @@
                 <td>
                     <div class="btn-group pull-right">
                         <button type="button" class="btn btn-default"
+                                data-ng-click="toggleBloodied(creature)"><span
+                                class="glyphicon glyphicon-tint bloodied" data-ng-class="{active: creature.bloodied}"></span></button>
+                        <button type="button" class="btn btn-default"
                                 data-ng-click="toggleVisibility(creature)"><span
                                 class="glyphicon invisibility" data-ng-class="{active: creature.invisible, 'glyphicon-eye-close': creature.invisible, 'glyphicon-eye-open': !creature.invisible}"></span></button>
                         <button type="button" class="btn btn-default"

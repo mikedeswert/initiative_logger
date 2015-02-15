@@ -8,7 +8,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         config: {
-            server_home: grunt.option('server-home') || 'C:\\Tools\\apache-tomcat-8.0.3',
+            server_home: grunt.option('server-home') || 'D:\\tools\\apache-tomcat-8.0.15',
             project_name: grunt.option('project-name') ||  'initiative_roller'
         },
         protractor: protractor,

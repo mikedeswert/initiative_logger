@@ -7,15 +7,15 @@ angular.module('webSocketStatusView')
 
         $scope.getStatus = function() {
             switch($scope.status) {
-                case 'connecting': return 'Connecting'; break;
-                case 'connected': return 'Connected'; break;
-                case 'closed': return 'Connection closed'; break;
-                case 'error': return 'A connection error occurred'; break;
+                case webSocketStatusService.connecting: return 'Connecting'; break;
+                case webSocketStatusService.connected: return 'Connected'; break;
+                case webSocketStatusService.closed: return 'Connection closed'; break;
+                case webSocketStatusService.error: return 'A connection error occurred'; break;
             }
         };
 
         $scope.isConnecting = function() {
-            return $scope.status == 'connecting';
+            return $scope.status == webSocketStatusService.connecting;
         };
 
         $scope.$watch(

@@ -1,0 +1,13 @@
+<div class="board" data-ng-controller="BoardEditorController">
+    <div class="row-fluid board-container">
+        <div id="board" data-board>
+            <div data-ng-repeat="row in board.tiles" data-row>
+                <div data-ng-repeat="cell in row" data-ng-class="getCellClassNames(cell)"
+                     data-ng-drop="true"
+                     data-ng-click="setSelectedTile(cell)"
+                     data-cell>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

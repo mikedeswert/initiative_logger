@@ -40,7 +40,6 @@ public class CreatureResource {
     @NotifyClients
     public void addPlayer(@RequestParam("name") String name, @RequestParam("calculatedInitiative") int calculatedInitiative) {
         Creature player = new Creature(name);
-        player.setImageSource("img/" + name.toLowerCase() + ".jpg");
         player.setCalculatedInitiative(calculatedInitiative);
         creatureService.addCreature(player);
     }

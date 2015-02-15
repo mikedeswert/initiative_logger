@@ -53,6 +53,13 @@ public class EncounterResource {
 
     @NotifyClients
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequestMapping(value = "/delete/all", method = RequestMethod.POST)
+    public void deleteAllEncounters() {
+        encounterService.deleteAllEncounters();
+    }
+
+    @NotifyClients
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @RequestMapping(value = "/reset", method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE)
     public void resetCreatures(@RequestBody Encounter encounter) {
         encounterService.resetCreatures(encounter);

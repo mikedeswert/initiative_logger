@@ -11,17 +11,22 @@ describe('webSocketStatusService', function () {
         });
     });
 
-    it('should by default return closed as the status of the web socket', function() {
-        var actual = webSocketStatusService.getStatus();
+    describe('getStatus', function() {
+        it('should by default return connecting as the status of the web socket', function() {
+            var actual = webSocketStatusService.getStatus();
 
-        expect(actual).toBe('connecting');
+            expect(actual).toBe(webSocketStatusService.connecting);
+        });
     });
 
-    it('should set the web socket status' , function() {
-        webSocketStatusService.setStatus('connected');
+    describe('setStatus', function() {
+        it('should set the web socket status' , function() {
+            webSocketStatusService.setStatus(webSocketStatusService.connected);
 
-        var actual = webSocketStatusService.getStatus();
+            var actual = webSocketStatusService.getStatus();
 
-        expect(actual).toBe('connected');
+            expect(actual).toBe(webSocketStatusService.connected);
+        });
     });
+
 });

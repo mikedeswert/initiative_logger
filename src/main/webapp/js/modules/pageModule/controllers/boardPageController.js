@@ -1,11 +1,11 @@
 "use strict";
 
 angular.module('pageModule')
-    .controller('BoardPageController', ['$scope', 'encounterService', 'boardService', 'messageService', 'pageService', 'webSocketService', 'creatureService', 'tokenFactory', function ($scope, encounterService, boardService, messageService, pageService, webSocketService, creatureService, tokenFactory) {
-        $scope.pageService = pageService;
+    .controller('BoardPageController', ['$scope', 'encounterService', 'boardService', 'messageService', 'webSocketService', 'creatureService', 'tokenFactory', function ($scope, encounterService, boardService, messageService, webSocketService, creatureService, tokenFactory) {
         $scope.creatures = [];
         $scope.isCreatureTokenListOpen = false;
         $scope.selectedEncounter;
+        $scope.board;
 
         $scope.scale = 1;
 
@@ -20,7 +20,7 @@ angular.module('pageModule')
 
             var cell = event.currentScope.cell;
 
-            if (typeof cell != 'undefined' && cell != null) {
+            if (cell != undefined && cell != null) {
                 var token = tokenFactory.createCreatureToken(data);
                 cell.tokens.push(token);
 
@@ -36,15 +36,21 @@ angular.module('pageModule')
 
             var cell = event.currentScope.cell;
 
-            if (typeof cell != 'undefined' && cell != null) {
-                removeToken(data);
-                cell.tokens.push(data);
-                var position = retrieveCreaturePosition(data.creature);
-                data.positionX = position.x;
-                data.positionY = position.y;
-
-                boardService.updateBoard($scope.selectedEncounter.board);
+            if (cell != undefined && cell != null) {
+                var position = retrieveCellPosition(cell);
+                if(data.positionX != position.x || data.positionY != position.y) {
+                    removeToken(data);
+                    cell.tokens.push(data);
+                    data.positionX = position.x;
+                    data.positionY = position.y;
+                    boardService.updateBoard($scope.selectedEncounter.board);
+                }
             }
+        };
+
+        $scope.deleteToken = function(data) {
+            removeToken(data);
+            boardService.updateBoard($scope.selectedEncounter.board);
         };
 
         $scope.getCellClassNames = function (cellIndex, rowIndex) {
@@ -70,6 +76,7 @@ angular.module('pageModule')
 
         function updateSelectedEncounter() {
             $scope.selectedEncounter = encounterService.getSelectedEncounter();
+            $scope.board = $scope.selectedEncounter.board;
             if(typeof $scope.selectedEncounter != 'undefined' || $scope.selectedEncounter != null) {
                 $scope.creatures = $scope.selectedEncounter.creatures.filter(function (creature) {
                     return boardDoesNotContainCreature(creature);
@@ -87,11 +94,31 @@ angular.module('pageModule')
 
                     var tokens = cells[j].tokens;
                     for (var k = 0; k < tokens.length; k++) {
-                        if (typeof tokens[k].creature != '' && tokens[k].creature != null && tokens[k].creature.id == creature.id) {
+                        if (tokens[k].creature != undefined && tokens[k].creature != null && tokens[k].creature.id == creature.id) {
                             position.x = j;
                             position.y = i;
+
+                            return position
                         }
                     }
+                }
+            }
+
+            return position;
+        }
+
+        function retrieveCellPosition(cell) {
+            var position = {x: -1, y:-1};
+
+            for (var i = 0; i < $scope.selectedEncounter.board.tiles.length; i++) {
+
+                var row = $scope.selectedEncounter.board.tiles[i];
+
+                if(row.indexOf(cell) > -1) {
+                    position.x = row.indexOf(cell);
+                    position.y = i;
+
+                    return position;
                 }
             }
 
@@ -110,16 +137,4 @@ angular.module('pageModule')
             var position = retrieveCreaturePosition(creature);
             return position.x == -1 && position.y == -1;
         }
-
-        $scope.toggleBloodied = function(creature) {
-            creature.bloodied = !creature.bloodied;
-            creatureService.updateCreature(creature);
-        };
-
-        $scope.deleteToken = function(token) {
-            removeToken(token);
-        };
-
-        $scope.tokenControlTemplate = '<button data-ng-click="toggleBloodied(\'token.creature\'" class="btn btn-primary">Bloodied</button>' +
-                                      '<button data-ng-click="deleteToken(\'token\'" class="btn btn-danger">Delete</button>'
     }]);

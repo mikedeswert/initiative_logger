@@ -3,10 +3,9 @@ angular.module('webTransportModule').service('urlFactory', ['$location', functio
         return url.indexOf('/') == 0 ? url : '/' + url;
     }
 
-    this.createUrl= function(url) {
-        var result = $location.absUrl().match("(http|https)://[^/]*/(.*)/index.html");
-        var purifiedUrl = prependSlash(url);
-        return '/' + result[2] + purifiedUrl;
+    this.createUrl = function(url) {
+        var regexGroups = $location.absUrl().match("(http|https)://[^/]*/(.*)/index.html");
+        return '/' + regexGroups[2] + prependSlash(url);
     };
 
 }]);

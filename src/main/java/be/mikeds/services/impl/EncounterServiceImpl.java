@@ -56,6 +56,11 @@ public class EncounterServiceImpl implements EncounterService {
     }
 
     @Override
+    public void deleteAllEncounters() {
+        encounterRepository.deleteAll();
+    }
+
+    @Override
     public void calculateCreatureInitiatives(Encounter encounter) {
         for (Creature creature : encounter.getCreatures()) {
             if (creature.getCalculatedInitiative() == 0) {
@@ -74,4 +79,6 @@ public class EncounterServiceImpl implements EncounterService {
 
         encounterRepository.save(encounter);
     }
+
+
 }

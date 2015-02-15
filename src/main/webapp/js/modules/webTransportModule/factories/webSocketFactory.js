@@ -13,28 +13,28 @@ angular.module('webTransportModule').service('webSocketFactory', ['$timeout', 'w
     function createWebSocket(notifyCallback) {
         var socket = initializeSocket(notifyCallback);
 
-        var onopen = socket.client.onopen;
+        var onOpen = socket.client.onopen;
         socket.client.onopen = function() {
-            webSocketStatusService.setStatus('connecting');
-            onopen();
+            webSocketStatusService.setStatus(webSocketStatusService.connecting);
+            onOpen();
         };
 
-        var onclose = socket.client.onclose;
+        var onClose = socket.client.onclose;
         socket.client.onclose = function() {
-            webSocketStatusService.setStatus('closed');
-            onclose();
+            webSocketStatusService.setStatus(webSocketStatusService.closed);
+            onClose();
             reconnect(socket, notifyCallback);
         };
 
         socket.client.onerror = function() {
-            webSocketStatusService.setStatus('error');
+            webSocketStatusService.setStatus(webSocketStatusService.error);
             reconnect(socket, notifyCallback);
         };
 
-        var onmessage = socket.client.onmessage;
+        var onMessage = socket.client.onmessage;
         socket.client.onmessage = function(evt) {
-            onmessage(evt);
-            webSocketStatusService.setStatus('connected');
+            onMessage(evt);
+            webSocketStatusService.setStatus(webSocketStatusService.connected);
         };
 
         return socket;

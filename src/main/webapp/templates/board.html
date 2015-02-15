@@ -1,9 +1,9 @@
-<div ng-init="init()" ng-swipe-right="pageService.goToEncounters()" ng-cloak class="ng-cloak">
+<div data-ng-init="init()" data-ng-cloak class="ng-cloak">
 
     <div id="creatureTokenOverview">
         <div class="creature-token-list" data-ng-show="isCreatureTokenListOpen">
-            <div data-ng-repeat="creature in creatures | orderBy : creature.name" class="token-container" ng-drag="true" ng-drag-success="onCreatureDragComplete($data, $event)" ng-drag-data="creature">
-                <img src="" class="img-circle token medium" alt="token image" ng-src="{{creature.imageSource}}" />
+            <div data-ng-repeat="creature in creatures | orderBy : creature.name" class="token-container" data-ng-drag="true" data-ng-drag-success="onCreatureDragComplete($data, $event)" data-ng-drag-data="creature">
+                <img src="" class="img-circle token medium" alt="token image" data-ng-src="{{creature.imageSource}}" />
                 <p class="text-center">{{creature.name}}</p>
             </div>
         </div>
@@ -19,9 +19,12 @@
         <encounter-control></encounter-control>
     </div>
 
-    <board-control></board-control>
-    <!--<div class="container-fluid" style="overflow: auto; height: 90vh" panhandler>-->
-        <!--<div id="board" board>-->
-        <!--</div>-->
-    <!--</div>-->
+    <div class="garbage-bin row-fluid"
+         data-ng-drop="true"
+         data-ng-drop-success="deleteToken($data)">
+        <span class="glyphicon glyphicon-trash"></span>
+    </div>
+    <div data-ng-if="isEncounterSelected()">
+        <board-control></board-control>
+    </div>
 </div>

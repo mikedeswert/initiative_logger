@@ -3,7 +3,7 @@
 angular.module('initiativeRollerApp', [// Modules
                                        'pageModule', 'webTransportModule', 'formDirectivesModule',
                                        // Components
-                                       'encounterControl', 'creatureControl', 'boardControl', 'messageView', 'webSocketStatusView', 'navBar',
+                                       'encounterControl', 'creatureControl', 'boardControl', 'boardEditor', 'tileEditor', 'messageView', 'webSocketStatusView', 'navBar',
                                        // External libraries
                                        'ui.bootstrap', 'panhandler', 'ngRoute', 'ngAnimate', 'ngTouch', 'ngDraggable']);
 // Modules
@@ -15,6 +15,8 @@ angular.module('formDirectivesModule', []);
 angular.module('encounterControl', []);
 angular.module('creatureControl', []);
 angular.module('boardControl', []);
+angular.module('boardEditor', []);
+angular.module('tileEditor', []);
 angular.module('messageView', []);
 angular.module('webSocketStatusView', []);
 angular.module('navBar', []);
@@ -25,6 +27,7 @@ angular.module('initiativeRollerApp')
             .when('/initiatives', {templateUrl: 'templates/initiatives.html', controller: 'InitiativesPageController'})
             .when('/encounters', {templateUrl: 'templates/encounters.html', controller: 'EncounterPageController'})
             .when('/board', {templateUrl: 'templates/board.html', controller: 'BoardPageController'})
+            .when('/editor', {templateUrl: 'templates/editor.html', controller: 'EditorPageController'})
             .otherwise({redirectTo: '/initiatives'});
     }]);
 

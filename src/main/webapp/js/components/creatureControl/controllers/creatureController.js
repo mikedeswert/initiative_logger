@@ -16,6 +16,7 @@ angular.module('creatureControl')
 
         $scope.createCreature = function() {
             if(creatureService.isCreatureValid($scope.newCreature)) {
+                $scope.newCreature.imageSource = 'img/' + $scope.newCreature.name.split(' ')[0].toLowerCase() + '.jpg';
                 $scope.selectedEncounter.creatures.push($scope.newCreature);
                 encounterService.updateEncounter($scope.selectedEncounter).then(
                     function() {
@@ -44,6 +45,11 @@ angular.module('creatureControl')
 
         $scope.toggleVisibility = function(creature) {
             creature.invisible = !creature.invisible;
+            creatureService.updateCreature(creature);
+        };
+
+        $scope.toggleBloodied = function(creature) {
+            creature.bloodied = !creature.bloodied;
             creatureService.updateCreature(creature);
         };
 
