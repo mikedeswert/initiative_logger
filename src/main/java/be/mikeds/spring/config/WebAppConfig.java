@@ -48,6 +48,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/img/**").addResourceLocations("/img/");
         registry.addResourceHandler("/app/**").addResourceLocations("/app/");
         registry.addResourceHandler("/templates/**").addResourceLocations("/templates/");
+        registry.addResourceHandler("/bower_components/**").addResourceLocations("/bower_components/");
         registry.addResourceHandler("/**/*.html").addResourceLocations("/");
     }
 
