@@ -40,7 +40,7 @@ angular.module('boardEditor')
             function () {
                 return tileEditorService.getSelectedTile()
             },
-            function (oldVal, newVal) {
+            function (newVal) {
                 $scope.selectedTile = newVal;
             }
         )

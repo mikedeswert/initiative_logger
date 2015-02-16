@@ -1,3 +1,22 @@
 <div class="tile-editor" data-ng-controller="TileEditorController">
-
+    <div class="orientationControl">
+        <div class="btn-group">
+            <button type="button" class="btn btn-default"
+                    data-ng-repeat="orientation in orientations"
+                    data-ng-click="setSelectedTileOrientation(orientation)">
+                <span data-ng-class="{active: isOrientationSelected(orientation)}">{{orientation}}</span>
+            </button>
+        </div>
+    </div>
+    <div class="tileTypeSelector">
+        <div class="tileTypeSearch">
+            <input type="text" data-ng-model="tileTypeSearchTerm" placeholder="Search tile types..." />
+        </div>
+        <div class="tileTypes">
+            <div data-ng-repeat="tileType in tileTypes | filter:tileTypeSearchTerm">
+                <div class="tile" data-ng-class="getTileClassNames(tileType)"></div>
+                <span>{{tileType.toLowerCase()}}</span>
+            </div>
+        </div>
+    </div>
 </div>

@@ -14,6 +14,10 @@ angular.module('messageView')
                                    this.clearMessages();
                                    messages.push({type:'success', class:'alert alert-success', text: text});
                                },
+            addWarningMessage: function(text) {
+                                   this.clearMessages();
+                                   messages.push({type: 'warning', class: 'alert alert-warning', text: text});
+                               },
             removeMessage: function(message) {
                                messages.splice(messages.indexOf(message), 1);
                            },

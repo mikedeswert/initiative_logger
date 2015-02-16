@@ -6,5 +6,8 @@ package be.mikeds.enums;
  * --------------------------------
  */
 public enum Orientation {
-    NORTH
+    NORTH,
+    EAST,
+    SOUTH,
+    WEST
 }
