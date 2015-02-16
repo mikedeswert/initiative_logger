@@ -6,87 +6,70 @@
 
     <title>Initiative Roller</title>
 
-    <!-- Libraries -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script type="text/javascript" src="js/lib/sockjs/sockjs.min.js"></script>
-    <script type="text/javascript" src="js/lib/stomp/stomp.min.js"></script>
-    <script type="text/javascript" src="js/lib/angular-1.3.0-beta.18/angular.js"></script>
-    <script type="text/javascript" src="js/lib/angular-1.3.0-beta.18/angular-route.min.js"></script>
-    <script type="text/javascript" src="js/lib/angular-1.3.0-beta.18/angular-animate.min.js"></script>
-    <script type="text/javascript" src="js/lib/angular-1.3.0-beta.18/angular-touch.min.js"></script>
-    <script type="text/javascript" src="js/lib/ui-bootstrap-0.9.0/ui-bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/lib/ui-bootstrap-0.9.0/ui-bootstrap-tpls.min.js"></script>
-    <script type="text/javascript" src="js/lib/angular-panhandler/angular-panhandler.js"></script>
-    <script type="text/javascript" src="js/lib/ngDraggable/ngDraggable.js"></script>
+    <!-- bower:js -->
+    <script src="bower_components/jquery.min/index.js"></script>
+    <script src="bower_components/sockjs/sockjs.js"></script>
+    <script src="bower_components/stomp.min/index.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/angular-panhandler/dist/angular-panhandler.js"></script>
+    <script src="bower_components/angular-panhandler/dist/angular-panhandler.min.js"></script>
+    <script src="bower_components/ngDraggable/ngDraggable.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <!-- endbower -->
 
-    <script type="text/javascript" src="js/app.js"></script>
-
-    <!-- Encounter Control Component-->
-    <script type="text/javascript" src="js/components/encounterControl/controllers/encounterController.js"></script>
-    <script type="text/javascript" src="js/components/encounterControl/directives/encounterControlDirective.js"></script>
-    <script type="text/javascript" src="js/components/encounterControl/services/encounterService.js"></script>
-
-    <!-- Creature Control Component -->
-    <script type="text/javascript" src="js/components/creatureControl/controllers/consoleController.js"></script>
-    <script type="text/javascript" src="js/components/creatureControl/controllers/creatureController.js"></script>
-    <script type="text/javascript" src="js/components/creatureControl/directives/creatureControlDirective.js"></script>
-    <script type="text/javascript" src="js/components/creatureControl/factories/creatureFactory.js"></script>
-    <script type="text/javascript" src="js/components/creatureControl/services/creatureService.js"></script>
-
-    <!-- Board Control Component -->
-    <script type="text/javascript" src="js/components/boardControl/directives/boardControlDirective.js"></script>
-    <script type="text/javascript" src="js/components/boardControl/directives/boardDirective.js"></script>
-    <script type="text/javascript" src="js/components/boardControl/factories/tokenFactory.js"></script>
-    <script type="text/javascript" src="js/components/boardControl/services/boardService.js"></script>
-
-    <!-- Board Editor Component -->
-    <script type="text/javascript" src="js/components/boardEditor/directives/boardEditorDirective.js"></script>
-    <script type="text/javascript" src="js/components/boardEditor/controllers/boardEditorController.js"></script>
-
-    <!--  Tile Editor Component -->
-    <script type="text/javascript" src="js/components/tileEditor/tileEditorModule.js"></script>
-    <script type="text/javascript" src="js/components/tileEditor/directives/tileEditorDirective.js"></script>
-    <script type="text/javascript" src="js/components/tileEditor/controllers/tileEditorController.js"></script>
-    <script type="text/javascript" src="js/components/tileEditor/services/tileEditorService.js"></script>
-
-    <!-- Message View Component -->
-    <script type="text/javascript" src="js/components/messageView/controllers/messagesController.js"></script>
-    <script type="text/javascript" src="js/components/messageView/directives/messageViewDirective.js"></script>
-    <script type="text/javascript" src="js/components/messageView/services/messageService.js"></script>
-
-    <!-- Web Socket Status View Component -->
-    <script type="text/javascript" src="js/components/webSocketStatusView/controllers/webSocketStatusController.js"></script>
-    <script type="text/javascript" src="js/components/webSocketStatusView/directives/webSocketStatusViewDirective.js"></script>
-    <script type="text/javascript" src="js/components/webSocketStatusView/services/webSocketStatusService.js"></script>
-
-    <!-- Nav Bar Component -->
-    <script type="text/javascript" src="js/components/navBar/controllers/navbarController.js"></script>
-    <script type="text/javascript" src="js/components/navBar/directives/navBarDirective.js"></script>
-
-    <!-- Form Directives Module -->
-    <script type="text/javascript" src="js/modules/formDirectivesModule/directives/enterDirective.js"></script>
-    <script type="text/javascript" src="js/modules/formDirectivesModule/directives/focusDirective.js"></script>
-    <script type="text/javascript" src="js/modules/formDirectivesModule/directives/tailDirective.js"></script>
-
-    <!-- Web Transport Module -->
-    <script type="text/javascript" src="js/modules/webTransportModule/factories/urlFactory.js"></script>
-    <script type="text/javascript" src="js/modules/webTransportModule/factories/webSocketFactory.js"></script>
-    <script type="text/javascript" src="js/modules/webTransportModule/services/restService.js"></script>
-    <script type="text/javascript" src="js/modules/webTransportModule/services/webSocketService.js"></script>
-
-    <!-- Page Module -->
-    <script type="text/javascript" src="js/modules/pageModule/controllers/mainController.js"></script>
-    <script type="text/javascript" src="js/modules/pageModule/controllers/initiativesPageController.js"></script>
-    <script type="text/javascript" src="js/modules/pageModule/controllers/encounterPageController.js"></script>
-    <script type="text/javascript" src="js/modules/pageModule/controllers/boardPageController.js"></script>
-    <script type="text/javascript" src="js/modules/pageModule/controllers/editorPageController.js"></script>
-    <script type="text/javascript" src="js/modules/pageModule/services/pageService.js"></script>
-
+    <!-- injector:js -->
+    <script src="js/app.js"></script>
+    <script src="js/components/boardControl/directives/boardControlDirective.js"></script>
+    <script src="js/components/boardControl/directives/boardDirective.js"></script>
+    <script src="js/components/boardControl/factories/tokenFactory.js"></script>
+    <script src="js/components/boardControl/services/boardService.js"></script>
+    <script src="js/components/boardEditor/controllers/boardEditorController.js"></script>
+    <script src="js/components/boardEditor/directives/boardEditorDirective.js"></script>
+    <script src="js/components/creatureControl/controllers/consoleController.js"></script>
+    <script src="js/components/creatureControl/controllers/creatureController.js"></script>
+    <script src="js/components/creatureControl/directives/creatureControlDirective.js"></script>
+    <script src="js/components/creatureControl/factories/creatureFactory.js"></script>
+    <script src="js/components/creatureControl/services/creatureService.js"></script>
+    <script src="js/components/encounterControl/controllers/encounterController.js"></script>
+    <script src="js/components/encounterControl/directives/encounterControlDirective.js"></script>
+    <script src="js/components/encounterControl/services/encounterService.js"></script>
+    <script src="js/components/messageView/controllers/messagesController.js"></script>
+    <script src="js/components/messageView/directives/messageViewDirective.js"></script>
+    <script src="js/components/messageView/services/messageService.js"></script>
+    <script src="js/components/navBar/controllers/navbarController.js"></script>
+    <script src="js/components/navBar/directives/navBarDirective.js"></script>
+    <script src="js/components/tileEditor/controllers/tileEditorController.js"></script>
+    <script src="js/components/tileEditor/directives/tileEditorDirective.js"></script>
+    <script src="js/components/tileEditor/services/tileEditorService.js"></script>
+    <script src="js/components/tileEditor/tileEditorModule.js"></script>
+    <script src="js/components/webSocketStatusView/controllers/webSocketStatusController.js"></script>
+    <script src="js/components/webSocketStatusView/directives/webSocketStatusViewDirective.js"></script>
+    <script src="js/components/webSocketStatusView/services/webSocketStatusService.js"></script>
+    <script src="js/modules/formDirectivesModule/directives/enterDirective.js"></script>
+    <script src="js/modules/formDirectivesModule/directives/focusDirective.js"></script>
+    <script src="js/modules/formDirectivesModule/directives/tailDirective.js"></script>
+    <script src="js/modules/pageModule/controllers/boardPageController.js"></script>
+    <script src="js/modules/pageModule/controllers/editorPageController.js"></script>
+    <script src="js/modules/pageModule/controllers/encounterPageController.js"></script>
+    <script src="js/modules/pageModule/controllers/initiativesPageController.js"></script>
+    <script src="js/modules/pageModule/controllers/mainController.js"></script>
+    <script src="js/modules/pageModule/services/pageService.js"></script>
+    <script src="js/modules/webTransportModule/factories/urlFactory.js"></script>
+    <script src="js/modules/webTransportModule/factories/webSocketFactory.js"></script>
+    <script src="js/modules/webTransportModule/services/restService.js"></script>
+    <script src="js/modules/webTransportModule/services/webSocketService.js"></script>
+    <!-- endinjector -->
 
     <link rel="stylesheet" type="text/css" href="css/lib/bootstrap-3.2.0/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="css/lib/animate/animate.css"/>
-    <link rel="stylesheet" type="text/css" href="css/main.css"/>
-    <link rel="stylesheet" type="text/css" href="css/board.css"/>
+    <!-- injector:css -->
+    <link rel="stylesheet" href="css/board.css">
+    <link rel="stylesheet" href="css/lib/animate/animate.css">
+    <link rel="stylesheet" href="css/lib/bootstrap-3.2.0/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <!-- endinjector -->
 </head>
 <body data-ng-cloak class="ng-cloak">
 <nav-bar></nav-bar>
