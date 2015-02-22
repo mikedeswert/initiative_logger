@@ -1,3 +1,5 @@
+@import 'includes/tileBackgrounds.less';
+
 .open-creature-token-list, .close-creature-token-list {
     -webkit-border-top-left-radius: 0px;
     -webkit-border-bottom-left-radius: 0px;
@@ -12,6 +14,23 @@
     position: absolute;
     top: 40%;
     right: -40px;
+}
+
+.rotate-background(@rotation) {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background-size: 100%;
+
+    -webkit-transform: rotate(@rotation);
+    -moz-transform: rotate(@rotation);
+    -ms-transform: rotate(@rotation);
+    -o-transform: rotate(@rotation);
+    transform: rotate(@rotation);
 }
 
 .board {
@@ -44,6 +63,10 @@
         border: 1px solid black;
         text-align: center;
 
+        position: relative;
+        overflow: hidden;
+
+
         .token-container {
             height: 100%;
             vertical-align: middle;
@@ -52,12 +75,34 @@
                 vertical-align: middle;
             }
         }
-
-
     }
 
-    .tile.grass {
-        background-image: url('../img/tile_backgrounds/grass.png');
+    .tile.east:before {
+        .rotate-background(90deg);
+    }
+
+    .tile.north:before {
+        .rotate-background(0deg);
+    }
+
+    .tile.south:before {
+        .rotate-background(180deg);
+    }
+
+    .tile.west:before {
+        .rotate-background(270deg);
+    }
+
+    .tile.grass:before {
+        .grass();
+    }
+
+    .tile.wall_corner:before {
+        .wall_corner();
+    }
+
+    .tile.selected {
+        border: 2px solid red;
     }
 
     .creature-token-list {

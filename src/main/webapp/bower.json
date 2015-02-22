@@ -17,6 +17,7 @@
     "angular-touch": "~1.3.13",
     "angular-panhandler": "~1.0.3",
     "ngDraggable": "~0.0.31",
-    "angular-bootstrap": "~0.12.0"
+    "angular-bootstrap": "~0.12.0",
+    "mockito4js": "https://github.com/mikedeswert/mockito4js.git#~1.0.0-alpha"
   }
 }

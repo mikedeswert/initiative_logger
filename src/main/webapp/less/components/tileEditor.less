@@ -1,0 +1,31 @@
+@import "../includes/tileBackgrounds.less";
+
+.tile-editor {
+    .tile-type-selector {
+        .tile-types {
+            div {
+                text-align: center;
+            }
+
+            .tile {
+                border: 1px solid black;
+                margin: 10%;
+                display: block;
+                height: 116px;
+            }
+
+            .tile.selected {
+                border: 2px solid red;
+            }
+
+            .grass {
+                .grass();
+            }
+
+            .wall_corner {
+                .wall_corner();
+            }
+
+        }
+    }
+}

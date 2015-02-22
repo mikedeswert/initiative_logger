@@ -6,6 +6,7 @@
 *.log
 target
 node_modules
+bower_components
 
 # Eclipse project files
 .classpath

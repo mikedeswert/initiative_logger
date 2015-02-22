@@ -15,7 +15,7 @@ angular.module('tileEditor')
         $scope.getTileClassNames = function(tileType) {
             var classNames = tileType.toLowerCase();
 
-            if(isTileTypeSelected()) {
+            if(isTileTypeSelected(tileType)) {
                 classNames += ' selected';
             }
 
@@ -27,9 +27,23 @@ angular.module('tileEditor')
         };
 
         $scope.setSelectedTileOrientation = function(orientation) {
-            if(isTileSelected()) {
-                tileEditorService.getSelectedTile().orientation = orientation;
+            if(!isTileSelected()) {
+                messageService.addWarningMessage('No tile selected');
+                return;
             }
+
+            messageService.clearMessages();
+            tileEditorService.getSelectedTile().orientation = orientation;
+        };
+
+        $scope.setSelectedTileType = function(type) {
+            if(!isTileSelected) {
+                messageService.addWarningMessage('No tile selected');
+                return;
+            }
+
+            messageService.clearMessages();
+            tileEditorService.getSelectedTile().type = type;
         };
 
         $scope.$watch(
@@ -42,13 +56,7 @@ angular.module('tileEditor')
         );
 
         function isTileSelected() {
-            if($scope.selectedTile != undefined && $scope.selectedTile != null) {
-                messageService.clearMessages();
-                return true;
-            }
-
-            messageService.addWarningMessage('No tile selected');
-            return false;
+            return $scope.selectedTile != undefined && $scope.selectedTile != null;
         }
 
         function updateTileTypes() {

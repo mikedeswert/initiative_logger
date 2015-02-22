@@ -1,44 +1,59 @@
 angular.module('webSocketStatusView')
-    .controller('WebSocketStatusController', ['$scope', 'webSocketStatusService', '$timeout', function($scope, webSocketStatusService, $timeout) {
-        $scope.status = updateStatus();
+    .controller('WebSocketStatusViewController', ['$scope', 'webSocketStatusService', '$timeout', function ($scope, webSocketStatusService, $timeout) {
+        $scope.status;
         $scope.showStatus = false;
+        $scope.timeout;
 
-        var timeout;
+        $scope.init = function () {
+            updateStatus();
+        };
 
-        $scope.getStatus = function() {
-            switch($scope.status) {
-                case webSocketStatusService.connecting: return 'Connecting'; break;
-                case webSocketStatusService.connected: return 'Connected'; break;
-                case webSocketStatusService.closed: return 'Connection closed'; break;
-                case webSocketStatusService.error: return 'A connection error occurred'; break;
+        $scope.getStatus = function () {
+            switch ($scope.status) {
+                case webSocketStatusService.connecting:
+                    return 'Connecting';
+                    break;
+                case webSocketStatusService.connected:
+                    return 'Connected';
+                    break;
+                case webSocketStatusService.closed:
+                    return 'Connection closed';
+                    break;
+                case webSocketStatusService.error:
+                    return 'A connection error occurred';
+                    break;
+                default:
+                    return 'Status can not be determined';
             }
         };
 
-        $scope.isConnecting = function() {
+        $scope.isConnecting = function () {
             return $scope.status == webSocketStatusService.connecting;
         };
 
+        $scope.resetTimer = function () {
+            if ($scope.timeout != undefined && $scope.timeout != null) {
+                $timeout.cancel($scope.timeout);
+            }
+            $scope.timeout = $timeout($scope.hideStatus, 5000)
+        };
+
+        $scope.hideStatus = function () {
+            $scope.showStatus = false;
+        };
+
         $scope.$watch(
-            function() {
+            function () {
                 return webSocketStatusService.getStatus();
             },
-            function(newVal, oldVal) {
+            function (newVal, oldVal) {
                 updateStatus();
             }
         );
 
-        function resetTimer() {
-            if(typeof timeout != 'undefined' && timeout != null) {
-                $timeout.cancel(timeout);
-            }
-            timeout = $timeout(function () {
-                $scope.showStatus = false;
-            }, 5000)
-        }
-
         function updateStatus() {
             $scope.status = webSocketStatusService.getStatus();
             $scope.showStatus = true;
-            resetTimer();
+            $scope.resetTimer();
         }
     }]);

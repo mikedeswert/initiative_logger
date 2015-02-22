@@ -6,5 +6,6 @@ package be.mikeds.enums;
  * --------------------------------
  */
 public enum TileType {
-    GRASS
+    GRASS,
+    WALL_CORNER
 }

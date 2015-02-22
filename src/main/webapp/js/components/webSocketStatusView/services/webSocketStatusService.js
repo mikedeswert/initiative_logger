@@ -1,4 +1,4 @@
-angular.module('webTransportModule')
+angular.module('webSocketStatusView')
     .factory('webSocketStatusService' , [function() {
         var connecting = 'connecting';
         var closed = 'closed';

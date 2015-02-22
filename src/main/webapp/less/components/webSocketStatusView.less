@@ -1,0 +1,62 @@
+@import "../main.less";
+
+.websocket-status {
+    height: @footerHeight;
+    position: relative;
+
+    div {
+        -webkit-border-top-left-radius: 4px;
+        -webkit-border-top-right-radius: 4px;
+        -moz-border-radius-topleft: 4px;
+        -moz-border-radius-topright: 4px;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+
+        height: 100%;
+    }
+
+    p {
+        margin-top: 5px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    img {
+        position: absolute;
+        border-top: @footerHeight/3;
+        left: 50%;
+    }
+
+    .connecting {
+        color: #31708f;
+        background-color: #d9edf7;
+        border-color: #bce8f1;
+    }
+
+    .connected {
+        color: #3c763d;
+        background-color: #dff0d8;
+        border-color: #d6e9c6;
+    }
+
+    .error {
+        color: #a94442;
+        background-color: #f2dede;
+        border-color: #ebccd1;
+    }
+
+    .closed {
+        color: #8a6d3b;
+        background-color: #fcf8e3;
+        border-color: #faebcc;
+    }
+
+
+    .container.ng-hide-remove {
+        .fade-in-animation(1s);
+    }
+
+    .container.ng-hide-add {
+        .fade-out-animation(0.5s);
+    }
+}

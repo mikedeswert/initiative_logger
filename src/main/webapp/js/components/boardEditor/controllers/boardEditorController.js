@@ -4,10 +4,10 @@ angular.module('boardEditor')
             size: 2,
             tiles: [
                 [
-                    {type: 'GRASS'}, {type: 'GRASS'}
+                    {type: 'GRASS', orientation: 'NORTH'}, {type: 'GRASS', orientation: 'NORTH'}
                 ],
                 [
-                    {type: 'GRASS'}, {type: 'GRASS'}
+                    {type: 'GRASS', orientation: 'NORTH'}, {type: 'GRASS', orientation: 'NORTH'}
                 ]
             ]
         };
@@ -27,7 +27,7 @@ angular.module('boardEditor')
         };
 
         $scope.getCellClassNames = function (cell) {
-            var cellNames = 'tile ' + cell.type.toLowerCase();
+            var cellNames = 'tile ' + cell.type.toLowerCase() + ' ' + cell.orientation.toLowerCase();
 
             if($scope.isSelected(cell)) {
                 cellNames += ' selected';

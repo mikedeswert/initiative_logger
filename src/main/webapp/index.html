@@ -18,6 +18,7 @@
     <script src="bower_components/angular-panhandler/dist/angular-panhandler.min.js"></script>
     <script src="bower_components/ngDraggable/ngDraggable.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/mockito4js/src/main/mockito4.js"></script>
     <!-- endbower -->
 
     <!-- injector:js -->
@@ -36,15 +37,15 @@
     <script src="js/components/encounterControl/controllers/encounterController.js"></script>
     <script src="js/components/encounterControl/directives/encounterControlDirective.js"></script>
     <script src="js/components/encounterControl/services/encounterService.js"></script>
-    <script src="js/components/messageView/controllers/messagesController.js"></script>
+    <script src="js/components/messageView/controllers/messageViewController.js"></script>
     <script src="js/components/messageView/directives/messageViewDirective.js"></script>
     <script src="js/components/messageView/services/messageService.js"></script>
     <script src="js/components/navBar/controllers/navbarController.js"></script>
     <script src="js/components/navBar/directives/navBarDirective.js"></script>
     <script src="js/components/tileEditor/controllers/tileEditorController.js"></script>
     <script src="js/components/tileEditor/directives/tileEditorDirective.js"></script>
+    <script src="js/components/tileEditor/filters/tileTypePrettyPrintFilter.js"></script>
     <script src="js/components/tileEditor/services/tileEditorService.js"></script>
-    <script src="js/components/tileEditor/tileEditorModule.js"></script>
     <script src="js/components/webSocketStatusView/controllers/webSocketStatusController.js"></script>
     <script src="js/components/webSocketStatusView/directives/webSocketStatusViewDirective.js"></script>
     <script src="js/components/webSocketStatusView/services/webSocketStatusService.js"></script>
@@ -69,6 +70,8 @@
     <link rel="stylesheet" href="css/lib/animate/animate.css">
     <link rel="stylesheet" href="css/lib/bootstrap-3.2.0/bootstrap.min.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/tileEditor.css">
+    <link rel="stylesheet" href="css/webSocketStatusView.css">
     <!-- endinjector -->
 </head>
 <body data-ng-cloak class="ng-cloak">
