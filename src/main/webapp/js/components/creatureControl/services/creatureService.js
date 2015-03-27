@@ -13,19 +13,17 @@ angular.module('creatureControl')
                 );
             },
             createCreature: function(newCreature) {
-                var restEndpoint = newCreature.type == 'monster' ? 'addMonster' : 'addPlayer';
-                return restService.post('/rest/creature/' + restEndpoint + '?name=' + newCreature.name +
-                    '&initiative=' + newCreature.initiative +
-                    '&calculatedInitiative=' + newCreature.calculatedInitiative, null)
+                var initiative = newCreature.type == 'monster' ? newCreature.initiative : newCreature.calculatedInitiative;
+                return restService.post('/rest/creature/add/' + newCreature.type + '/name/' + newCreature.name + '/initiative/' + initiative, null)
                     .then(
-                    function () {
-                        messageService.addSuccessMessage('The creature was successfully saved.');
-                    },
-                    function () {
-                        messageService.addErrorMessage('Something went wrong while saving the creature. Please refresh the page to try again. \n' +
-                            '                           If the problem persists, please contact a site administrator.');
-                    }
-                )
+                        function () {
+                            messageService.addSuccessMessage('The creature was successfully saved.');
+                        },
+                        function () {
+                            messageService.addErrorMessage('Something went wrong while saving the creature. Please refresh the page to try again. \n' +
+                                '                           If the problem persists, please contact a site administrator.');
+                        }
+                    )
             },
             updateCreature: function(creatureToUpdate) {
                 return restService.post('/rest/creature/update/', creatureToUpdate)

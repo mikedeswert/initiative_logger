@@ -50,7 +50,7 @@ public class CommandParserServiceImpl implements CommandParserService {
                     feedback.append("Encounter ").append(inputParts[1]).append(" has been added successfully.");
                     break;
                 case DELETE:
-                    creatureService.deleteCreature(inputParts[1]);
+                    creatureService.delete(inputParts[1]);
                     feedback.append("Creature ").append(inputParts[1]).append(" has been deleted successfully.");
                     break;
                 case CLEAR:
@@ -59,11 +59,11 @@ public class CommandParserServiceImpl implements CommandParserService {
                     break;
                 case CALCULATE:
                     calculateCreatureInitiatives(inputParts);
-                    Encounter encounter = encounterService.getEncounter(inputParts[1]);
+                    Encounter encounter = encounterService.get(inputParts[1]);
                     feedback.append("Encounter: ").append(encounter.getName()).append("\n").append(printCreatures(encounter.getCreatures()));
                     break;
                 case GET_CREATURES:
-                    feedback.append(printCreatures(creatureService.getCreatures()));
+                    feedback.append(printCreatures(creatureService.getAll()));
                     break;
                 case HELP:
                     feedback.append(Command.getCommands());
@@ -83,15 +83,15 @@ public class CommandParserServiceImpl implements CommandParserService {
     private void addEncounter(String[] inputParts) {
         Encounter encounter = new Encounter();
         encounter.setName(inputParts[1]);
-        encounterService.addEncounter(encounter);
+        encounterService.save(encounter);
     }
 
     private void resetCreatures(String[] inputParts) {
-        encounterService.resetCreatures(encounterService.getEncounter(inputParts[1]));
+        encounterService.resetCreatures(encounterService.get(inputParts[1]));
     }
 
     private void calculateCreatureInitiatives(String[] inputParts) {
-        encounterService.calculateCreatureInitiatives(encounterService.getEncounter(inputParts[1]));
+        encounterService.calculateCreatureInitiatives(encounterService.get(inputParts[1]));
     }
 
     private void addCreature(String[] inputParts) {
@@ -105,7 +105,7 @@ public class CommandParserServiceImpl implements CommandParserService {
     }
 
     private void updateEncounter(String[] inputParts, Creature creature) {
-        Encounter encounter = encounterService.getEncounter(inputParts[1]);
+        Encounter encounter = encounterService.get(inputParts[1]);
 
         if(encounter == null) {
             throw new IllegalArgumentException("No encounter exists with id: " + inputParts[0]);
@@ -113,7 +113,7 @@ public class CommandParserServiceImpl implements CommandParserService {
 
         encounter.addCreature(creature);
 
-        encounterService.updateEncounter(encounter);
+        encounterService.save(encounter);
     }
 
     private String printCreatures(List<Creature> creatures) {

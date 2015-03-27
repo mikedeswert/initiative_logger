@@ -1,5 +1,7 @@
 package be.mikeds.rest;
 
+import be.mikeds.enums.CreatureType;
+import be.mikeds.factories.CreatureFactory;
 import be.mikeds.websockets.annotations.NotifyClients;
 import be.mikeds.model.Creature;
 import be.mikeds.services.CreatureService;
@@ -22,54 +24,47 @@ public class CreatureResource {
     @Autowired
     private CreatureService creatureService;
 
+    @Autowired
+    private CreatureFactory creatureFactory;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public @ResponseBody List<Creature> getCreatures() {
-        return creatureService.getCreatures();
+        return creatureService.getAll();
     }
 
-    @RequestMapping(value = "/addMonster", method = RequestMethod.POST)
+    @RequestMapping(value = "/add/{type}/name/{name}/initiative/{initiative}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @NotifyClients
-    public void addMonster(@RequestParam("name") String name, @RequestParam("initiative") int initiative) {
-        creatureService.addCreature(new Creature(name, initiative));
-    }
-
-    @RequestMapping(value = "/addPlayer", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @NotifyClients
-    public void addPlayer(@RequestParam("name") String name, @RequestParam("calculatedInitiative") int calculatedInitiative) {
-        Creature player = new Creature(name);
-        player.setCalculatedInitiative(calculatedInitiative);
-        creatureService.addCreature(player);
+    public void addMonster(@PathVariable("type") String type, @PathVariable("name") String name, @PathVariable("initiative") int initiative) {
+        creatureService.save(creatureFactory.create(CreatureType.fromString(type), name, initiative));
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @NotifyClients
     public void updateCreature(@RequestBody Creature creature) {
-        creatureService.updateCreature(creature);
+        creatureService.save(creature);
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @NotifyClients
     public void deleteCreature(@PathVariable("id") String id) {
-        creatureService.deleteCreature(id);
+        creatureService.delete(id);
     }
 
     @RequestMapping(value = "/delete/all", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @NotifyClients
     public void deleteAllCreatures() {
-        creatureService.deleteAllCreatures();
+        creatureService.deleteAll();
     }
 
     @RequestMapping(value = "/{id}/incrementTurnCount", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @NotifyClients
     public void incrementCreatureTurnCount(@PathVariable String id) {
-        creatureService.incrementCreatureTurnCount(id);
+        creatureService.incrementTurnCount(id);
     }
 }
 

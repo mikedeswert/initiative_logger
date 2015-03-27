@@ -47,6 +47,7 @@ public class CascadingMongoEventListener extends AbstractMongoEventListener {
     private static class DbRefFieldCallback implements ReflectionUtils.FieldCallback {
         private boolean idFound;
 
+        @Override
         public void doWith(Field field) throws IllegalArgumentException, IllegalAccessException {
             ReflectionUtils.makeAccessible(field);
 

@@ -4,6 +4,7 @@ import be.mikeds.model.Board;
 import be.mikeds.repositories.BoardRepository;
 import be.mikeds.services.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,48 +15,37 @@ import java.util.List;
  * --------------------------------
  */
 @Service
-public class BoardServiceImpl implements BoardService {
+public class BoardServiceImpl extends ServiceImpl<Board> implements BoardService {
     protected static final int DEFAULT_SIZE = 20;
 
     @Autowired
     private BoardRepository boardRepository;
 
-    public BoardServiceImpl() {
-
-    }
-
     @Override
-    public Board getBoard() {
-        if (boardRepository.findAll().size() == 0) {
+    public Board get(String id) {
+        if (getRepository().findAll().size() == 0) {
             Board board = new Board(DEFAULT_SIZE);
-            board.initialize();
             board.setName("Default board");
-            boardRepository.save(board);
+            getRepository().save(board);
         }
 
-        return boardRepository.findAll().get(0);
+        return getRepository().findAll().get(0);
     }
 
     @Override
-    public List<Board> getBoards() {
-        if (boardRepository.findAll().size() == 0) {
+    public List<Board> getAll() {
+        if (getRepository().findAll().size() == 0) {
             Board board = new Board(DEFAULT_SIZE);
-            board.initialize();
             board.setName("Default board");
-            boardRepository.save(board);
+            getRepository().save(board);
         }
 
-        return boardRepository.findAll();
+        return getRepository().findAll();
     }
 
     @Override
-    public void updateBoard(Board board) {
-        boardRepository.save(board);
-    }
-
-    @Override
-    public void deleteBoards() {
-        boardRepository.deleteAll();
+    MongoRepository<Board, String> getRepository() {
+        return boardRepository;
     }
 }
 

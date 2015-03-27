@@ -1,5 +1,7 @@
 package be.mikeds.rest;
 
+import be.mikeds.model.BoardTemplate;
+import be.mikeds.services.BoardTemplateService;
 import be.mikeds.websockets.annotations.NotifyClients;
 import be.mikeds.model.Board;
 import be.mikeds.model.Token;
@@ -23,23 +25,24 @@ public class BoardResource {
     @Autowired
     private BoardService boardService;
 
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public @ResponseBody List<Board> getBoards() {
-        return boardService.getBoards();
+        return boardService.getAll();
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @NotifyClients
     public void updateBoard(@RequestBody Board board) {
-        boardService.updateBoard(board);
+        boardService.save(board);
     }
 
     @RequestMapping(value = "/delete/all", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @NotifyClients
     public void deleteBoards() {
-        boardService.deleteBoards();
+        boardService.deleteAll();
     }
 
 }
