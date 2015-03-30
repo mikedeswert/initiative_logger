@@ -29,6 +29,8 @@ public class Board implements Observer {
     @DBRef
     private BoardTemplate boardTemplate;
 
+    public Board() {}
+
     public Board(int size) {
         this.size = size;
         initialize();

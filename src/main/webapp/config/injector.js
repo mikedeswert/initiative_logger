@@ -3,7 +3,7 @@ module.exports = {
         options: {
             destFile: 'index.html',
             bowerPrefix: 'bower',
-            addRootSlash: false
+            relative: true
         },
         files: {
             'index.html': ['js/**/*.js', 'css/**/*.css']

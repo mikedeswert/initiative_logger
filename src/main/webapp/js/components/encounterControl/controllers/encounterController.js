@@ -1,5 +1,5 @@
 angular.module('encounterControl')
-    .controller('EncounterController', ['$scope', 'webSocketService', 'encounterService', 'boardService', function ($scope, webSocketService, encounterService, boardService) {
+    .controller('EncounterController', ['$scope', 'webSocketService', 'encounterService', 'boardTemplateService', function ($scope, webSocketService, encounterService, boardTemplateService) {
         $scope.encounters = [];
         $scope.initialized = false;
         $scope.isCreateEncounterOpen = false;
@@ -100,7 +100,7 @@ angular.module('encounterControl')
         }
 
         function getBoards() {
-            boardService.getBoards().then(function (boards) {
+            boardTemplateService.getBoardTemplates().then(function (boards) {
                 $scope.boards = boards;
             });
         }

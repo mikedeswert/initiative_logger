@@ -4,7 +4,7 @@ angular.module('webTransportModule').service('urlFactory', ['$location', functio
     }
 
     this.createUrl = function(url) {
-        var regexGroups = $location.absUrl().match("(http|https)://[^/]*/(.*)/index.html");
+        var regexGroups = $location.absUrl().match("(http|https)://[^/]*/(.*)/#.*");
         return '/' + regexGroups[2] + prependSlash(url);
     };
 
