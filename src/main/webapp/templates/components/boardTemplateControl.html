@@ -1,13 +1,13 @@
 <div class="boardTemplateControl ng-cloak" data-ng-cloak data-ng-controller="BoardTemplateController" data-ng-init="init()">
     <div class="panel panel-default flip" data-ng-hide="isEditBoardTemplateOpen">
         <div class="panel-body">
-            <div class="col-md-10">
+            <div class="col-md-8">
                 <select id="selectBoardTemplate" class="form-control" data-ng-model="tempSelectedBoardTemplate"
-                        data-ng-options="boardTemplate.name for boardTemplate in boardTemplates track by $index">
+                        data-ng-options="boardTemplate.name for boardTemplate in boardTemplates">
                     <option value="">Select boardTemplate</option>
                 </select>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <div class="btn-group pull-right">
                     <button type="button" class="btn btn-primary" data-ng-click="selectBoardTemplate()"
                             data-ng-disabled="!isTempBoardTemplateSelected()">
@@ -17,22 +17,31 @@
                         New
                     </button>
                     <button type="button" class="btn btn-default" data-ng-click="openEditBoardTemplate()"
-                            data-ng-disabled="!isBoardTemplateSelected()">
+                            data-ng-disabled="!isBoardTemplateSelected() || !isSelectedBoardTemplateValid()">
                         Cancel
                     </button>
                 </div>
             </div>
         </div>
+        <div class="panel-footer">
+            <span class="label label-warning">Caution: Only the currently selected template will be saved. Make sure to save your changes before switching between templates.</span>
+        </div>
     </div>
     <div class="panel panel-default flip" data-ng-show="isEditBoardTemplateOpen">
         <div class="panel-body">
             <div class="row">
-                <div class="col-md-10">
-                    <input type="text" class="form-control" data-ng-model="selectedBoardTemplate.name" />
+                <div class="col-md-9">
+                    <div class="col-md-9">
+                        <input type="text" class="form-control col-md-6" data-ng-model="selectedBoardTemplate.name" placeholder="Name" />
+                    </div>
+                    <div class="col-md-3">
+                        <input type="number" class="form-control col-md-2" data-ng-model="selectedBoardTemplate.size" min="1" />
+                    </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <div class="btn-group pull-right">
-                        <button data-ng-click="saveBoardTemplate()" title="Save">
+                        <button class="btn btn-primary" data-ng-click="saveBoardTemplate()" title="Save"
+                                data-ng-disabled="!isBoardTemplateSelected() || !isSelectedBoardTemplateValid()">
                             <span class="glyphicon glyphicon-floppy-disk"></span>
                         </button>
                         <button class="btn btn-default" data-ng-click="openSelectBoardTemplate()" title="Select template">
@@ -45,6 +54,8 @@
                 </div>
             </div>
         </div>
+        <div class="panel-footer">
+            <span class="label label-warning">Caution: Only the currently selected template will be saved. Make sure to save your changes before switching between templates.</span>
+        </div>
     </div>
-    <span class="label label-warning">Caution: Only the currently selected template will be saved. Make sure to save your changes before switching between templates.</span>
 </div>

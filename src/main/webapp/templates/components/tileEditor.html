@@ -1,5 +1,5 @@
 <div class="tile-editor" data-ng-controller="TileEditorController" data-ng-init="init()">
-    <div class="orientationControl">
+    <div class="orientationControl col-md-12">
         <div class="btn-group">
             <button type="button" class="btn btn-default"
                     data-ng-repeat="orientation in orientations"
@@ -9,9 +9,12 @@
             </button>
         </div>
     </div>
-    <div class="tile-type-selector">
-        <div class="tile-type-search">
-            <input type="text" data-ng-model="tileTypeSearchTerm" placeholder="Search tile types..." />
+    <div class="tile-type-selector col-md-12 top-buffer">
+        <div class="tile-type-search input-group">
+            <input type="text" class="form-control" data-ng-model="tileTypeSearchTerm" placeholder="Search tile types..." />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-search"></span>
+            </span>
         </div>
         <div class="tile-types">
             <div data-ng-repeat="tileType in tileTypes | filter:tileTypeSearchTerm" class="col-sm-6">

@@ -11,29 +11,36 @@ angular.module('boardTemplateControl')
                     getBoardTemplates();
                 }
             );
+            getBoardTemplates();
         };
 
 
         $scope.selectBoardTemplate = function() {
-            //TODO add confirmation dialog
             $scope.selectedBoardTemplate = $scope.tempSelectedBoardTemplate;
             $scope.openEditBoardTemplate();
         };
 
         $scope.isTempBoardTemplateSelected = function() {
-            return $scope.tempSelectedBoardTemplate != undefined && $scope.tempSelectedBoardTemplate.name != '';
+            return $scope.tempSelectedBoardTemplate != undefined;
         };
 
         $scope.isBoardTemplateSelected = function() {
-            return $scope.selectedBoardTemplate != undefined && $scope.selectedBoardTemplate.name != '';
+            return boardTemplateService.isBoardTemplateSelected();
+        };
+
+        $scope.isSelectedBoardTemplateValid = function() {
+            return boardTemplateService.isSelectedBoardTemplateValid();
         };
 
         $scope.openCreateBoardTemplate = function() {
-            //TODO add confirmation dialog
             $scope.selectedBoardTemplate = newBoardTemplate();
-            $scope.boardTemplates.push($scope.selectedBoardTemplate);
             $scope.creatingBoardTemplate = true;
-            $scope.openEditBoardTemplate();
+            $scope.saveBoardTemplate().then(
+                function() {
+                    $scope.creatingBoardTemplate = false;
+                    $scope.openEditBoardTemplate();
+                }
+            );
         };
 
         $scope.openEditBoardTemplate = function() {
@@ -42,15 +49,10 @@ angular.module('boardTemplateControl')
 
         $scope.saveBoardTemplate = function() {
             if(!$scope.creatingBoardTemplate) {
-                boardTemplateService.updateBoardTemplate();
-                return;
+                return boardTemplateService.updateBoardTemplate();
             }
 
-            boardTemplateService.createBoardTemplate().then(
-                function() {
-                    $scope.creatingBoardTemplate = false;
-                }
-            );
+            return boardTemplateService.createBoardTemplate();
         };
 
         $scope.openSelectBoardTemplate = function() {
@@ -68,20 +70,21 @@ angular.module('boardTemplateControl')
         };
 
         $scope.$watch('selectedBoardTemplate', function (newVal) {
-            if ($scope.initialized) {
-                boardTemplateService.setSelectedBoardTemplate(newVal);
-            }
+            boardTemplateService.setSelectedBoardTemplate(newVal);
         });
 
         function getBoardTemplates() {
             boardTemplateService.getBoardTemplates().then(
                 function(boardTemplates) {
                     $scope.boardTemplates = boardTemplates;
+                    if($scope.boardTemplates.length > 0) {
+                        $scope.tempSelectedBoardTemplate = $scope.boardTemplates[0];
+                    }
                 }
             )
         }
 
         function newBoardTemplate() {
-            return { name: ""};
+            return { name: "New board", size: 10 };
         }
     }]);

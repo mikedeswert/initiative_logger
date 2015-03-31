@@ -19,14 +19,20 @@ angular.module('boardTemplateControl')
             getSelectedBoardTemplate: function() {
                 return selectedBoardTemplate;
             },
+            isBoardTemplateSelected: function() {
+                return selectedBoardTemplate != undefined;
+            },
+            isSelectedBoardTemplateValid: function() {
+                return selectedBoardTemplate.name != '' && selectedBoardTemplate.size > 0;
+            },
             createBoardTemplate: function() {
                 return restService.post('/rest/boardtemplate/add', selectedBoardTemplate)
                     .then(
                     function () {
-                        messageService.addSuccessMessage('The board template was successfully saved.');
+                        messageService.addSuccessMessage('The board template was successfully created.');
                     },
                     function () {
-                        messageService.addErrorMessage('Something went wrong while saving the board template. Please refresh the page to try again. \n' +
+                        messageService.addErrorMessage('Something went wrong while creating the board template. Please refresh the page to try again. \n' +
                         '                           If the problem persists, please contact a site administrator.');
                     }
                 )
@@ -42,8 +48,17 @@ angular.module('boardTemplateControl')
                     }
                 )
             },
-            updateBoardTemplate: function(boardTemplateToUpdate) {
-                return restService.post('/rest/boardtemplate/update/', boardTemplateToUpdate);
+            deleteBoardTemplate: function() {
+                return restService.post('/rest/boardtemplate/delete/' + selectedBoardTemplate.id, null)
+                    .then(
+                    function () {
+                        messageService.addSuccessMessage('Board template was successfully deleted.');
+                    },
+                    function () {
+                        messageService.addErrorMessage('Something went wrong while deleting the board template. Please refresh the page to try again. \n' +
+                        '                           If the problem persists, please contact a site administrator.')
+                    }
+                );
             }
         };
     }]);
