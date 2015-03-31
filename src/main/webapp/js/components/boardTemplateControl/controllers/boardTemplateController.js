@@ -1,6 +1,6 @@
 angular.module('boardTemplateControl')
     .controller('BoardTemplateController', ['$scope', 'webSocketService', 'boardTemplateService', function($scope, webSocketService, boardTemplateService) {
-        $scope.selectedBoardTemplate = newBoardTemplate();
+        $scope.selectedBoardTemplate;
         $scope.tempSelectedBoardTemplate = newBoardTemplate();
         $scope.isEditBoardTemplateOpen = false;
         $scope.creatingBoardTemplate = false;
@@ -34,6 +34,7 @@ angular.module('boardTemplateControl')
 
         $scope.openCreateBoardTemplate = function() {
             $scope.selectedBoardTemplate = newBoardTemplate();
+            boardTemplateService.setSelectedBoardTemplate($scope.selectedBoardTemplate);
             $scope.creatingBoardTemplate = true;
             $scope.saveBoardTemplate().then(
                 function() {
@@ -64,14 +65,66 @@ angular.module('boardTemplateControl')
             boardTemplateService.deleteBoardTemplate().then(
                 function() {
                     $scope.tempSelectedBoardTemplate = newBoardTemplate();
+                    $scope.selectedBoardTemplate = undefined;
                     $scope.openSelectBoardTemplate();
                 }
             );
         };
 
-        $scope.$watch('selectedBoardTemplate', function (newVal) {
+        $scope.$watch('selectedBoardTemplate', function (newVal, oldVal) {
             boardTemplateService.setSelectedBoardTemplate(newVal);
         });
+
+        $scope.resizeBoard = function() {
+            resizeBoard($scope.selectedBoardTemplate);
+        };
+
+        function resizeBoard() {
+            resizeRows();
+            $scope.selectedBoardTemplate.tiles.forEach(function(row) {
+                resizeColumns(row);
+            });
+        }
+
+        function resizeRows() {
+            if($scope.selectedBoardTemplate.tiles.length > $scope.selectedBoardTemplate.size) {
+                $scope.selectedBoardTemplate.tiles.length = $scope.selectedBoardTemplate.size;
+                return;
+            }
+
+            for(var i = $scope.selectedBoardTemplate.tiles.length; i < $scope.selectedBoardTemplate.size; i++) {
+                $scope.selectedBoardTemplate.tiles.push(createRow());
+            }
+        }
+
+        function createRow() {
+            var row = [];
+
+            for(var i = 0; i < $scope.selectedBoardTemplate.size; i++) {
+                row.push({
+                    orientation: "NORTH",
+                    tokens: [],
+                    type: $scope.selectedBoardTemplate.defaultTileType
+                })
+            }
+
+            return row;
+        }
+
+        function resizeColumns(row) {
+            if(row.length > $scope.selectedBoardTemplate.size) {
+                row.length = $scope.selectedBoardTemplate.size;
+                return;
+            }
+
+            for(var i = row.length; i < $scope.selectedBoardTemplate.size; i++) {
+                row.push({
+                    orientation: "NORTH",
+                    tokens: [],
+                    type: $scope.selectedBoardTemplate.defaultTileType
+                })
+            }
+        }
 
         function getBoardTemplates() {
             boardTemplateService.getBoardTemplates().then(

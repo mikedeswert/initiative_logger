@@ -6,10 +6,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Arrays;
-
-import static be.mikeds.enums.TileType.GRASS;
-
 /**
  * --------------------------------
  * Created by mikeds on 24/08/2014.
@@ -32,6 +28,7 @@ public class Board implements Observer {
     public Board() {}
 
     public Board(int size) {
+        //TODO remove this constructor
         this.size = size;
         initialize();
     }
@@ -41,7 +38,7 @@ public class Board implements Observer {
         this.size = boardTemplate.getSize();
         this.defaultTileType = boardTemplate.getDefaultTileType();
         this.boardTemplate = boardTemplate;
-        initialize();
+        initializeTiles(boardTemplate.getTiles());
     }
 
     public String getId() {
@@ -94,11 +91,11 @@ public class Board implements Observer {
 
     @JsonIgnore
     private void initialize() {
-        initialize(new Tile[0][0]);
+        initializeTiles(new Tile[0][0]);
     }
 
     @JsonIgnore
-    private void initialize(Tile[][] tiles) {
+    private void initializeTiles(Tile[][] tiles) {
         this.tiles = new Tile[size][size];
 
         for (int i = 0; i < size; i++) {
@@ -118,7 +115,7 @@ public class Board implements Observer {
         this.size = boardTemplate.getSize();
         this.defaultTileType = boardTemplate.getDefaultTileType();
 
-        initialize(tiles.clone());
+        initializeTiles(tiles.clone());
     }
 
 }

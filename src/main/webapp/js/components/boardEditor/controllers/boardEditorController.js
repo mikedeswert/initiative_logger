@@ -1,18 +1,15 @@
 angular.module('boardEditor')
-    .controller('BoardEditorController', ['$scope', 'tileEditorService', function ($scope, tileEditorService) {
-        $scope.board = {
-            size: 2,
-            tiles: [
-                [
-                    {type: 'GRASS', orientation: 'NORTH'}, {type: 'GRASS', orientation: 'NORTH'}
-                ],
-                [
-                    {type: 'GRASS', orientation: 'NORTH'}, {type: 'GRASS', orientation: 'NORTH'}
-                ]
-            ]
+    .controller('BoardEditorController', ['$scope', 'tileEditorService', 'boardTemplateService', function ($scope, tileEditorService, boardTemplateService) {
+        $scope.selectedTile;
+        $scope.board;
+
+        $scope.init = function() {
+            getSelectedBoardTemplate();
         };
 
-        $scope.selectedTile;
+        $scope.isBoardTemplateSelected = function() {
+            return boardTemplateService.isBoardTemplateSelected();
+        };
 
         $scope.setSelectedTile = function (newSelectedTile) {
             tileEditorService.setSelectedTile(newSelectedTile);
@@ -37,11 +34,28 @@ angular.module('boardEditor')
         };
 
         $scope.$watch(
+            function() {
+                return boardTemplateService.getSelectedBoardTemplate();
+            },
+            function() {
+                getSelectedBoardTemplate();
+            }
+        );
+
+        $scope.$watch('board', function(newVal) {
+            boardTemplateService.setSelectedBoardTemplate(newVal);
+        });
+
+        $scope.$watch(
             function () {
                 return tileEditorService.getSelectedTile()
             },
             function (newVal) {
                 $scope.selectedTile = newVal;
             }
-        )
+        );
+
+        function getSelectedBoardTemplate() {
+            $scope.board = boardTemplateService.getSelectedBoardTemplate();
+        }
     }]);

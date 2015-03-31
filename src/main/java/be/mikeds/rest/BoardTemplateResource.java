@@ -33,6 +33,7 @@ public class BoardTemplateResource {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE)
     public void addBoardTemplate(@RequestBody BoardTemplate boardTemplate) {
+        boardTemplate.initializeTiles();
         boardTemplateService.save(boardTemplate);
     }
 

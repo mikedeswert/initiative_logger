@@ -1,5 +1,5 @@
-<board-template-control />
-<div class="board" data-ng-controller="BoardEditorController">
+<board-template-control></board-template-control>
+<div class="board" data-ng-controller="BoardEditorController" data-ng-init="init()">
     <div class="row-fluid board-container">
         <div id="board" data-board>
             <div data-ng-repeat="row in board.tiles" data-row>

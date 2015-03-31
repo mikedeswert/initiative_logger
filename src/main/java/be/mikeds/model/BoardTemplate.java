@@ -2,6 +2,7 @@ package be.mikeds.model;
 
 import be.mikeds.enums.TileType;
 import be.mikeds.mongodb.annotations.CascadeSave;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -31,10 +32,12 @@ public class BoardTemplate implements Observable {
     private Set<Observer> observers = new HashSet<>();
 
     @Override
+    @JsonIgnore
     public void notifyObservers() {
         observers.forEach(Observer::update);
     }
 
+    @JsonIgnore
     public Board newBoardInstance() {
         Board board = new Board(this);
         observers.add(board);
@@ -42,6 +45,7 @@ public class BoardTemplate implements Observable {
         return board;
     }
 
+    @JsonIgnore
     public void removeBoardInstance(Board board) {
         Iterator<Observer> iterator = observers.iterator();
 
@@ -96,6 +100,7 @@ public class BoardTemplate implements Observable {
         notifyObservers();
     }
 
+    @JsonIgnore
     public void update(BoardTemplate boardTemplate) {
         this.id = boardTemplate.getId();
         this.name = boardTemplate.getName();
@@ -103,5 +108,16 @@ public class BoardTemplate implements Observable {
         this.defaultTileType = boardTemplate.getDefaultTileType();
         this.size = boardTemplate.getSize();
         notifyObservers();
+    }
+
+    @JsonIgnore
+    public void initializeTiles() {
+        this.tiles = new Tile[size][size];
+
+        for (int i = 0; i < size; i++) {
+            for(int j = 0; j < size; j++) {
+                this.tiles[i][j] = new Tile(defaultTileType);
+            }
+        }
     }
 }
