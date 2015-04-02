@@ -1,12 +1,18 @@
 angular.module('boardTemplateControl')
-    .factory('boardTemplateService', ['restService', 'messageService', function(restService, messageService) {
+    .factory('boardTemplateService', ['restService', 'messageService', 'boardTemplateFactory', function(restService, messageService, boardTemplateFactory) {
         var selectedBoardTemplate;
 
         return {
             getBoardTemplates: function() {
                 return restService.get('/rest/boardtemplate/').then(
                     function(response) {
-                        return response.data;
+                        var boardTemplates = [];
+
+                        response.data.forEach(function(rawBoardTemplate) {
+                            boardTemplates.push(boardTemplateFactory.createBoardTemplate(rawBoardTemplate));
+                        });
+                        
+                        return boardTemplates;
                     },
                     function() {
                         messageService.addErrorMessage('Something went wrong while retrieving the board templates. Please refresh the page to try again.');
