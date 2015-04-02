@@ -8,10 +8,10 @@ describe('WebSocketStatusViewController', function () {
     beforeEach(function () {
         module('webSocketStatusView');
 
-        inject(function ($controller, $rootScope, _webSocketStatusService_, _$timeout_) {
+        inject(function ($controller, $rootScope, $injector) {
             scope = $rootScope.$new();
-            webSocketStatusService = _webSocketStatusService_;
-            spyOnTimeout(_$timeout_);
+            webSocketStatusService = mockito4js.spy($injector.get('webSocketStatusService'));
+            $timeout = mockito4js.spy($injector.get('$timeout'));
 
             $controller('WebSocketStatusViewController', {
                 $scope: scope,
@@ -130,7 +130,7 @@ describe('WebSocketStatusViewController', function () {
         it('should set show status to false after 5000ms', function() {
             scope.resetTimer();
 
-            expect($timeout).toHaveBeenCalledWith(scope.hideStatus, 5000);
+            mockito4js.verify($timeout, mockito4js.once()).wasCalledWith(scope.hideStatus, 5000);
         });
 
         it('should cancel an existing timeout', function() {
@@ -138,7 +138,7 @@ describe('WebSocketStatusViewController', function () {
 
             scope.resetTimer();
 
-            expect($timeout.cancel).toHaveBeenCalledWith({});
+            mockito4js.verify($timeout, mockito4js.once()).cancel(mockito4js.any(Object));
         });
     });
 

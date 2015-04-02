@@ -8,13 +8,24 @@ module.exports = function (config) {
         ],
         frameworks: ['jasmine'],
         files: [
+            // External dev dependencies
             'main/webapp/bower_components/angular/angular.min.js',
+            'main/webapp/bower_components/angular-animate/angular-animate.min.js',
+            'main/webapp/bower_components/angular-bootstrap/ui-bootstrap.min.js',
+            'main/webapp/bower_components/angular-panhandler/dist/angular-panhandler.min.js',
             'main/webapp/bower_components/angular-route/angular-route.min.js',
+            'main/webapp/bower_components/angular-touch/angular-touch.min.js',
+            'main/webapp/bower_components/ngDraggable/ngDraggable.js',
+            'main/webapp/bower_components/sockjs/sockjs.min.js',
+            'main/webapp/bower_components/stomp.min/index.js',
+            // External test dependencies
             'test/webapp/lib/angular-mocks/angular-mocks.js',
-            'main/webapp/bower_components/mockito4js/src/main/mockito4.js',
-            {pattern: 'main/webapp/bower_components/**/*.js', included: false},
+            'main/webapp/bower_components/mockito4js/dist/mockito4.js',
+            // Internal files
+            'main/webapp/js/app.js',
             'main/webapp/js/**/*.js',
-            'test/webapp/unit/**/*.js'
+            'test/webapp/unit/**/*.js',
+            {pattern: 'main/webapp/bower_components/**/*.js', included: false}
         ],
         reporters: ['progress'],
         junitReporter: {

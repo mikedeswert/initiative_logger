@@ -1,7 +1,7 @@
 angular.module('webTransportModule')
     .factory('webSocketService' , ['webSocketFactory', function(webSocketFactory) {
         var subscribers = {};
-        var socket = webSocketFactory.createNotifyWebSocket(notifySubscribers);
+        var socket;
 
         function notifySubscribers() {
             for(var property in subscribers) {
@@ -13,7 +13,13 @@ angular.module('webTransportModule')
 
         return {
             subscribe: function(subscriberName, notifyCallBack) {
+                if(socket == undefined) {
+                    this.init();
+                }
                 subscribers[subscriberName] = notifyCallBack;
+            },
+            init: function() {
+                socket = webSocketFactory.createNotifyWebSocket(notifySubscribers);
             }
         }
     }]);

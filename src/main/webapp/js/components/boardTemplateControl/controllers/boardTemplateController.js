@@ -1,10 +1,9 @@
 angular.module('boardTemplateControl')
     .controller('BoardTemplateController', ['$scope', 'webSocketService', 'boardTemplateService', function($scope, webSocketService, boardTemplateService) {
-        $scope.selectedBoardTemplate;
-        $scope.newBoardSize;
+        $scope.selectedBoardTemplate = {};
+        $scope.newBoardSize = 0;
         $scope.tempSelectedBoardTemplate = newBoardTemplate();
         $scope.isEditBoardTemplateOpen = false;
-        $scope.creatingBoardTemplate = false;
         $scope.boardTemplates = [];
 
         $scope.init = function() {
@@ -15,9 +14,8 @@ angular.module('boardTemplateControl')
             getBoardTemplates();
         };
 
-
         $scope.selectBoardTemplate = function() {
-            $scope.selectedBoardTemplate = $scope.tempSelectedBoardTemplate;
+            angular.copy($scope.tempSelectedBoardTemplate, $scope.selectedBoardTemplate);
             $scope.newBoardSize = $scope.selectedBoardTemplate.size;
             $scope.openEditBoardTemplate();
         };
@@ -31,47 +29,41 @@ angular.module('boardTemplateControl')
         };
 
         $scope.isSelectedBoardTemplateValid = function() {
-            return boardTemplateService.isSelectedBoardTemplateValid();
+            return boardTemplateService.isBoardTemplateValid($scope.selectedBoardTemplate);
         };
 
         $scope.openCreateBoardTemplate = function() {
             $scope.selectedBoardTemplate = newBoardTemplate();
             $scope.newBoardSize = $scope.selectedBoardTemplate.size;
-            boardTemplateService.setSelectedBoardTemplate($scope.selectedBoardTemplate);
-            $scope.creatingBoardTemplate = true;
-            $scope.saveBoardTemplate().then(
-                function() {
-                    $scope.creatingBoardTemplate = false;
-                    $scope.openEditBoardTemplate();
-                }
-            );
+
+            boardTemplateService.createBoardTemplate($scope.selectedBoardTemplate)
+                .then(
+                    $scope.openEditBoardTemplate
+                );
         };
 
         $scope.openEditBoardTemplate = function() {
             $scope.isEditBoardTemplateOpen = true;
         };
 
-        $scope.saveBoardTemplate = function() {
-            if(!$scope.creatingBoardTemplate) {
-                return boardTemplateService.updateBoardTemplate();
-            }
-
-            return boardTemplateService.createBoardTemplate();
-        };
-
         $scope.openSelectBoardTemplate = function() {
             $scope.isEditBoardTemplateOpen = false;
         };
 
+        $scope.saveBoardTemplate = function() {
+            return boardTemplateService.updateBoardTemplate($scope.selectedBoardTemplate);
+        };
+
         $scope.deleteBoardTemplate = function() {
             //TODO add confirmation dialog
-            boardTemplateService.deleteBoardTemplate().then(
-                function() {
-                    $scope.tempSelectedBoardTemplate = newBoardTemplate();
-                    $scope.selectedBoardTemplate = undefined;
-                    $scope.openSelectBoardTemplate();
-                }
-            );
+            boardTemplateService.deleteBoardTemplate($scope.selectedBoardTemplate)
+                .then(
+                    function() {
+                        $scope.tempSelectedBoardTemplate = newBoardTemplate();
+                        $scope.selectedBoardTemplate = undefined;
+                        $scope.openSelectBoardTemplate();
+                    }
+                );
         };
 
         $scope.$watch('selectedBoardTemplate', function (newVal) {
@@ -84,6 +76,7 @@ angular.module('boardTemplateControl')
 
         function resizeBoard() {
             var tilesCopy = copyTiles();
+
             resizeRows(tilesCopy);
             tilesCopy.forEach(function(row) {
                 resizeColumns(row);

@@ -22,11 +22,11 @@ angular.module('boardTemplateControl')
             isBoardTemplateSelected: function() {
                 return selectedBoardTemplate != undefined;
             },
-            isSelectedBoardTemplateValid: function() {
-                return selectedBoardTemplate.name != '' && selectedBoardTemplate.size > 0;
+            isBoardTemplateValid: function(boardTemplate) {
+                return boardTemplate.name != '' && boardTemplate.size > 0;
             },
-            createBoardTemplate: function() {
-                return restService.post('/rest/boardtemplate/add', selectedBoardTemplate)
+            createBoardTemplate: function(boardTemplate) {
+                return restService.post('/rest/boardtemplate/add', boardTemplate)
                     .then(
                     function () {
                         messageService.addSuccessMessage('The board template was successfully created.');
@@ -37,8 +37,8 @@ angular.module('boardTemplateControl')
                     }
                 )
             },
-            updateBoardTemplate: function() {
-                return restService.post('/rest/boardtemplate/update/', selectedBoardTemplate).then(
+            updateBoardTemplate: function(boardTemplate) {
+                return restService.post('/rest/boardtemplate/update/', boardTemplate).then(
                     function () {
                         messageService.addSuccessMessage('The board template was successfully updated.');
                     },
@@ -48,8 +48,8 @@ angular.module('boardTemplateControl')
                     }
                 )
             },
-            deleteBoardTemplate: function() {
-                return restService.post('/rest/boardtemplate/delete/' + selectedBoardTemplate.id, null)
+            deleteBoardTemplate: function(boardTemplate) {
+                return restService.post('/rest/boardtemplate/delete/' + boardTemplate.id, null)
                     .then(
                     function () {
                         messageService.addSuccessMessage('Board template was successfully deleted.');
