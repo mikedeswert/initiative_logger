@@ -35,7 +35,7 @@
                         <input type="text" class="form-control col-md-6" data-ng-model="selectedBoardTemplate.name" placeholder="Name" />
                     </div>
                     <div class="col-md-3">
-                        <input type="number" class="form-control col-md-2" data-ng-model="selectedBoardTemplate.size" min="1" data-ng-blur="resizeBoard()" />
+                        <input type="number" class="form-control col-md-2" data-ng-model="newBoardSize" min="1" max="50" data-ng-blur="resizeBoard()" />
                     </div>
                 </div>
                 <div class="col-md-3">

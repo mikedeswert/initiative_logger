@@ -1,6 +1,7 @@
 angular.module('boardTemplateControl')
     .controller('BoardTemplateController', ['$scope', 'webSocketService', 'boardTemplateService', function($scope, webSocketService, boardTemplateService) {
         $scope.selectedBoardTemplate;
+        $scope.newBoardSize;
         $scope.tempSelectedBoardTemplate = newBoardTemplate();
         $scope.isEditBoardTemplateOpen = false;
         $scope.creatingBoardTemplate = false;
@@ -17,6 +18,7 @@ angular.module('boardTemplateControl')
 
         $scope.selectBoardTemplate = function() {
             $scope.selectedBoardTemplate = $scope.tempSelectedBoardTemplate;
+            $scope.newBoardSize = $scope.selectedBoardTemplate.size;
             $scope.openEditBoardTemplate();
         };
 
@@ -34,6 +36,7 @@ angular.module('boardTemplateControl')
 
         $scope.openCreateBoardTemplate = function() {
             $scope.selectedBoardTemplate = newBoardTemplate();
+            $scope.newBoardSize = $scope.selectedBoardTemplate.size;
             boardTemplateService.setSelectedBoardTemplate($scope.selectedBoardTemplate);
             $scope.creatingBoardTemplate = true;
             $scope.saveBoardTemplate().then(
@@ -71,7 +74,7 @@ angular.module('boardTemplateControl')
             );
         };
 
-        $scope.$watch('selectedBoardTemplate', function (newVal, oldVal) {
+        $scope.$watch('selectedBoardTemplate', function (newVal) {
             boardTemplateService.setSelectedBoardTemplate(newVal);
         });
 
@@ -80,27 +83,41 @@ angular.module('boardTemplateControl')
         };
 
         function resizeBoard() {
-            resizeRows();
-            $scope.selectedBoardTemplate.tiles.forEach(function(row) {
+            var tilesCopy = copyTiles();
+            resizeRows(tilesCopy);
+            tilesCopy.forEach(function(row) {
                 resizeColumns(row);
             });
+
+            $scope.selectedBoardTemplate.tiles = tilesCopy;
+            $scope.selectedBoardTemplate.size = $scope.newBoardSize;
         }
 
-        function resizeRows() {
-            if($scope.selectedBoardTemplate.tiles.length > $scope.selectedBoardTemplate.size) {
-                $scope.selectedBoardTemplate.tiles.length = $scope.selectedBoardTemplate.size;
+        function copyTiles() {
+            var tilesCopy = [];
+
+            $scope.selectedBoardTemplate.tiles.forEach(function(row) {
+                tilesCopy.push(row.slice());
+            });
+
+            return tilesCopy;
+        }
+
+        function resizeRows(tiles) {
+            if(tiles.length > $scope.newBoardSize) {
+                tiles.length = $scope.newBoardSize;
                 return;
             }
 
-            for(var i = $scope.selectedBoardTemplate.tiles.length; i < $scope.selectedBoardTemplate.size; i++) {
-                $scope.selectedBoardTemplate.tiles.push(createRow());
+            for(var i = tiles.length; i < $scope.newBoardSize; i++) {
+                tiles.push(createRow());
             }
         }
 
         function createRow() {
             var row = [];
 
-            for(var i = 0; i < $scope.selectedBoardTemplate.size; i++) {
+            for(var i = 0; i < $scope.newBoardSize; i++) {
                 row.push({
                     orientation: "NORTH",
                     tokens: [],
@@ -112,12 +129,12 @@ angular.module('boardTemplateControl')
         }
 
         function resizeColumns(row) {
-            if(row.length > $scope.selectedBoardTemplate.size) {
-                row.length = $scope.selectedBoardTemplate.size;
+            if(row.length > $scope.newBoardSize) {
+                row.length = $scope.newBoardSize;
                 return;
             }
 
-            for(var i = row.length; i < $scope.selectedBoardTemplate.size; i++) {
+            for(var i = row.length; i < $scope.newBoardSize; i++) {
                 row.push({
                     orientation: "NORTH",
                     tokens: [],
