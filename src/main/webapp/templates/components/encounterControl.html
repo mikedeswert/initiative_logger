@@ -34,9 +34,9 @@
             </div>
             <div class="row top-buffer">
                 <div class="col-md-10">
-                    <select id="selectCreateEncounterBoard" class="form-control" data-ng-model="newEncounter.board"
-                            data-ng-options="board.name for board in boards">
-                        <option value="">Select board</option>
+                    <select id="selectCreateEncounterBoard" class="form-control" data-ng-model="selectedBoardTemplateId"
+                            data-ng-options="boardTemplate.id as boardTemplate.name for boardTemplate in boardTemplates">
+                        <option value="">Select board template</option>
                     </select>
                 </div>
             </div>
@@ -58,9 +58,9 @@
             </div>
             <div class="row top-buffer">
                 <div class="col-md-10">
-                    <select id="selectUpdateEncounterBoard" class="form-control" data-ng-model="encounterToUpdate.board"
-                            data-ng-options="board.name for board in boards">
-                        <option value="">Select board</option>
+                    <select id="selectUpdateEncounterBoard" class="form-control" data-ng-model="selectedBoardTemplateId"
+                            data-ng-options="boardTemplate.id as boardTemplate.name for boardTemplate in boardTemplates">
+                        <option value="">Select board template</option>
                     </select>
                 </div>
             </div>

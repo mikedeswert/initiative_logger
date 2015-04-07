@@ -5,24 +5,25 @@ angular.module('encounterControl')
         $scope.isCreateEncounterOpen = false;
         $scope.isUpdateEncounterOpen = false;
         $scope.selectedEncounter;
+        $scope.selectedBoardTemplateId;
         $scope.newEncounter = {name: ''};
         $scope.encounterToUpdate = {name: ''};
 
-        $scope.boards = [];
+        $scope.boardTemplates = [];
 
         $scope.init = function () {
             webSocketService.subscribe('EncounterController', function() {
-                    getEncounters();
                     getBoards();
+                    getEncounters();
                 }
             );
-            getEncounters();
             getBoards();
+            getEncounters();
         };
 
         $scope.createEncounter = function () {
             if (encounterService.isEncounterValid($scope.newEncounter)) {
-                encounterService.createEncounter($scope.newEncounter).then(
+                encounterService.createEncounter($scope.newEncounter, $scope.selectedBoardTemplateId).then(
                     function () {
                         $scope.closeCreateEncounter();
                     }
@@ -32,7 +33,7 @@ angular.module('encounterControl')
 
         $scope.updateEncounter = function () {
             if (encounterService.isEncounterValid($scope.encounterToUpdate)) {
-                encounterService.updateEncounter($scope.encounterToUpdate).then(
+                encounterService.updateEncounter($scope.encounterToUpdate, $scope.selectedBoardTemplateId).then(
                     function () {
                         $scope.closeUpdateEncounter();
                     }
@@ -42,10 +43,12 @@ angular.module('encounterControl')
 
         $scope.selectEncounterToUpdate = function () {
             $scope.encounterToUpdate = angular.copy($scope.selectedEncounter);
+            $scope.selectedBoardTemplateId = $scope.encounterToUpdate.board.boardTemplate.id;
             $scope.isUpdateEncounterOpen = true;
         };
 
         $scope.openCreateEncounterView = function () {
+            $scope.selectedBoardTemplateId = undefined;
             $scope.isCreateEncounterOpen = true;
         };
 
@@ -63,7 +66,7 @@ angular.module('encounterControl')
             return encounterService.isEncounterSelected();
         };
 
-        $scope.$watch('selectedEncounter', function (newVal, oldVal) {
+        $scope.$watch('selectedEncounter', function (newVal) {
             if ($scope.initialized) {
                 encounterService.setSelectedEncounter(newVal);
             }
@@ -94,14 +97,15 @@ angular.module('encounterControl')
             encounterService.getEncounters().then(function (encounters) {
                 $scope.encounters = encounters;
                 $scope.selectedEncounter = getEncounter(encounterService.getSelectedEncounter());
+                $scope.selectedBoardTemplateId = ($scope.selectedEncounter) ? $scope.selectedEncounter.board.boardTemplate.id : undefined;
             }).finally(function () {
                 $scope.initialized = true;
             });
         }
 
         function getBoards() {
-            boardTemplateService.getBoardTemplates().then(function (boards) {
-                $scope.boards = boards;
+            boardTemplateService.getBoardTemplates().then(function (boardTemplates) {
+                $scope.boardTemplates = boardTemplates;
             });
         }
     }]);

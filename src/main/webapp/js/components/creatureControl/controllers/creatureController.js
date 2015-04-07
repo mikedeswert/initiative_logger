@@ -18,7 +18,7 @@ angular.module('creatureControl')
             if(creatureService.isCreatureValid($scope.newCreature)) {
                 $scope.newCreature.imageSource = 'img/' + $scope.newCreature.name.split(' ')[0].toLowerCase() + '.jpg';
                 $scope.selectedEncounter.creatures.push($scope.newCreature);
-                encounterService.updateEncounter($scope.selectedEncounter).then(
+                encounterService.updateEncounter($scope.selectedEncounter, $scope.selectedEncounter.board.boardTemplate.id).then(
                     function() {
                         $scope.newCreature = creatureFactory.createDefaultCreature();
                         $scope.$broadcast('focusName');

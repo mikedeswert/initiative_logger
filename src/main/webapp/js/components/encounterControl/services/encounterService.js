@@ -33,8 +33,8 @@ angular.module('encounterControl')
                     }
                 );
             },
-            createEncounter: function (newEncounter) {
-                return restService.post('/rest/encounter/add', newEncounter)
+            createEncounter: function (newEncounter, templateId) {
+                return restService.post('/rest/encounter/add/template/' + templateId, newEncounter)
                     .then(
                     function () {
                         messageService.addSuccessMessage('The encounter was successfully saved.');
@@ -45,8 +45,8 @@ angular.module('encounterControl')
                     }
                 )
             },
-            updateEncounter: function (encounterToUpdate) {
-                return restService.post('/rest/encounter/update/', encounterToUpdate)
+            updateEncounter: function (encounterToUpdate, templateId) {
+                return restService.post('/rest/encounter/update/template/' + templateId, encounterToUpdate)
                     .then(
                     function () {
                         messageService.addSuccessMessage('The encounter was successfully updated.');
