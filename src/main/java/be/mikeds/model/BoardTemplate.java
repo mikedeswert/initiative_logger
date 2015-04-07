@@ -52,7 +52,7 @@ public class BoardTemplate implements Observable {
         while(iterator.hasNext()) {
             Board next = (Board) iterator.next();
             if(StringUtils.equals(next.getId(), board.getId())) {
-                observers.remove(next);
+                iterator.remove();
             }
         }
     }

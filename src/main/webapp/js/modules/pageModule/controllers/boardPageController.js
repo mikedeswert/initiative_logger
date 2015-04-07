@@ -54,7 +54,7 @@ angular.module('pageModule')
         };
 
         $scope.getCellClassNames = function (cellIndex, rowIndex) {
-            return "tile " + $scope.selectedEncounter.board.tiles[rowIndex][cellIndex].type.toLowerCase();
+            return 'tile ' + $scope.selectedEncounter.board.tiles[rowIndex][cellIndex].type.toLowerCase() + ' ' + $scope.selectedEncounter.board.tiles[rowIndex][cellIndex].orientation.toLowerCase();
         };
 
         $scope.isEncounterSelected = function() {

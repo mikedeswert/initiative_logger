@@ -31,6 +31,11 @@ public class Tile {
         this.type = type;
     }
 
+    public Tile(Tile tile) {
+        this.type = tile.getType();
+        this.orientation = tile.getOrientation();
+    }
+
     public String getId() {
         return id;
     }

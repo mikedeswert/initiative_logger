@@ -100,12 +100,17 @@ public class Board implements Observer {
 
         for (int i = 0; i < size; i++) {
             for(int j = 0; j < size; j++) {
-                if(i < tiles.length && j < tiles.length) {
-                    this.tiles[i][j] = tiles[i][j];
-                }
-                this.tiles[i][j] = new Tile(defaultTileType);
+                initializeTile(tiles, i, j);
             }
         }
+    }
+
+    private void initializeTile(Tile[][] tiles, int row, int column) {
+        if(row < tiles.length && column < tiles.length) {
+            this.tiles[row][column] = new Tile(tiles[row][column]);
+            return;
+        }
+        this.tiles[row][column] = new Tile(defaultTileType);
     }
 
     @Override
@@ -115,7 +120,7 @@ public class Board implements Observer {
         this.size = boardTemplate.getSize();
         this.defaultTileType = boardTemplate.getDefaultTileType();
 
-        initializeTiles(tiles.clone());
+        initializeTiles(boardTemplate.getTiles());
     }
 
 }
